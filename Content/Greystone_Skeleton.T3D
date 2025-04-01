@@ -1,0 +1,260 @@
+Begin Object Class=/Script/Engine.Skeleton Name="Greystone_Skeleton" ExportPath="/Script/Engine.Skeleton'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton'"
+   Begin Object Class=/Script/Engine.AnimCurveMetaData Name="AnimCurveMetaData_0" ExportPath="/Script/Engine.AnimCurveMetaData'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:AnimCurveMetaData_0'"
+   End Object
+   Begin Object Class=/Script/Engine.SkeletalMeshSocket Name="SkeletalMeshSocket_0" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_0'"
+   End Object
+   Begin Object Class=/Script/Engine.SkeletalMeshSocket Name="SkeletalMeshSocket_1" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_1'"
+   End Object
+   Begin Object Class=/Script/Engine.SkeletalMeshSocket Name="SkeletalMeshSocket_10" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_10'"
+   End Object
+   Begin Object Class=/Script/Engine.SkeletalMeshSocket Name="SkeletalMeshSocket_11" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_11'"
+   End Object
+   Begin Object Class=/Script/Engine.SkeletalMeshSocket Name="SkeletalMeshSocket_12" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_12'"
+   End Object
+   Begin Object Class=/Script/Engine.SkeletalMeshSocket Name="SkeletalMeshSocket_13" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_13'"
+   End Object
+   Begin Object Class=/Script/Engine.SkeletalMeshSocket Name="SkeletalMeshSocket_14" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_14'"
+   End Object
+   Begin Object Class=/Script/Engine.SkeletalMeshSocket Name="SkeletalMeshSocket_142" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_142'"
+   End Object
+   Begin Object Class=/Script/Engine.SkeletalMeshSocket Name="SkeletalMeshSocket_143" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_143'"
+   End Object
+   Begin Object Class=/Script/Engine.SkeletalMeshSocket Name="SkeletalMeshSocket_145" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_145'"
+   End Object
+   Begin Object Class=/Script/Engine.SkeletalMeshSocket Name="SkeletalMeshSocket_146" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_146'"
+   End Object
+   Begin Object Class=/Script/Engine.SkeletalMeshSocket Name="SkeletalMeshSocket_147" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_147'"
+   End Object
+   Begin Object Class=/Script/Engine.SkeletalMeshSocket Name="SkeletalMeshSocket_148" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_148'"
+   End Object
+   Begin Object Class=/Script/Engine.SkeletalMeshSocket Name="SkeletalMeshSocket_149" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_149'"
+   End Object
+   Begin Object Class=/Script/Engine.SkeletalMeshSocket Name="SkeletalMeshSocket_150" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_150'"
+   End Object
+   Begin Object Class=/Script/Engine.SkeletalMeshSocket Name="SkeletalMeshSocket_151" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_151'"
+   End Object
+   Begin Object Class=/Script/Engine.SkeletalMeshSocket Name="SkeletalMeshSocket_152" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_152'"
+   End Object
+   Begin Object Class=/Script/Engine.SkeletalMeshSocket Name="SkeletalMeshSocket_153" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_153'"
+   End Object
+   Begin Object Class=/Script/Engine.SkeletalMeshSocket Name="SkeletalMeshSocket_154" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_154'"
+   End Object
+   Begin Object Class=/Script/Engine.SkeletalMeshSocket Name="SkeletalMeshSocket_155" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_155'"
+   End Object
+   Begin Object Class=/Script/Engine.SkeletalMeshSocket Name="SkeletalMeshSocket_2" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_2'"
+   End Object
+   Begin Object Class=/Script/Engine.SkeletalMeshSocket Name="SkeletalMeshSocket_3" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_3'"
+   End Object
+   Begin Object Class=/Script/Engine.SkeletalMeshSocket Name="SkeletalMeshSocket_33" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_33'"
+   End Object
+   Begin Object Class=/Script/Engine.SkeletalMeshSocket Name="SkeletalMeshSocket_4" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_4'"
+   End Object
+   Begin Object Class=/Script/Engine.SkeletalMeshSocket Name="SkeletalMeshSocket_5" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_5'"
+   End Object
+   Begin Object Class=/Script/Engine.SkeletalMeshSocket Name="SkeletalMeshSocket_6" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_6'"
+   End Object
+   Begin Object Class=/Script/Engine.SkeletalMeshSocket Name="SkeletalMeshSocket_7" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_7'"
+   End Object
+   Begin Object Class=/Script/Engine.SkeletalMeshSocket Name="SkeletalMeshSocket_8" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_8'"
+   End Object
+   Begin Object Class=/Script/Engine.SkeletalMeshSocket Name="SkeletalMeshSocket_9" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_9'"
+   End Object
+   Begin Object Name="AnimCurveMetaData_0" ExportPath="/Script/Engine.AnimCurveMetaData'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:AnimCurveMetaData_0'"
+      CurveMetaData=(("mask_geo", (Type=(bMorphtarget=True))),("blendOrient1", ()),("DistanceCurve", ()),("ClothBlend", ()),("MeleeTwist", ()),("Emissive_Amount_Sword_ClearAPath", ()),("DisableAnimDynamics", ()),("DisableSpeedWarping", ()),("Emissive_Amount_Sword_Leap", ()),("DisableSlopeWarping", ()),("WeaponScale", ()),("DistanceToApex", ()))
+   End Object
+   Begin Object Name="SkeletalMeshSocket_0" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_0'"
+      SocketName="Muzzle_03"
+      BoneName="spine_01"
+      RelativeLocation=(X=-101.790123,Y=13.153112,Z=0.000000)
+   End Object
+   Begin Object Name="SkeletalMeshSocket_1" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_1'"
+      SocketName="FX_Root"
+      BoneName="root"
+      RelativeRotation=(Pitch=90.000000,Yaw=0.000000,Roll=0.000000)
+   End Object
+   Begin Object Name="SkeletalMeshSocket_10" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_10'"
+      SocketName="FX_EyeTrails_L_01"
+      BoneName="spine_03"
+      RelativeLocation=(X=19.734945,Y=-23.458954,Z=-5.417023)
+      RelativeRotation=(Pitch=-0.000041,Yaw=0.000009,Roll=179.999496)
+   End Object
+   Begin Object Name="SkeletalMeshSocket_11" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_11'"
+      SocketName="FX_EyeTrails_R_01"
+      BoneName="spine_03"
+      RelativeLocation=(X=19.734930,Y=-23.241844,Z=4.660114)
+      RelativeRotation=(Pitch=-0.000041,Yaw=0.000009,Roll=179.999496)
+   End Object
+   Begin Object Name="SkeletalMeshSocket_12" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_12'"
+      SocketName="HoverAttachPoint"
+      BoneName="root"
+      RelativeLocation=(X=0.000000,Y=-0.000702,Z=186.349091)
+   End Object
+   Begin Object Name="SkeletalMeshSocket_13" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_13'"
+      SocketName="HealthBar"
+      BoneName="root"
+      RelativeLocation=(X=0.000000,Y=-0.000702,Z=186.349091)
+   End Object
+   Begin Object Name="SkeletalMeshSocket_14" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_14'"
+      SocketName="muzzle_01"
+      BoneName="hand_r"
+   End Object
+   Begin Object Name="SkeletalMeshSocket_142" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_142'"
+      SocketName="Root"
+      BoneName="root"
+   End Object
+   Begin Object Name="SkeletalMeshSocket_143" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_143'"
+      SocketName="Muzzle_02"
+      BoneName="hand_l"
+      RelativeLocation=(X=22.000000,Y=0.000000,Z=0.000000)
+      RelativeRotation=(Pitch=0.000000,Yaw=-0.000000,Roll=89.998184)
+   End Object
+   Begin Object Name="SkeletalMeshSocket_145" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_145'"
+      SocketName="Foot_L"
+      BoneName="foot_l"
+      RelativeLocation=(X=-13.332403,Y=-0.000000,Z=0.000004)
+      RelativeRotation=(Pitch=0.000738,Yaw=89.998390,Roll=-89.998062)
+   End Object
+   Begin Object Name="SkeletalMeshSocket_146" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_146'"
+      SocketName="Foot_R"
+      BoneName="foot_r"
+      RelativeLocation=(X=13.284063,Y=0.000000,Z=-0.000141)
+      RelativeRotation=(Pitch=-0.000710,Yaw=-89.999481,Roll=-89.999229)
+   End Object
+   Begin Object Name="SkeletalMeshSocket_147" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_147'"
+      SocketName="FX_Head"
+      BoneName="head"
+      RelativeLocation=(X=4.454239,Y=5.494304,Z=0.000030)
+      RelativeRotation=(Pitch=0.000000,Yaw=-0.000013,Roll=89.999489)
+   End Object
+   Begin Object Name="SkeletalMeshSocket_148" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_148'"
+      SocketName="Impact"
+      BoneName="spine_03"
+      RelativeLocation=(X=-1.868311,Y=14.903470,Z=0.001301)
+      RelativeRotation=(Pitch=0.001011,Yaw=89.998322,Roll=-89.998055)
+   End Object
+   Begin Object Name="SkeletalMeshSocket_149" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_149'"
+      SocketName="Chest"
+      BoneName="spine_03"
+      RelativeLocation=(X=3.887815,Y=15.930880,Z=0.000230)
+      RelativeRotation=(Pitch=0.001011,Yaw=89.998322,Roll=-89.998055)
+   End Object
+   Begin Object Name="SkeletalMeshSocket_150" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_150'"
+      SocketName="Aim_Target"
+      BoneName="spine_03"
+      RelativeLocation=(X=-10.256015,Y=15.931289,Z=0.000633)
+      RelativeRotation=(Pitch=0.001011,Yaw=89.998322,Roll=-89.998055)
+   End Object
+   Begin Object Name="SkeletalMeshSocket_151" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_151'"
+      SocketName="FX_Trail_R_02"
+      BoneName="lowerarm_r"
+      RelativeLocation=(X=-40.000000,Y=0.000000,Z=0.000000)
+      RelativeRotation=(Pitch=0.000000,Yaw=179.999359,Roll=179.999893)
+   End Object
+   Begin Object Name="SkeletalMeshSocket_152" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_152'"
+      SocketName="FX_Trail_L_02"
+      BoneName="lowerarm_l"
+      RelativeLocation=(X=40.000000,Y=0.000000,Z=0.000000)
+   End Object
+   Begin Object Name="SkeletalMeshSocket_153" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_153'"
+      SocketName="FX_Trail_R_01"
+      BoneName="lowerarm_r"
+      RelativeRotation=(Pitch=0.000000,Yaw=179.999359,Roll=179.999893)
+   End Object
+   Begin Object Name="SkeletalMeshSocket_154" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_154'"
+      SocketName="FX_Trail_L_01"
+      BoneName="lowerarm_l"
+   End Object
+   Begin Object Name="SkeletalMeshSocket_155" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_155'"
+      SocketName="Status"
+      BoneName="spine_03"
+      RelativeLocation=(X=18.973183,Y=-10.452972,Z=0.001436)
+      RelativeRotation=(Pitch=0.000738,Yaw=-89.998192,Roll=89.997986)
+   End Object
+   Begin Object Name="SkeletalMeshSocket_2" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_2'"
+      SocketName="Toe_L"
+      BoneName="ball_l"
+      RelativeLocation=(X=0.042560,Y=1.294128,Z=-0.000015)
+      RelativeRotation=(Pitch=0.000014,Yaw=-0.000001,Roll=-90.000008)
+   End Object
+   Begin Object Name="SkeletalMeshSocket_3" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_3'"
+      SocketName="Toe_R"
+      BoneName="ball_r"
+      RelativeLocation=(X=0.000001,Y=-1.303353,Z=-0.000040)
+      RelativeRotation=(Pitch=0.002274,Yaw=-179.999939,Roll=-89.999817)
+   End Object
+   Begin Object Name="SkeletalMeshSocket_33" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_33'"
+      SocketName="Eyes_Position"
+      BoneName="head"
+      RelativeLocation=(X=5.249797,Y=11.349109,Z=0.000000)
+   End Object
+   Begin Object Name="SkeletalMeshSocket_4" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_4'"
+      SocketName="FX_Sword_Bottom"
+      BoneName="sword_bottom"
+      RelativeLocation=(X=-0.000003,Y=0.000026,Z=18.225107)
+   End Object
+   Begin Object Name="SkeletalMeshSocket_5" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_5'"
+      SocketName="FX_Sword_Top"
+      BoneName="sword_top"
+      RelativeLocation=(X=-0.000000,Y=-0.000128,Z=73.183205)
+   End Object
+   Begin Object Name="SkeletalMeshSocket_6" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_6'"
+      SocketName="FX_Sword_HiltBase"
+      BoneName="sword_bottom"
+      RelativeLocation=(X=0.000344,Y=-0.000006,Z=-24.588999)
+   End Object
+   Begin Object Name="SkeletalMeshSocket_7" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_7'"
+      SocketName="FX_Sword_BeyondTip"
+      BoneName="sword_top"
+      RelativeLocation=(X=-0.000148,Y=-0.000097,Z=93.172195)
+   End Object
+   Begin Object Name="SkeletalMeshSocket_8" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_8'"
+      SocketName="FX_Leap_AOE"
+      BoneName="root"
+      RelativeLocation=(X=0.000000,Y=197.059128,Z=0.000000)
+   End Object
+   Begin Object Name="SkeletalMeshSocket_9" ExportPath="/Script/Engine.SkeletalMeshSocket'/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone_Skeleton.Greystone_Skeleton:SkeletalMeshSocket_9'"
+      SocketName="FX_Ult_Passive"
+      BoneName="spine_03"
+      RelativeLocation=(X=18.553787,Y=-24.032255,Z=-0.000176)
+      RelativeRotation=(Pitch=0.000000,Yaw=-79.992790,Roll=89.999237)
+   End Object
+   BoneTree(69)=(TranslationRetargetingMode=Skeleton)
+   BoneTree(70)=(TranslationRetargetingMode=Skeleton)
+   BoneTree(71)=(TranslationRetargetingMode=Skeleton)
+   BoneTree(179)=()
+   VirtualBoneGuid=7FC21CBB48422BD1E90A82A043C89D81
+   Sockets(0)="/Script/Engine.SkeletalMeshSocket'SkeletalMeshSocket_1'"
+   Sockets(1)="/Script/Engine.SkeletalMeshSocket'SkeletalMeshSocket_142'"
+   Sockets(2)="/Script/Engine.SkeletalMeshSocket'SkeletalMeshSocket_0'"
+   Sockets(3)="/Script/Engine.SkeletalMeshSocket'SkeletalMeshSocket_155'"
+   Sockets(4)="/Script/Engine.SkeletalMeshSocket'SkeletalMeshSocket_148'"
+   Sockets(5)="/Script/Engine.SkeletalMeshSocket'SkeletalMeshSocket_150'"
+   Sockets(6)="/Script/Engine.SkeletalMeshSocket'SkeletalMeshSocket_149'"
+   Sockets(7)="/Script/Engine.SkeletalMeshSocket'SkeletalMeshSocket_152'"
+   Sockets(8)="/Script/Engine.SkeletalMeshSocket'SkeletalMeshSocket_154'"
+   Sockets(9)="/Script/Engine.SkeletalMeshSocket'SkeletalMeshSocket_143'"
+   Sockets(10)="/Script/Engine.SkeletalMeshSocket'SkeletalMeshSocket_151'"
+   Sockets(11)="/Script/Engine.SkeletalMeshSocket'SkeletalMeshSocket_153'"
+   Sockets(12)="/Script/Engine.SkeletalMeshSocket'SkeletalMeshSocket_147'"
+   Sockets(13)="/Script/Engine.SkeletalMeshSocket'SkeletalMeshSocket_2'"
+   Sockets(14)="/Script/Engine.SkeletalMeshSocket'SkeletalMeshSocket_146'"
+   Sockets(15)="/Script/Engine.SkeletalMeshSocket'SkeletalMeshSocket_3'"
+   Sockets(16)="/Script/Engine.SkeletalMeshSocket'SkeletalMeshSocket_145'"
+   Sockets(17)="/Script/Engine.SkeletalMeshSocket'SkeletalMeshSocket_4'"
+   Sockets(18)="/Script/Engine.SkeletalMeshSocket'SkeletalMeshSocket_5'"
+   Sockets(19)="/Script/Engine.SkeletalMeshSocket'SkeletalMeshSocket_6'"
+   Sockets(20)="/Script/Engine.SkeletalMeshSocket'SkeletalMeshSocket_7'"
+   Sockets(21)="/Script/Engine.SkeletalMeshSocket'SkeletalMeshSocket_9'"
+   Sockets(22)="/Script/Engine.SkeletalMeshSocket'SkeletalMeshSocket_10'"
+   Sockets(23)="/Script/Engine.SkeletalMeshSocket'SkeletalMeshSocket_11'"
+   Sockets(24)="/Script/Engine.SkeletalMeshSocket'SkeletalMeshSocket_8'"
+   Sockets(25)="/Script/Engine.SkeletalMeshSocket'SkeletalMeshSocket_13'"
+   Sockets(26)="/Script/Engine.SkeletalMeshSocket'SkeletalMeshSocket_12'"
+   Sockets(27)="/Script/Engine.SkeletalMeshSocket'SkeletalMeshSocket_14'"
+   Sockets(28)="/Script/Engine.SkeletalMeshSocket'SkeletalMeshSocket_33'"
+   SlotGroups(0)=(SlotNames=("UpperBodySlot","FullBodySlot","FullBody_YawAdjust","UpperBody_MeshSpaceAdditive","ArmsAndHead","UpperBody_InMotion","FullBody_InPlace","UpperBody","FullBody_OnGround","FullBody_InAir","FullBody","DefaultSlot"))
+   PreviewSkeletalMesh="/Game/WY/ParagonGreystone/Characters/Heroes/Greystone/Meshes/Greystone.Greystone"
+   AnimationNotifies(0)="SaveAttack"
+   AnimationNotifies(1)="ResetCombo"
+   AssetUserData(0)="/Script/Engine.AnimCurveMetaData'AnimCurveMetaData_0'"
+End Object
