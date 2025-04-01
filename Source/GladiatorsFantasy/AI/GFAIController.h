@@ -12,11 +12,4 @@ class GLADIATORSFANTASY_API AGFAIController : public AAIController
 {
 	GENERATED_BODY()
 	
-public:
-	void OnAIDeath();
-
-protected:
-	void RequestRespawn();
-
-	FTimerHandle RespawnTimerHandle;
 };
