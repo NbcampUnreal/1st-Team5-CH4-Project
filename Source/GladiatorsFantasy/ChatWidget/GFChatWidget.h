@@ -4,6 +4,8 @@
 #include "Blueprint/UserWidget.h"
 #include "GFChatWidget.generated.h"
 
+class UCanvasPanel;
+class UScaleBox;
 class UTextBlock;
 class UEditableText;
 class UWidgetSwitcher;
@@ -12,11 +14,20 @@ class UScrollBox;
 class UEditableTextBox;
 
 UENUM()
-enum EFilter_Type
+enum class EFilter_Type
 {
 	All,
 	Team,
 	System,
+	End
+};
+
+UENUM()
+enum class EScaleBtn_Type
+{
+	Right,
+	Bottom,
+	RightBottom,
 	End
 };
 
@@ -30,6 +41,11 @@ protected:
 	
 public:
 	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UScaleBox> ChatScaleBox;
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UCanvasPanel> ChatCanvasPanel;
+	
+	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UEditableText> ChatInputBox;
 
 	UPROPERTY(meta = (BindWidget))
@@ -37,6 +53,13 @@ public:
 
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UButton> ChatMoveBtn;
+	
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UButton> ScaleDownBtn;
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UButton> ScaleLeftBtn;
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UButton> ScaleLeftDownBtn;
 	
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UButton> FilterAllBtn;
@@ -53,7 +76,23 @@ public:
 	TObjectPtr<UScrollBox> ChatSystemLogBox;
 
 	UFUNCTION()
-	void DragChatMoveBtn();
+	void PressedChatMoveBtn();
+	UFUNCTION()
+	void ReleasedChatMoveBtn();
+
+	UFUNCTION()
+	void PressedScaleDownBtn();
+	UFUNCTION()
+	void ReleasedScaleDownBtn();
+	UFUNCTION()
+	void PressedScaleRightBtn();
+	UFUNCTION()
+	void ReleasedScaleRightBtn();
+	UFUNCTION()
+	void PressedScaleRightDownBtn();
+	UFUNCTION()
+	void ReleasedScaleRightDownBtn();
+	
 	
 	UFUNCTION()
 	void ClickOnFilterAllBtn();
@@ -64,7 +103,24 @@ public:
 
 	UFUNCTION()
 	void SwitchLogBox(EFilter_Type Type);
+	
+	UFUNCTION()
+	void DragChatUI();
+	UFUNCTION()
+	void DragChatUIScale();
+
+	UFUNCTION()
+	void OnTextCommitted(const FText& Text, ETextCommit::Type CommitMethod);
 
 private:
 	UTextBlock* NewMessageBlock(const FString& Message, int FontSize = 15.0f, FLinearColor Color = FLinearColor::White);
+	void SetScaleTimerHandle();
+	void ClearScaleTimerHandle() { 	GetWorld()->GetTimerManager().ClearTimer(ScaleTimerHandle);};
+	
+	FVector2d PrevMousePos;
+	FTimerHandle DragTimerHandle;
+	FTimerHandle ScaleTimerHandle;
+	FVector2d MinChatUISize;
+	
+	EScaleBtn_Type CurrentScaleBtnType;
 };
