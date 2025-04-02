@@ -31,6 +31,15 @@ enum class EScaleBtn_Type
 	End
 };
 
+UENUM()
+enum class EMessage_Type :uint8
+{
+	All UMETA(DisplayName = "All"),
+	Team UMETA(DisplayName = "Team"),
+	System UMETA(DisplayName = "System"),
+	End,
+};
+
 UCLASS()
 class GLADIATORSFANTASY_API UGFChatWidget : public UUserWidget
 {
@@ -45,6 +54,8 @@ public:
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UCanvasPanel> ChatCanvasPanel;
 	
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UTextBlock> MessageTypeText;
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UEditableText> ChatInputBox;
 
@@ -111,11 +122,17 @@ public:
 
 	UFUNCTION()
 	void OnTextCommitted(const FText& Text, ETextCommit::Type CommitMethod);
+	UFUNCTION()
+	void UpdateMessageTypeText();
+	
+	virtual FReply NativeOnPreviewKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent) override;
 
+	
 private:
 	UTextBlock* NewMessageBlock(const FString& Message, int FontSize = 15.0f, FLinearColor Color = FLinearColor::White);
 	void SetScaleTimerHandle();
 	void ClearScaleTimerHandle() { 	GetWorld()->GetTimerManager().ClearTimer(ScaleTimerHandle);};
+	void SwitchChatMode();
 	
 	FVector2d PrevMousePos;
 	FTimerHandle DragTimerHandle;
@@ -123,4 +140,5 @@ private:
 	FVector2d MinChatUISize;
 	
 	EScaleBtn_Type CurrentScaleBtnType;
+	EMessage_Type CurrentMessageType;
 };
