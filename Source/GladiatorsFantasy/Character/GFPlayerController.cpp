@@ -2,9 +2,9 @@
 
 
 #include "GFPlayerController.h"
-#include "EnhancedInputComponent.h"
 #include "EnhancedInputSubsystems.h"
-#include "InputAction.h"
+#include "Blueprint/UserWidget.h"
+#include "ChatWidget/GFChatWidget.h"
 
 
 void AGFPlayerController::BeginPlay()
@@ -18,8 +18,21 @@ void AGFPlayerController::BeginPlay()
 			if (UEnhancedInputLocalPlayerSubsystem* Subsystem =
 				ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(LocalPlayer))
 			{
-				Subsystem->AddMappingContext(DefaultMappingContext, 0);
+				if (nullptr != DefaultMappingContext)
+				{
+					Subsystem->AddMappingContext(DefaultMappingContext, 0);
+				}
 			}
+		}
+	}
+
+	// Widget Test Code
+	if (IsLocalController())
+	{
+		ChatWidget = CreateWidget<UGFChatWidget>(this, ChatWidgetClass);
+		if (ChatWidget)
+		{
+			ChatWidget->AddToViewport();
 		}
 	}
 }

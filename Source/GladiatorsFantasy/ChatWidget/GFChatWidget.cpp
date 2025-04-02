@@ -1,5 +1,4 @@
 #include "ChatWidget/GFChatWidget.h"
-
 #include "Blueprint/WidgetLayoutLibrary.h"
 #include "Components/Button.h"
 #include "Components/CanvasPanel.h"
@@ -16,6 +15,7 @@ void UGFChatWidget::NativeConstruct()
 	Super::NativeConstruct();
 
 	MinChatUISize = FVector2D(380.0f, 90.0f);
+	CurrentMessageType = EMessage_Type::All;
 	
 	if (ChatMoveBtn)
 	{
@@ -94,6 +94,9 @@ void UGFChatWidget::NativeConstruct()
 			ChatSystemLogBox->ScrollToEnd();
 		}
 	}
+
+	SetIsFocusable(true);
+	UpdateMessageTypeText();
 }
 
 // ================================================
@@ -270,6 +273,67 @@ void UGFChatWidget::OnTextCommitted(const FText& Text, ETextCommit::Type CommitM
 		// 	Controller->ServerSendMessage(Text.ToString());
 		// }
 
+		// 플레이어 컨트롤러를 가져옴
+		if (APlayerController* PC = GetOwningPlayer())
+		{
+			// 입력 모드를 게임 전용으로 설정하여 UI 포커스가 해제되고 캐릭터 조작이 가능하게 함
+			PC->SetInputMode(FInputModeGameOnly());
+			PC->bShowMouseCursor = false;
+		}
+		
 		ChatInputBox->SetText(FText::GetEmpty());
+		FSlateApplication::Get().ClearKeyboardFocus();
 	}
+}
+
+FReply UGFChatWidget::NativeOnPreviewKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent)
+{
+	FKey PressedKey = InKeyEvent.GetKey();
+    
+	if (PressedKey == EKeys::Tab)
+	{
+		SwitchChatMode();
+        
+		return FReply::Handled();
+	}
+
+	return Super::NativeOnPreviewKeyDown(InGeometry, InKeyEvent);
+}
+
+void UGFChatWidget::SwitchChatMode()
+{
+	CurrentMessageType = (EMessage_Type)((((int)CurrentMessageType)+1)%(int)EMessage_Type::System);
+	UpdateMessageTypeText();
+}
+
+void UGFChatWidget::UpdateMessageTypeText()
+{
+	if (!MessageTypeText)
+		return;
+	
+	FString EnumToString = TEXT("Invalid");
+	const UEnum* CharStateEnum = FindObject<UEnum>(ANY_PACKAGE, TEXT("EMessage_Type"), true);
+	if (CharStateEnum)
+	{
+		EnumToString = CharStateEnum->GetNameStringByValue((int64)CurrentMessageType);
+	}
+	
+	FString Message = FString::Printf(TEXT("[%s]:"), *EnumToString);
+	MessageTypeText->SetText(FText::FromString(Message));
+}
+
+void UGFChatWidget::SetChatInputBoxFocus()
+{
+	ChatInputBox->SetKeyboardFocus();
+}
+
+bool UGFChatWidget::IsFocusOnChatInputBox()
+{
+	bool result = false;
+	if (ChatInputBox && ChatInputBox->HasKeyboardFocus())
+	{
+		result = true;
+	}
+
+	return result;
 }
