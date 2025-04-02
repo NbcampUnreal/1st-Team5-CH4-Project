@@ -124,6 +124,9 @@ public:
 	void OnTextCommitted(const FText& Text, ETextCommit::Type CommitMethod);
 	UFUNCTION()
 	void UpdateMessageTypeText();
+	void SetChatInputBoxFocus();
+	UFUNCTION(BlueprintCallable)
+	bool IsFocusOnChatInputBox();
 	
 	virtual FReply NativeOnPreviewKeyDown(const FGeometry& InGeometry, const FKeyEvent& InKeyEvent) override;
 
