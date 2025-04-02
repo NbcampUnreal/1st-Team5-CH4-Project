@@ -1,7 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "GameFramework/GameMode.h"
+#include "Server/GFBaseGameMode.h"
 #include "GF_FFAGameMode.generated.h"
 
 class AGFPlayerController;
@@ -11,7 +11,7 @@ class AGFAIController;
 class AAIController;
 
 UCLASS()
-class GLADIATORSFANTASY_API AGF_FFAGameMode : public AGameMode
+class GLADIATORSFANTASY_API AGF_FFAGameMode : public AGFBaseGameMode
 {
 	GENERATED_BODY()
 	
