@@ -16,11 +16,28 @@ void UGFShop::InitializeShop()
 
 void UGFShop::LoadShopItems()
 {
+    TArray<FShopItem> AllItems;
+    AllItems.Add(FShopItem(TEXT("HP Potion"), 10));
+    AllItems.Add(FShopItem(TEXT("MP Potion"), 15));
+    AllItems.Add(FShopItem(TEXT("Iron Sword"), 100));
+    AllItems.Add(FShopItem(TEXT("Leather Armor"), 120));
+    AllItems.Add(FShopItem(TEXT("Magic Wand"), 80));
+    AllItems.Add(FShopItem(TEXT("Shield"), 90));
+
     // 기존 아이템 목록 초기화
     ShopItems.Empty();
 
-    ShopItems.Add(FShopItem(TEXT("Iron Sword"), 500));
-    ShopItems.Add(FShopItem(TEXT("Leather Armor"), 500));
+    int32 NumToSelect = 4;
+    TArray<FShopItem> TempPool = AllItems;
+
+    for (int32 i = 0; i < NumToSelect && TempPool.Num() > 0; i++)
+    {
+        int32 RandomIndex = FMath::RandRange(0, TempPool.Num() - 1);
+        ShopItems.Add(TempPool[RandomIndex]);
+        TempPool.RemoveAt(RandomIndex);
+    }
+
+    UpdateShopUI();
 }
 
 void UGFShop::OnBuyItem(int32 ItemIndex)
