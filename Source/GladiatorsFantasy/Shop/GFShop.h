@@ -45,6 +45,10 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Shop")
     void OnBuyItem(int32 ItemIndex);
 
+    //플레이어가 상점에 판매하는 함수
+    UFUNCTION(BlueprintCallable, Category = "Shop")
+    bool SellItem(int32 InventoryIndex, class AGFBaseCharacter* Seller);
+
     // 상점 아이템 목록 (Blueprint에서도 수정 가능)
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shop")
     TArray<FShopItem> ShopItems;

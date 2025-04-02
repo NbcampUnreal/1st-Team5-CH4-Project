@@ -1,5 +1,6 @@
 
 #include "Shop/GFShop.h"
+#include "Character/GFBaseCharacter.h"
 #include "Engine/Engine.h"
 
 void UGFShop::InitializeShop()
@@ -18,7 +19,7 @@ void UGFShop::LoadShopItems()
 {
     TArray<FShopItem> AllItems;
     AllItems.Add(FShopItem(TEXT("HP Potion"), 10));
-    AllItems.Add(FShopItem(TEXT("MP Potion"), 15));
+    AllItems.Add(FShopItem(TEXT("debuff"), 15));
     AllItems.Add(FShopItem(TEXT("Iron Sword"), 100));
     AllItems.Add(FShopItem(TEXT("Leather Armor"), 120));
     AllItems.Add(FShopItem(TEXT("Magic Wand"), 80));
@@ -47,7 +48,7 @@ void UGFShop::OnBuyItem(int32 ItemIndex)
         FShopItem& Item = ShopItems[ItemIndex];
         if (PlayerGold >= Item.Price)
         {
-            // 골드 차감 및 구매 처리 (실제 프로젝트에서는 인벤토리 추가 등 추가 로직 필요)
+            // 골드 차감 및 구매 처리 (인벤토리 추가 등 추가 로직 필요)
             PlayerGold -= Item.Price;
             UE_LOG(LogTemp, Log, TEXT("아이템 [%s] 을(를) 구매했습니다."), *Item.Name);
         }
@@ -62,4 +63,18 @@ void UGFShop::OnBuyItem(int32 ItemIndex)
     {
         UE_LOG(LogTemp, Warning, TEXT("잘못된 아이템 인덱스입니다."));
     }
+}
+
+bool UGFShop::SellItem(int32 InventoryIndex, AGFBaseCharacter* Seller)
+{
+    if (!Seller)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("판매자(Seller)가 유효하지 않습니다."));
+        return false;
+    }
+
+        // 판매 후 UI 갱신
+        UpdateShopUI();
+
+        return true;
 }
