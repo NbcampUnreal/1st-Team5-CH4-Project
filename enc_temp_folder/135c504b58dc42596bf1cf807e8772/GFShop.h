@@ -59,8 +59,7 @@ public:
 
 protected:
     // 상점 아이템 데이터를 초기화하는 함수
-    UFUNCTION(BlueprintCallable, Category = "Shop")
-    FString LoadShopItems();
+    void LoadShopItems();
 
     // 상점 UI 갱신 이벤트
     UFUNCTION(BlueprintImplementableEvent, Category = "Shop")
