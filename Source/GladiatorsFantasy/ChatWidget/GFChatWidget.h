@@ -114,6 +114,9 @@ public:
 
 	UFUNCTION()
 	void SwitchLogBox(EFilter_Type Type);
+
+	UFUNCTION()
+	void UpdateChatLogBox(const FString& Message, EMessage_Type MessageType);
 	
 	UFUNCTION()
 	void DragChatUI();
@@ -134,8 +137,12 @@ public:
 private:
 	UTextBlock* NewMessageBlock(const FString& Message, int FontSize = 15.0f, FLinearColor Color = FLinearColor::White);
 	void SetScaleTimerHandle();
-	void ClearScaleTimerHandle() { 	GetWorld()->GetTimerManager().ClearTimer(ScaleTimerHandle);};
+	void ClearScaleTimerHandle() { 	GetWorld()->GetTimerManager().ClearTimer(ScaleTimerHandle); }
 	void SwitchChatMode();
+
+	void UpdateChatAllLogBox(const FString& Message, int FontSize = 15.0f, FLinearColor Color = FLinearColor::White);
+	void UpdateChatTeamLogBox(const FString& Message, int FontSize = 15.0f, FLinearColor Color = FLinearColor::White);
+	void UpdateChatSystemLogBox(const FString& Message, int FontSize = 15.0f, FLinearColor Color = FLinearColor::White);
 	
 	FVector2d PrevMousePos;
 	FTimerHandle DragTimerHandle;
