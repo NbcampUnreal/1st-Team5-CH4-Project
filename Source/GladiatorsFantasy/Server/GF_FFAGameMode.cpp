@@ -5,7 +5,6 @@
 #include "Character/GFPlayerController.h"
 #include "Server/GF_FFAGameState.h"
 #include "Server/GF_FFAPlayerState.h"
-#include "AI/GFAIController.h"
 
 
 
