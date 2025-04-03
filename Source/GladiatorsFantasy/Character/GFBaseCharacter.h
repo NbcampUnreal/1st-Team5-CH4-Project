@@ -1,6 +1,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "GameplayTagContainer.h"
 #include "GameFramework/Character.h"
 #include "GFBaseCharacter.generated.h"
 
@@ -25,4 +26,5 @@ protected:
 public:	
 	virtual void Tick(float DeltaTime) override;
 
+	FString GetTeamTagName();
 };

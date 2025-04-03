@@ -1,5 +1,6 @@
 #include "ChatWidget/GFChatWidget.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
+#include "Character/GFPlayerController.h"
 #include "Components/Button.h"
 #include "Components/CanvasPanel.h"
 #include "Components/CanvasPanelSlot.h"
@@ -267,18 +268,15 @@ void UGFChatWidget::OnTextCommitted(const FText& Text, ETextCommit::Type CommitM
 {
 	if (CommitMethod == ETextCommit::Type::OnEnter && !Text.IsEmpty())
 	{
-		// AMultiBaseballController* Controller = Cast<AMultiBaseballController>(GetOwningPlayer());
-		// if (Controller)
-		// {
-		// 	Controller->ServerSendMessage(Text.ToString());
-		// }
-
 		// 플레이어 컨트롤러를 가져옴
-		if (APlayerController* PC = GetOwningPlayer())
+		AGFPlayerController* Controller = Cast<AGFPlayerController>(GetOwningPlayer());
+		if (Controller)
 		{
+			FString TeamTag = Controller->GetTeamTagName();
+			Controller->ServerSendMessage(Text.ToString(), TeamTag, CurrentMessageType);
 			// 입력 모드를 게임 전용으로 설정하여 UI 포커스가 해제되고 캐릭터 조작이 가능하게 함
-			PC->SetInputMode(FInputModeGameOnly());
-			PC->bShowMouseCursor = false;
+			Controller->SetInputMode(FInputModeGameOnly());
+			Controller->bShowMouseCursor = false;
 		}
 		
 		ChatInputBox->SetText(FText::GetEmpty());
@@ -336,4 +334,61 @@ bool UGFChatWidget::IsFocusOnChatInputBox()
 	}
 
 	return result;
+}
+
+// ================================================
+// Update UI Function
+// ================================================
+void UGFChatWidget::UpdateChatLogBox(const FString& Message, EMessage_Type MessageType)
+{
+	switch (MessageType)
+	{
+	case EMessage_Type::All:
+			UpdateChatAllLogBox(Message, 15, FLinearColor::White);
+			break;
+		
+		case EMessage_Type::Team:
+			UpdateChatAllLogBox(Message, 15, FLinearColor::Blue);
+			UpdateChatTeamLogBox(Message, 15, FLinearColor::Blue);
+			break;
+		
+		case EMessage_Type::System:
+			UpdateChatAllLogBox(Message, 15, FLinearColor::Yellow);
+			UpdateChatTeamLogBox(Message, 15, FLinearColor::Yellow);
+			UpdateChatSystemLogBox(Message, 15, FLinearColor::Yellow);
+			break;
+		
+		default:
+			break;
+	}
+}
+
+void UGFChatWidget::UpdateChatAllLogBox(const FString& Message, int FontSize, FLinearColor Color)
+{
+	TObjectPtr<UTextBlock> MessageBlock = NewMessageBlock(Message, FontSize, Color);
+	if (MessageBlock)
+	{
+		ChatAllLogBox->AddChild(MessageBlock);
+		ChatAllLogBox->ScrollToEnd();
+	}
+}
+
+void UGFChatWidget::UpdateChatTeamLogBox(const FString& Message, int FontSize, FLinearColor Color)
+{
+	TObjectPtr<UTextBlock> MessageBlock = NewMessageBlock(Message, FontSize, Color);
+	if (MessageBlock)
+	{
+		ChatTeamLogBox->AddChild(MessageBlock);
+		ChatTeamLogBox->ScrollToEnd();
+	}
+}
+
+void UGFChatWidget::UpdateChatSystemLogBox(const FString& Message, int FontSize, FLinearColor Color)
+{
+	TObjectPtr<UTextBlock> MessageBlock = NewMessageBlock(Message, FontSize, Color);
+	if (MessageBlock)
+	{
+		ChatSystemLogBox->AddChild(MessageBlock);
+		ChatSystemLogBox->ScrollToEnd();
+	}
 }
