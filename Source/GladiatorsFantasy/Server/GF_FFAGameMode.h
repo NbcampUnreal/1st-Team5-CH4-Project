@@ -19,6 +19,8 @@ public:
 
 	UFUNCTION(BlueprintCallable,BlueprintNativeEvent, Category = "Spawning")
 	FTransform GetAvailablePlayerStartTransform();
+	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Spawning")
+	FTransform GetRandomPlayerStartTransform() const;
 
 protected:
     // 현재 사용된 PlayerStart 목록
