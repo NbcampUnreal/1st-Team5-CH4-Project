@@ -2,6 +2,7 @@
 #include "EnhancedInputComponent.h"
 #include "GFPlayerController.h"
 #include "ChatWidget/GFChatWidget.h"
+#include "Component/MultiplayerEventsManager/GFMultiplayerEventsManager.h"
 
 AGFBaseCharacter::AGFBaseCharacter()
 {
@@ -19,6 +20,26 @@ void AGFBaseCharacter::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+}
+
+FString AGFBaseCharacter::GetTeamTagName()
+{
+	// 이미 액터에 부착된 컴포넌트 목록에서 찾기
+	TArray<UActorComponent*> Components;
+	GetComponents(Components);
+	for (UActorComponent* Comp : Components)
+	{
+		if (Comp && Comp->GetClass()->GetName().Contains(TEXT("BPC_MultiplayerEventsManager")))
+		{
+			TObjectPtr<UGFMultiplayerEventsManager> MulitPlayerComponent = Cast<UGFMultiplayerEventsManager>(Comp);
+			if (MulitPlayerComponent)
+			{
+				return MulitPlayerComponent->GetCurrentTeamTagName();
+			}
+		}
+	}
+
+	return "Error";
 }
 
 void AGFBaseCharacter::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)

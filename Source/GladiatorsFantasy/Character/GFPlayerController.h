@@ -3,9 +3,11 @@
 #pragma once
 
 #include "CoreMinimal.h"
+#include "ChatWidget/GFChatWidget.h"
 #include "GameFramework/PlayerController.h"
 #include "GFPlayerController.generated.h"
 
+struct FGameplayTag;
 class UGFChatWidget;
 class UInputAction;
 class UInputMappingContext;
@@ -17,6 +19,8 @@ class GLADIATORSFANTASY_API AGFPlayerController : public APlayerController
 	
 
 public:
+	AGFPlayerController();
+	
 	virtual void BeginPlay() override;
 	
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input|CharacterPawn")
@@ -33,4 +37,13 @@ protected:
 public:
 	UFUNCTION(BlueprintCallable)
 	UGFChatWidget* GetChatWidget() { return ChatWidget; }
+
+
+	// ChatFunction
+	UFUNCTION(Client, Reliable)
+	void ClientReceiveMessage(const FString& SenderName, const FString& TeamTagName, const FString& Message, EMessage_Type MessageType = EMessage_Type::All);
+	UFUNCTION(Server, Reliable)
+	void ServerSendMessage(const FString& Message, const FString& TeamTagName, EMessage_Type MessageType);
+
+	FString GetTeamTagName();
 };
