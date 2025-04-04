@@ -1,6 +1,8 @@
 
 #include "GFGameInstance.h"
 #include "Engine/Engine.h"
+#include "Server/GF_FFAPlayerState.h"
+#include "Server/GF_FFAGameState.h"
 
 void UGFGameInstance::Init()
 {
@@ -8,10 +10,11 @@ void UGFGameInstance::Init()
 
     // 초기 상태 및 통계값 초기화
     CurrentGameState = EGameState::EGS_MainMenu;
-    KillCount = 0;
     LevelIndex = 0;
     WinLossRecord.WinCount = 0;
     WinLossRecord.LossCount = 0;
+
+    PlayerMoney = 500;
 }
 
 void UGFGameInstance::SetGameState(EGameState NewState)
@@ -47,14 +50,42 @@ EGameState UGFGameInstance::GetGameState() const
     return CurrentGameState;
 }
 
-void UGFGameInstance::AddKillCount(int32 Kills)
+void UGFGameInstance::UpdatePlayerKillCounts(const TArray<AGF_FFAPlayerState*>& PlayerStates)
 {
-    KillCount += Kills;
+    // 기존 데이터를 비움
+    PlayerKillCounts.Empty();
+
+    // 각 플레이어 상태에서 킬 수를 가져와서, 플레이어 이름과 함께 저장합니다.
+    for (AGF_FFAPlayerState* PS : PlayerStates)
+    {
+        if (PS)
+        {
+            // APlayerState의 기본 함수인 GetPlayerName()을 사용할 수 있습니다.
+            FString PlayerName = PS->GetPlayerName();
+            int32 Kills = PS->GetKillCount();
+            PlayerKillCounts.Add(PlayerName, Kills);
+        }
+    }
+
+    // 디버그 메시지
     if (GEngine)
     {
-        FString DebugMessage = FString::Printf(TEXT("Kill count increased by %d. Total kills: %d"), Kills, KillCount);
-        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, DebugMessage);
+        for (auto& Elem : PlayerKillCounts)
+        {
+            FString DebugMsg = FString::Printf(TEXT("Player: %s, Kills: %d"), *Elem.Key, Elem.Value);
+            GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, DebugMsg);
+        }
     }
+}
+
+int32 UGFGameInstance::GetTotalKillCount() const
+{
+    int32 TotalKills = 0;
+    for (const auto& Elem : PlayerKillCounts)
+    {
+        TotalKills += Elem.Value;
+    }
+    return TotalKills;
 }
 
 void UGFGameInstance::AddWin()
@@ -87,11 +118,6 @@ void UGFGameInstance::SetLevelIndex(int32 NewLevelIndex)
     }
 }
 
-int32 UGFGameInstance::GetKillCount() const
-{
-    return KillCount;
-}
-
 FWinLossRecord UGFGameInstance::GetWinLossRecord() const
 {
     return WinLossRecord;
@@ -100,4 +126,18 @@ FWinLossRecord UGFGameInstance::GetWinLossRecord() const
 int32 UGFGameInstance::GetLevelIndex() const
 {
     return LevelIndex;
+}
+
+void UGFGameInstance::SetTopKillers(const TArray<AGF_FFAPlayerState*>& InTopKillers)
+{
+    TopKillers = InTopKillers;
+    if (GEngine)
+    {
+        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Cyan, TEXT("Top Killers saved to GameInstance."));
+    }
+}
+
+TArray<AGF_FFAPlayerState*> UGFGameInstance::GetTopKillersFromInstance() const
+{
+    return TopKillers;
 }
