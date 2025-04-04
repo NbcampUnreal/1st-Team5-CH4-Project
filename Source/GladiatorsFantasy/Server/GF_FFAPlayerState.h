@@ -16,6 +16,8 @@ public:
 	int32 GetKillCount() const;
 
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Score")
+	UPROPERTY(Replicated, EditAnywhere, BlueprintReadWrite, Category = "Score")
 	int32 KillCount = 0;
+
+	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 };
