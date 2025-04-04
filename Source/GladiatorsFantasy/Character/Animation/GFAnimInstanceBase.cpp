@@ -43,24 +43,26 @@ void UGFAnimInstanceBase::NativeUpdateAnimation(float DeltaSeconds)
 	if (OwnerPlayer == nullptr || PlayerMovement == nullptr)
 		return;
 
-	IsJump = false;
-	WorldLocation = OwnerPlayer->GetActorLocation();
-	Velocity = OwnerPlayer->GetVelocity();
-	Velocity2D = Velocity * FVector(1.f, 1.f, 0.f);
-	VelocityZ = Velocity.Z;
-	GroundSpeed = Velocity2D.Length();
-	Acceleration = OwnerPlayer->GetCharacterMovement()->GetCurrentAcceleration();
-	Acceleration2D = Acceleration * FVector(1.f, 1.f, 0.f);
-	WorldRotation = OwnerPlayer->GetActorRotation();
-	VelocityAngle = CalculateDirection(Velocity, WorldRotation);
-	AccelerationAngle = CalculateDirection(Acceleration, WorldRotation);
-	IsAcceleration = !FMath::IsNearlyEqual(Acceleration2D.Length(), 0, 0.001);
-	IsCrouch = OwnerPlayer->bIsCrouched;
-	IsFalling = PlayerMovement->IsFalling();
-	IsFlying = PlayerMovement->IsFlying();
+	PlayerStateData.IsJump = false;
+	PlayerStateData.WorldLocation = OwnerPlayer->GetActorLocation();
+	PlayerStateData.Velocity = OwnerPlayer->GetVelocity();
+	PlayerStateData.Velocity2D = PlayerStateData.Velocity * FVector(1.f, 1.f, 0.f);
+	PlayerStateData.VelocityZ = PlayerStateData.Velocity.Z;
+	PlayerStateData.GroundSpeed = PlayerStateData.Velocity2D.Length();
+	PlayerStateData.Acceleration = OwnerPlayer->GetCharacterMovement()->GetCurrentAcceleration();
+	PlayerStateData.Acceleration2D = PlayerStateData.Acceleration * FVector(1.f, 1.f, 0.f);
+	PlayerStateData.WorldRotation = OwnerPlayer->GetActorRotation();
+	PlayerStateData.VelocityAngle = CalculateDirection(PlayerStateData.Velocity, PlayerStateData.WorldRotation);
+	PlayerStateData.AccelerationAngle = CalculateDirection(PlayerStateData.Acceleration, PlayerStateData.WorldRotation);
+	PlayerStateData.IsAcceleration = !FMath::IsNearlyEqual(PlayerStateData.Acceleration2D.Length(), 0, 0.001);
+	PlayerStateData.IsCrouch = OwnerPlayer->bIsCrouched;
+	PlayerStateData.IsFalling = PlayerMovement->IsFalling();
+	PlayerStateData.IsFlying = PlayerMovement->IsFlying();
 
-	if (!FMath::IsNearlyZero(VelocityZ) && IsFalling)
+	PlayerStateData.ShouldMove = PlayerStateData.GroundSpeed > 3.f && !PlayerStateData.Acceleration.IsNearlyZero();
+
+	if (!FMath::IsNearlyZero(PlayerStateData.VelocityZ) && PlayerStateData.IsFalling)
 	{
-		IsJump = true;
+		PlayerStateData.IsJump = true;
 	}
 }
