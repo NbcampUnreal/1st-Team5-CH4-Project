@@ -5,6 +5,9 @@
 #include "Engine/GameInstance.h"
 #include "GFGameInstance.generated.h"
 
+class AGF_FFAGameState;
+class AGF_FFAPlayerState;
+
 // 승리 및 패배 수를 기록하기 위한 구조체
 USTRUCT(BlueprintType)
 struct FWinLossRecord
@@ -52,8 +55,17 @@ public:
     EGameState GetGameState() const;
 
     // 통계 관련 변수들
+    //플레이어 킬수 저장
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
-    int32 KillCount;
+    TMap<FString, int32> PlayerKillCounts;
+
+    //플레이어별 킬수 업데이트 함수
+    UFUNCTION(BlueprintCallable, Category = "Stats")
+    void UpdatePlayerKillCounts(const TArray<AGF_FFAPlayerState*>& PlayerStates);
+
+    UFUNCTION(BlueprintCallable, Category = "Stats")
+    int32 GetTotalKillCount() const;
+
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
     FWinLossRecord WinLossRecord;
@@ -62,8 +74,6 @@ public:
     int32 LevelIndex;
 
     // 통계 업데이트 및 조회용 함수들
-    UFUNCTION(BlueprintCallable, Category = "Stats")
-    void AddKillCount(int32 Kills);
 
     UFUNCTION(BlueprintCallable, Category = "Stats")
     void AddWin();
@@ -75,13 +85,24 @@ public:
     void SetLevelIndex(int32 NewLevelIndex);
 
     UFUNCTION(BlueprintCallable, Category = "Stats")
-    int32 GetKillCount() const;
-
-    UFUNCTION(BlueprintCallable, Category = "Stats")
     FWinLossRecord GetWinLossRecord() const;
 
     UFUNCTION(BlueprintCallable, Category = "Stats")
     int32 GetLevelIndex() const;
+
+    // Top Killers 저장
+    UPROPERTY(BlueprintReadOnly, Category = "Stats")
+    TArray<TObjectPtr<AGF_FFAPlayerState>> TopKillers;
+
+    UFUNCTION(BlueprintCallable, Category = "Stats")
+    void SetTopKillers(const TArray<AGF_FFAPlayerState*>& InTopKillers);
+
+    UFUNCTION(BlueprintCallable, Category = "Stats")
+    TArray<AGF_FFAPlayerState*> GetTopKillersFromInstance() const;
+
+    //돈
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+    int32 PlayerMoney;
 
 private:
     // 현재 게임 상태 저장 변수
