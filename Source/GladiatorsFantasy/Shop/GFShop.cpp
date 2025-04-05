@@ -8,16 +8,16 @@
 
 void UGFShop::InitializeShop()
 {
-    // 플레이어 ID 가져옴
-    FString PlayerId = GetOwningPlayerId();
+    //// 플레이어 ID 가져옴
+    //FString PlayerId = GetOwningPlayerId();
 
-    // 초기 플레이어 골드 설정
-    UGFGameInstance* GI = Cast<UGFGameInstance>(GetGameInstance());
-    if (GI)
-    {
-        GI->PlayerDataMap[PlayerId].Money = 1000;
-        PlayerGold = GI->PlayerDataMap[PlayerId].Money; // 동기화
-    }
+    //// 초기 플레이어 골드 설정
+    //UGFGameInstance* GI = Cast<UGFGameInstance>(GetGameInstance());
+    //if (GI)
+    //{
+    //    GI->PlayerDataMap[PlayerId].Money = 1000;
+    //    PlayerGold = GI->PlayerDataMap[PlayerId].Money; // 동기화
+    //}
 
     // 상점 아이템 데이터 로드
     LoadShopItems();
