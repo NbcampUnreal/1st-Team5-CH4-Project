@@ -24,6 +24,11 @@ TArray<AGF_FFAPlayerState*> AGF_FFAGameState::GetTopKillers() const
             TopPlayers.Add(FFAPlayer); // 동점자 추가
         }
     }
+    TopPlayers.Sort([](const AGF_FFAPlayerState& A, const AGF_FFAPlayerState& B)
+        {
+            return A.GetPlayerCustomName() < B.GetPlayerCustomName(); // 알파벳 기준 정렬
+        }
+    );
 
     return TopPlayers;
 }
