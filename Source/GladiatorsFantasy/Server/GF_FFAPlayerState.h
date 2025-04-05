@@ -2,10 +2,11 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerState.h"
+#include "Server/GFBasePlayerState.h"
 #include "GF_FFAPlayerState.generated.h"
 
 UCLASS()
-class GLADIATORSFANTASY_API AGF_FFAPlayerState : public APlayerState
+class GLADIATORSFANTASY_API AGF_FFAPlayerState : public AGFBasePlayerState
 {
 	GENERATED_BODY()
 	

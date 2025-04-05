@@ -2,7 +2,7 @@
 #include "GFGameInstance.h"
 #include "Engine/Engine.h"
 #include "Server/GF_FFAPlayerState.h"
-#include "Server/GF_FFAGameState.h"
+#include "Server/GFBasePlayerState.h"
 
 void UGFGameInstance::Init()
 {
@@ -11,10 +11,8 @@ void UGFGameInstance::Init()
     // 초기 상태 및 통계값 초기화
     CurrentGameState = EGameState::EGS_MainMenu;
     LevelIndex = 0;
-    WinLossRecord.WinCount = 0;
-    WinLossRecord.LossCount = 0;
 
-    PlayerMoney = 500;
+
 }
 
 void UGFGameInstance::SetGameState(EGameState NewState)
@@ -61,9 +59,9 @@ void UGFGameInstance::UpdatePlayerKillCounts(const TArray<AGF_FFAPlayerState*>& 
         if (PS)
         {
             // APlayerState의 기본 함수인 GetPlayerName()을 사용할 수 있습니다.
-            FString PlayerName = PS->GetPlayerName();
+            FString PlayerId = PS->GetPlayerUniqueId();
             int32 Kills = PS->GetKillCount();
-            PlayerKillCounts.Add(PlayerName, Kills);
+            PlayerKillCounts.Add(PlayerId, Kills);
         }
     }
 
@@ -88,23 +86,29 @@ int32 UGFGameInstance::GetTotalKillCount() const
     return TotalKills;
 }
 
-void UGFGameInstance::AddWin()
+void UGFGameInstance::AddWin(const FString& PlayerId)
 {
-    WinLossRecord.WinCount++;
-    if (GEngine)
+    if (PlayerDataMap.Contains(PlayerId))
     {
-        FString DebugMessage = FString::Printf(TEXT("Win count increased. Total wins: %d"), WinLossRecord.WinCount);
-        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, DebugMessage);
+        PlayerDataMap[PlayerId].WinPoint++;
+        if (GEngine)
+        {
+            FString DebugMessage = FString::Printf(TEXT("%s Win count %d"), *PlayerId, PlayerDataMap[PlayerId].WinPoint);
+            GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Blue, DebugMessage);
+        }
     }
 }
 
-void UGFGameInstance::AddLoss()
+void UGFGameInstance::AddLoss(const FString& PlayerId)
 {
-    WinLossRecord.LossCount++;
-    if (GEngine)
+    if (PlayerDataMap.Contains(PlayerId))
     {
-        FString DebugMessage = FString::Printf(TEXT("Loss count increased. Total losses: %d"), WinLossRecord.LossCount);
-        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, DebugMessage);
+        PlayerDataMap[PlayerId].LossCount++;
+        if (GEngine)
+        {
+            FString DebugMessage = FString::Printf(TEXT("%s Loss count: %d"), *PlayerId, PlayerDataMap[PlayerId].LossCount);
+            GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Red, DebugMessage);
+        }
     }
 }
 
@@ -116,11 +120,6 @@ void UGFGameInstance::SetLevelIndex(int32 NewLevelIndex)
         FString DebugMessage = FString::Printf(TEXT("Level index set to: %d"), LevelIndex);
         GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Yellow, DebugMessage);
     }
-}
-
-FWinLossRecord UGFGameInstance::GetWinLossRecord() const
-{
-    return WinLossRecord;
 }
 
 int32 UGFGameInstance::GetLevelIndex() const
