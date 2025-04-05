@@ -42,7 +42,7 @@ public:
     virtual void Tick(float DeltaSeconds) override;
     void CheckPlayerIdDelayed();
 
-private:
+protected:
     UPROPERTY(Replicated)
     FString PlayerCustomName;
 

@@ -22,6 +22,9 @@ public:
 	UFUNCTION(BlueprintCallable, BlueprintNativeEvent, Category = "Spawning")
 	FTransform GetRandomPlayerStartTransform() const;
 
+	// 테스트용
+	virtual void EndPlay(const EEndPlayReason::Type EndPlayReason) override;
+
 protected:
     // 현재 사용된 PlayerStart 목록
     UPROPERTY()

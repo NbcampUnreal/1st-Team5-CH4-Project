@@ -74,3 +74,10 @@ FTransform AGF_FFAGameMode::GetRandomPlayerStartTransform_Implementation() const
     UE_LOG(LogTemp, Warning, TEXT("[PlayerStart] Chosen: %s"), *ChosenStart->GetName());
     return ChosenStart->GetActorTransform();
 }
+
+// 테스트용
+void AGF_FFAGameMode::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+    Super::EndPlay(EndPlayReason);
+    AGF_FFAPlayerState::TestPlayerIndex = 1;
+}
