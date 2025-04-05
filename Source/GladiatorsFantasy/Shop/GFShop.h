@@ -19,15 +19,8 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shop")
     int32 Price;
 
-    FShopItem()
-        : Name(TEXT("")), Price(0)
-    {
-    }
-
-    FShopItem(const FString& InName, int32 InPrice)
-        : Name(InName), Price(InPrice)
-    {
-    }
+    FShopItem() : Name(TEXT("")), Price(0) {}
+    FShopItem(const FString& InName, int32 InPrice) : Name(InName), Price(InPrice) {}
 };
 
 

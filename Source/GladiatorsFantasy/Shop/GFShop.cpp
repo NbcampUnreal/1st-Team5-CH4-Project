@@ -2,11 +2,17 @@
 #include "Shop/GFShop.h"
 #include "Character/GFBaseCharacter.h"
 #include "Engine/Engine.h"
+#include "GameInstance/GFGameInstance.h"
 
 void UGFShop::InitializeShop()
 {
     // 초기 플레이어 골드 설정
-    PlayerGold = 1000;
+    UGFGameInstance* GI = Cast<UGFGameInstance>(GetGameInstance());
+    if (GI)
+    {
+        GI->PlayerMoney = 1000;
+        PlayerGold = GI->PlayerMoney; // 동기화
+    }
 
     // 상점 아이템 데이터 로드
     LoadShopItems();
@@ -17,55 +23,48 @@ void UGFShop::InitializeShop()
 
 FString UGFShop::LoadShopItems()
 {
-    TArray<FShopItem> AllItems;
-    AllItems.Add(FShopItem(TEXT("BasicSword"), 100));
-    AllItems.Add(FShopItem(TEXT("Bow"), 100));
-    AllItems.Add(FShopItem(TEXT("DoubleHandedSword"), 100));
-    AllItems.Add(FShopItem(TEXT("MagicBook"), 120));
-
     // 기존 아이템 목록 초기화
     ShopItems.Empty();
-
-    int32 NumToSelect = 4;
-    TArray<FShopItem> TempPool = AllItems;
-
-    for (int32 i = 0; i < AllItems.Num(); i++)
-    {
-        ShopItems.Add(AllItems[i]);
-    }
+    ShopItems.Add(FShopItem(TEXT("BasicSword"), 100));
+    ShopItems.Add(FShopItem(TEXT("Bow"), 100));
+    ShopItems.Add(FShopItem(TEXT("DoubleHandedSword"), 100));
+    ShopItems.Add(FShopItem(TEXT("MagicBook"), 100));
 
     UpdateShopUI();
 
-    // 첫 번째 아이템의 이름을 반환 (WeaponName으로 사용)
-    if (ShopItems.Num() > 0)
-    {
-        return ShopItems[0].Name;
-    }
-    return FString("");
+    return ShopItems.Num() > 0 ? ShopItems[0].Name : FString("");
 }
 
 void UGFShop::OnBuyItem(int32 ItemIndex)
 {
-    if (ShopItems.IsValidIndex(ItemIndex))
+    if (!ShopItems.IsValidIndex(ItemIndex))
     {
-        FShopItem& Item = ShopItems[ItemIndex];
-        if (PlayerGold >= Item.Price)
-        {
-            // 골드 차감 및 구매 처리 (인벤토리 추가 등 추가 로직 필요)
-            PlayerGold -= Item.Price;
-            UE_LOG(LogTemp, Log, TEXT("아이템 [%s] 을(를) 구매했습니다."), *Item.Name);
-        }
-        else
-        {
-            UE_LOG(LogTemp, Warning, TEXT("골드가 부족합니다: [%s]"), *Item.Name);
-        }
-        // 구매 후 UI 갱신
-        UpdateShopUI();
+        UE_LOG(LogTemp, Warning, TEXT("잘못된 아이템 인덱스입니다."));
+        return;
+    }
+
+    UGFGameInstance* GI = Cast<UGFGameInstance>(GetGameInstance());
+    if (!GI)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("GameInstance를 찾을 수 없습니다."));
+        return;
+    }
+
+    FShopItem& Item = ShopItems[ItemIndex];
+
+    if (GI->PlayerMoney >= Item.Price)
+    {
+        GI->PlayerMoney -= Item.Price;
+        PlayerGold = GI->PlayerMoney; // 동기화
+
+        UE_LOG(LogTemp, Log, TEXT("아이템 [%s]을(를) 구매했습니다. 남은 돈: %d"), *Item.Name, GI->PlayerMoney);
     }
     else
     {
-        UE_LOG(LogTemp, Warning, TEXT("잘못된 아이템 인덱스입니다."));
+        UE_LOG(LogTemp, Warning, TEXT("골드가 부족합니다. [%s] 가격: %d, 현재 돈: %d"), *Item.Name, Item.Price, GI->PlayerMoney);
     }
+        // 구매 후 UI 갱신
+        UpdateShopUI();
 }
 
 bool UGFShop::SellItem(int32 InventoryIndex, AGFBaseCharacter* Seller)
