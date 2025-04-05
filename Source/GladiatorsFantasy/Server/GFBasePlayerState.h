@@ -14,8 +14,8 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Player")
 	FString GetPlayerUniqueId() const;
 
-	void SaveToGameInstance(); // 현재 PlayerState → GameInstance에 저장
-	void LoadFromGameInstance(); // GameInstance → PlayerState에 로드
+	void SaveToGameInstance(); 
+	void LoadFromGameInstance(); 
 
     // Getter
     UFUNCTION(BlueprintCallable)
@@ -35,7 +35,12 @@ public:
     void SetPlayerCustomName(FString CustomName);
 
     virtual void PostNetInit() override;
+    virtual void BeginPlay() override;
     void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
+    
+    // 테스트용
+    virtual void Tick(float DeltaSeconds) override;
+    void CheckPlayerIdDelayed();
 
 private:
     UPROPERTY(Replicated)

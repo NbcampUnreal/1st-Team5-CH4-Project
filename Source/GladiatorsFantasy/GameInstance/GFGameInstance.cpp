@@ -12,7 +12,14 @@ void UGFGameInstance::Init()
     CurrentGameState = EGameState::EGS_MainMenu;
     LevelIndex = 0;
 
+    // 실험용 더미 데이터 삽입
+    FPlayerData Dummy;
+    Dummy.PlayerCustomName = TEXT("TestPlayer");
+    Dummy.Money = 999;
+    Dummy.WinPoint = 1;
+    Dummy.LossCount = 0;
 
+    PlayerDataMap.Add(TEXT("DummyKey"), Dummy);
 }
 
 void UGFGameInstance::SetGameState(EGameState NewState)

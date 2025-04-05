@@ -72,15 +72,37 @@ void AGFBasePlayerState::SetPlayerCustomName(FString CustomName)
 
 void AGFBasePlayerState::PostNetInit()
 {
-    Super::PostNetInit();
+    Super::PostNetInit();   
+}
 
-    // 안전한 시점에서! GameInstance 데이터 로드 -> 로비에서 로드하지 않도록 오버라이드 필요
-    LoadFromGameInstance();
+void AGFBasePlayerState::BeginPlay()
+{
+    Super::BeginPlay();
 
-    if (GEngine)
+    if (HasAuthority())
     {
-        FString DebugMsg = FString::Printf(TEXT("PostNetInit called for PlayerID: %s"), *GetPlayerUniqueId());
-        GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, DebugMsg);
+        LoadFromGameInstance();
+
+        if (GEngine)
+        {
+            FString DebugMsg = FString::Printf(TEXT("PostNetInit called for PlayerID: %s"), *GetPlayerUniqueId());
+            GEngine->AddOnScreenDebugMessage(-1, 5.f, FColor::Green, DebugMsg);
+        }
+        // 1초 후 타이머로 체크
+        GetWorld()->GetTimerManager().SetTimerForNextTick(this, &AGFBasePlayerState::CheckPlayerIdDelayed);
+    }
+
+    
+}
+
+void AGFBasePlayerState::Tick(float DeltaSeconds)
+{
+    Super::Tick(DeltaSeconds);
+
+    if (!HasAuthority())
+    {
+        FString TickMsg = FString::Printf(TEXT("Tick [CLIENT] - PlayerId: %d"), GetPlayerId());
+        GEngine->AddOnScreenDebugMessage(-1, 1.f, FColor::Yellow, TickMsg);
     }
 }
 
@@ -92,4 +114,10 @@ void AGFBasePlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& O
     DOREPLIFETIME(AGFBasePlayerState, Money);
     DOREPLIFETIME(AGFBasePlayerState, WinPoint);
     DOREPLIFETIME(AGFBasePlayerState, LossCount);
+}
+//테스트용
+void AGFBasePlayerState::CheckPlayerIdDelayed()
+{
+    FString TimerMsg = FString::Printf(TEXT("Timer [CLIENT] - PlayerId: %d"), GetPlayerId());
+    GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Green, TimerMsg);
 }
