@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerState.h"
+#include "GameInstance/GFGameInstance.h"
 #include "GFBasePlayerState.generated.h"
 
 UCLASS()
@@ -14,7 +15,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Player")
 	FString GetPlayerUniqueId() const;
 
+    UFUNCTION(BlueprintCallable)
 	void SaveToGameInstance(); 
+    UFUNCTION(BlueprintCallable)
 	void LoadFromGameInstance(); 
 
     // Getter
@@ -55,4 +58,9 @@ protected:
     UPROPERTY(Replicated)
     int32 LossCount;
 
+    UPROPERTY(Replicated)
+    uint8 CharacterBPIndex;
+
+    UPROPERTY(Replicated)
+    FWeaponInfo WeaponInfo;
 };
