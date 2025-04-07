@@ -10,7 +10,7 @@ FString AGFBasePlayerState::GetPlayerUniqueId() const
     }
     else
     {
-        return FString::FromInt(GetPlayerId()); // fallback: connection-based player id
+        return FString::FromInt(GetPlayerId()); // fallback: PIE, 로컬
     }
 }
 
@@ -27,7 +27,7 @@ void AGFBasePlayerState::SaveToGameInstance()
     Data.WinPoint = WinPoint;
     Data.LossCount = LossCount;
     Data.WeaponInfo = WeaponInfo;
-    Data.CharacterBPIndex = CharacterBPIndex;
+    Data.CharacterBPName = CharacterBPName;
 }
 
 void AGFBasePlayerState::LoadFromGameInstance()
@@ -44,6 +44,8 @@ void AGFBasePlayerState::LoadFromGameInstance()
         Money = Data.Money;
         WinPoint = Data.WinPoint;
         LossCount = Data.LossCount;
+        WeaponInfo = Data.WeaponInfo;
+        CharacterBPName = Data.CharacterBPName;
     }
 }
 
@@ -67,9 +69,40 @@ int32 AGFBasePlayerState::GetLossCount() const
     return LossCount;
 }
 
+FString AGFBasePlayerState::GetCharacterBPName() const
+{
+    return CharacterBPName;
+}
+
+FWeaponInfo AGFBasePlayerState::GetWeaponInfo() const
+{
+    return WeaponInfo;
+}
+
 void AGFBasePlayerState::SetPlayerCustomName(FString CustomName)
 {
     PlayerCustomName = CustomName;
+}
+
+void AGFBasePlayerState::SetMoeny(int32 InMoney)
+{
+    Money = InMoney;
+}
+
+void AGFBasePlayerState::SetWinPoint(int32 InWinPoint)
+{
+    WinPoint = InWinPoint;
+}
+
+void AGFBasePlayerState::SetCharacterBPName(FString InCharacterBPName)
+{
+    CharacterBPName = InCharacterBPName;
+}
+
+void AGFBasePlayerState::SetFWeaponInfo(FString InWeaopnName, EWeaponRarity InRarity)
+{
+    WeaponInfo.WeaponName = InWeaopnName;
+    WeaponInfo.WeaponRarity = InRarity;
 }
 
 void AGFBasePlayerState::PostNetInit()
