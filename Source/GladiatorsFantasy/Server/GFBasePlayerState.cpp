@@ -149,7 +149,7 @@ void AGFBasePlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& O
     DOREPLIFETIME(AGFBasePlayerState, Money);
     DOREPLIFETIME(AGFBasePlayerState, WinPoint);
     DOREPLIFETIME(AGFBasePlayerState, LossCount);
-    DOREPLIFETIME(AGFBasePlayerState, CharacterBPIndex);
+    DOREPLIFETIME(AGFBasePlayerState, CharacterBPName);
     DOREPLIFETIME(AGFBasePlayerState, WeaponInfo);   
 }
 
