@@ -9,6 +9,16 @@ class AGF_FFAGameState;
 class AGFBasePlayerState;
 class AGF_FFAPlayerState;
 
+USTRUCT(BlueprintType)
+struct FWeaponInfo
+{
+    GENERATED_BODY()
+    
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    FString WeaponName;
+    
+};
+
 // Player의 정보 저장
 USTRUCT(BlueprintType)
 struct FPlayerData
@@ -30,8 +40,8 @@ struct FPlayerData
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     uint8 CharacterBPIndex;
 
-    //UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    //FWeaponInfo WeaponInfo; // 이 구조체도 정의 필요!!!!
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    FWeaponInfo WeaponInfo; 
 };
 
 // 게임 상태를 정의하는 enum

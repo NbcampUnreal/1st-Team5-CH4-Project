@@ -26,6 +26,8 @@ void AGFBasePlayerState::SaveToGameInstance()
     Data.Money = Money;
     Data.WinPoint = WinPoint;
     Data.LossCount = LossCount;
+    Data.WeaponInfo = WeaponInfo;
+    Data.CharacterBPIndex = CharacterBPIndex;
 }
 
 void AGFBasePlayerState::LoadFromGameInstance()
@@ -114,7 +116,10 @@ void AGFBasePlayerState::GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& O
     DOREPLIFETIME(AGFBasePlayerState, Money);
     DOREPLIFETIME(AGFBasePlayerState, WinPoint);
     DOREPLIFETIME(AGFBasePlayerState, LossCount);
+    DOREPLIFETIME(AGFBasePlayerState, CharacterBPIndex);
+    DOREPLIFETIME(AGFBasePlayerState, WeaponInfo);   
 }
+
 //테스트용
 void AGFBasePlayerState::CheckPlayerIdDelayed()
 {
