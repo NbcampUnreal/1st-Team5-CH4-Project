@@ -23,8 +23,7 @@ void AGFPlayerController::BeginPlay()
 	{
 		if (ULocalPlayer* LocalPlayer = PC->GetLocalPlayer())
 		{
-			if (UEnhancedInputLocalPlayerSubsystem* Subsystem =
-				ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(LocalPlayer))
+			if (UEnhancedInputLocalPlayerSubsystem* Subsystem = ULocalPlayer::GetSubsystem<UEnhancedInputLocalPlayerSubsystem>(LocalPlayer))
 			{
 				if (nullptr != DefaultMappingContext)
 				{
