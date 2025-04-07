@@ -1,7 +1,7 @@
 #include "GFBaseCharacter.h"
 #include "EnhancedInputComponent.h"
 #include "GFPlayerController.h"
-#include "ChatWidget/GFChatWidget.h"
+#include "Widget/ChatWidget/GFChatWidget.h"
 #include "Component/MultiplayerEventsManager/GFMultiplayerEventsManager.h"
 
 AGFBaseCharacter::AGFBaseCharacter()

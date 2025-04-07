@@ -54,7 +54,7 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite)
 	FSkillCooldownData CooldownData;
 
-	UPROPERTY(meta=(BindWidget))
+	UPROPERTY(BlueprintReadWrite, meta=(BindWidget))
 	TObjectPtr<UProgressBar> SkillProgressBar;
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UTextBlock> SkillTextBlock;
