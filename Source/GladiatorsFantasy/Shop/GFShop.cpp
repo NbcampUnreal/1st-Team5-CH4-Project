@@ -98,7 +98,9 @@ void UGFShop::OnBuyItem(int32 ItemIndex)
         //{
             //UE_LOG(LogTemp, Warning, TEXT("골드가 부족합니다. [%s] 가격: %d, 현재 돈: %d"), *Item.Name, Item.Price, Data.Money);
         //}
-         
+        
+
+        // 아이템 인덱스 유효성 체크
         if (!ShopItems.IsValidIndex(ItemIndex))
         {
             UE_LOG(LogTemp, Warning, TEXT("잘못된 아이템 인덱스입니다."));
@@ -109,6 +111,16 @@ void UGFShop::OnBuyItem(int32 ItemIndex)
         if (!GI)
         {
             UE_LOG(LogTemp, Warning, TEXT("GameInstance를 찾을 수 없습니다."));
+            return;
+        }
+
+        // 현재 스테이지 인덱스 가져오기
+        int32 CurrentStage = GI->GetLevelIndex();
+
+        // 해당 스테이지의 구매 여부 체크
+        if (GI->StagePurchaseStatus.IsValidIndex(CurrentStage) && GI->StagePurchaseStatus[CurrentStage])
+        {
+            UE_LOG(LogTemp, Warning, TEXT("현재 스테이지에서는 이미 구매하였습니다."));
             return;
         }
 
@@ -127,6 +139,9 @@ void UGFShop::OnBuyItem(int32 ItemIndex)
         {
             Data.Money -= Item.Price;
             PlayerGold = Data.Money; // Shop 내 PlayerGold 변수에도 동기화
+
+            // 구매 성공 시 현재 스테이지의 구매 상태를 true로 설정
+            GI->StagePurchaseStatus[CurrentStage] = true;
 
             UE_LOG(LogTemp, Log, TEXT("아이템 [%s]을(를) 구매했습니다. 남은 돈: %d"), *Item.Name, Data.Money);
         }

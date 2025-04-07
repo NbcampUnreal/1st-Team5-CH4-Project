@@ -112,7 +112,9 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Stats")
     TArray<AGF_FFAPlayerState*> GetTopKillersFromInstance() const;
 
-
+    // 각 스테이지별 구매 여부 저장
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shop")
+    TArray<bool> StagePurchaseStatus;
 
 private:
     // 현재 게임 상태 저장 변수

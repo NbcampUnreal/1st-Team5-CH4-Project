@@ -12,6 +12,9 @@ void UGFGameInstance::Init()
     CurrentGameState = EGameState::EGS_MainMenu;
     LevelIndex = 0;
 
+    // 각 스테이지별 구매 상태를 false로 초기화 (총 3스테이지)
+    StagePurchaseStatus.Init(false, 3);
+
     // 실험용 더미 데이터 삽입
     FPlayerData Dummy;
     Dummy.PlayerCustomName = TEXT("TestPlayer");
