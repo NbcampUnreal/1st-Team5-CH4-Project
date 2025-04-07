@@ -1,0 +1,37 @@
+#include "Widget/LobyWidget/GFLobyWidget.h"
+
+#include "Character/MainLoby/GFMainLobyPlayerController.h"
+#include "Components/Button.h"
+
+void UGFLobyWidget::NativeConstruct()
+{
+	Super::NativeConstruct();
+
+	if (StartBtn)
+	{
+		StartBtn->OnClicked.AddDynamic(this, &UGFLobyWidget::PressedStartBtn);
+	}
+	if (BackBtn)
+	{
+		BackBtn->OnClicked.AddDynamic(this, &UGFLobyWidget::PressedBackBtn);
+	}
+}
+
+void UGFLobyWidget::PressedStartBtn()
+{
+}
+
+void UGFLobyWidget::PressedBackBtn()
+{
+	APlayerController* PlayerController = GetOwningPlayer();
+	if (PlayerController)
+	{
+		AGFMainLobyPlayerController* MainConroller = Cast<AGFMainLobyPlayerController>(PlayerController);
+		if (MainConroller)
+		{
+			MainConroller->SetSequenceType(ESequenceType::WaitRoomToSelect);
+			MainConroller->PlayWaitRoomToSelectCharacter();
+		}
+	}
+	SetVisibility(ESlateVisibility::Hidden);
+}
