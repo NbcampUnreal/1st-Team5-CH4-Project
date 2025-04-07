@@ -18,6 +18,8 @@ void UGFGameInstance::Init()
     Dummy.Money = 999;
     Dummy.WinPoint = 1;
     Dummy.LossCount = 0;
+    Dummy.SetWeaponRarity(EWeaponRarity::EWR_Nomal);
+    Dummy.SetWeaponName("Dummy");
 
     PlayerDataMap.Add(TEXT("DummyKey"), Dummy);
 }
