@@ -3,11 +3,10 @@
 
 #include "GFPlayerController.h"
 
-#include "BlueprintEditor.h"
 #include "EnhancedInputSubsystems.h"
 #include "GFBaseCharacter.h"
 #include "Blueprint/UserWidget.h"
-#include "ChatWidget/GFChatWidget.h"
+#include "Widget/ChatWidget/GFChatWidget.h"
 #include "Server/GFBaseGameState.h"
 
 

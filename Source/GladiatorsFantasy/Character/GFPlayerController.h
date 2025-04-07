@@ -3,7 +3,7 @@
 #pragma once
 
 #include "CoreMinimal.h"
-#include "ChatWidget/GFChatWidget.h"
+#include "Widget/ChatWidget/GFChatWidget.h"
 #include "GameFramework/PlayerController.h"
 #include "GFPlayerController.generated.h"
 
