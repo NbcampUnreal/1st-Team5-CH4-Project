@@ -24,8 +24,11 @@ struct FPlayerData
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     int32 WinPoint;
 
-    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stats")
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
     int32 LossCount;
+
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    uint8 CharacterBPIndex;
 
     //UPROPERTY(EditAnywhere, BlueprintReadWrite)
     //FWeaponInfo WeaponInfo; // 이 구조체도 정의 필요!!!!
