@@ -75,6 +75,11 @@ FTransform AGF_FFAGameMode::GetRandomPlayerStartTransform_Implementation() const
     return ChosenStart->GetActorTransform();
 }
 
+FString AGF_FFAGameMode::GetTargetMapName() const
+{
+    return TEXT("TestLevelWS3");
+}
+
 // 테스트용
 void AGF_FFAGameMode::EndPlay(const EEndPlayReason::Type EndPlayReason)
 {

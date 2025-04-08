@@ -79,12 +79,12 @@ FWeaponInfo AGFBasePlayerState::GetWeaponInfo() const
     return WeaponInfo;
 }
 
-void AGFBasePlayerState::SetPlayerCustomName(FString CustomName)
+void AGFBasePlayerState::SetPlayerCustomName(const FString& CustomName)
 {
     PlayerCustomName = CustomName;
 }
 
-void AGFBasePlayerState::SetMoeny(int32 InMoney)
+void AGFBasePlayerState::SetMoney(int32 InMoney)
 {
     Money = InMoney;
 }
@@ -94,12 +94,12 @@ void AGFBasePlayerState::SetWinPoint(int32 InWinPoint)
     WinPoint = InWinPoint;
 }
 
-void AGFBasePlayerState::SetCharacterBPName(FString InCharacterBPName)
+void AGFBasePlayerState::SetCharacterBPName(const FString& InCharacterBPName)
 {
     CharacterBPName = InCharacterBPName;
 }
 
-void AGFBasePlayerState::SetFWeaponInfo(FString InWeaopnName, EWeaponRarity InRarity)
+void AGFBasePlayerState::SetFWeaponInfo(const FString& InWeaopnName, EWeaponRarity InRarity)
 {
     WeaponInfo.WeaponName = InWeaopnName;
     WeaponInfo.WeaponRarity = InRarity;
@@ -116,8 +116,7 @@ void AGFBasePlayerState::BeginPlay()
 
     if (HasAuthority())
     {
-        LoadFromGameInstance();
-
+        //LoadFromGameInstance();
         if (GEngine)
         {
             FString DebugMsg = FString::Printf(TEXT("PostNetInit called for PlayerID: %s"), *GetPlayerUniqueId());

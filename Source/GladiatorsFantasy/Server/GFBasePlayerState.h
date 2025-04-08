@@ -37,15 +37,15 @@ public:
 
     // Setter
     UFUNCTION(BlueprintCallable)
-    void SetPlayerCustomName(FString CustomName);
+    void SetPlayerCustomName(const FString& CustomName);
     UFUNCTION(BlueprintCallable)
-    void SetMoeny(int32 InMoney);
+    void SetMoney(int32 InMoney);
     UFUNCTION(BlueprintCallable)
     void SetWinPoint(int32 InWinPoint);
     UFUNCTION(BlueprintCallable)
-    void SetCharacterBPName(FString InCharacterBPName);
+    void SetCharacterBPName(const FString& InCharacterBPName);
     UFUNCTION(BlueprintCallable)
-    void SetFWeaponInfo(FString InWeaopnName, EWeaponRarity InRarity);
+    void SetFWeaponInfo(const FString& InWeaopnName, EWeaponRarity InRarity);
 
     virtual void PostNetInit() override;
     virtual void BeginPlay() override;
