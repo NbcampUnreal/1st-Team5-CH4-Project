@@ -3,6 +3,7 @@
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerState.h"
 #include "GameInstance/GFGameInstance.h"
+#include "Weapon/GFWeaponBase.h"
 #include "GFBasePlayerState.generated.h"
 
 UCLASS()
@@ -23,19 +24,28 @@ public:
     // Getter
     UFUNCTION(BlueprintCallable)
     FString GetPlayerCustomName() const;
-
     UFUNCTION(BlueprintCallable)
     int32 GetMoney() const;
-
     UFUNCTION(BlueprintCallable)
     int32 GetWinPoint() const;
-
     UFUNCTION(BlueprintCallable)
     int32 GetLossCount() const;
+    UFUNCTION(BlueprintCallable)
+    FString GetCharacterBPName() const;
+    UFUNCTION(BlueprintCallable)
+    FWeaponInfo GetWeaponInfo() const;
 
     // Setter
     UFUNCTION(BlueprintCallable)
     void SetPlayerCustomName(FString CustomName);
+    UFUNCTION(BlueprintCallable)
+    void SetMoeny(int32 InMoney);
+    UFUNCTION(BlueprintCallable)
+    void SetWinPoint(int32 InWinPoint);
+    UFUNCTION(BlueprintCallable)
+    void SetCharacterBPName(FString InCharacterBPName);
+    UFUNCTION(BlueprintCallable)
+    void SetFWeaponInfo(FString InWeaopnName, EWeaponRarity InRarity);
 
     virtual void PostNetInit() override;
     virtual void BeginPlay() override;
@@ -59,7 +69,7 @@ protected:
     int32 LossCount;
 
     UPROPERTY(Replicated)
-    uint8 CharacterBPIndex;
+    FString CharacterBPName;
 
     UPROPERTY(Replicated)
     FWeaponInfo WeaponInfo;

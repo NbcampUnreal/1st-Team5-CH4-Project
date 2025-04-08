@@ -3,6 +3,7 @@
 
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
+#include "Weapon/GFWeaponBase.h"
 #include "GFGameInstance.generated.h"
 
 class AGF_FFAGameState;
@@ -16,6 +17,8 @@ struct FWeaponInfo
     
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FString WeaponName;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite)
+    EWeaponRarity WeaponRarity;
     
 };
 
@@ -38,10 +41,15 @@ struct FPlayerData
     int32 LossCount;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    uint8 CharacterBPIndex;
+    FString CharacterBPName;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FWeaponInfo WeaponInfo; 
+
+    EWeaponRarity GetWeaponRarity() const { return WeaponInfo.WeaponRarity; }
+    FString GetWeaponName() const { return WeaponInfo.WeaponName; }
+    void SetWeaponRarity(EWeaponRarity InRarity) { WeaponInfo.WeaponRarity = InRarity; }
+    void SetWeaponName(FString InWeaponName) { WeaponInfo.WeaponName = InWeaponName; }
 };
 
 // 게임 상태를 정의하는 enum
@@ -105,7 +113,7 @@ public:
 
     UFUNCTION(BlueprintCallable, Category = "Stats")
     int32 GetLevelIndex() const;
-
+    
     UFUNCTION(BlueprintCallable, Category = "Stats")
     void SetTopKillers(const TArray<AGF_FFAPlayerState*>& InTopKillers);
 

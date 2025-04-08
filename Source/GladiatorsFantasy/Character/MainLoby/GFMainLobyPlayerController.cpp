@@ -7,6 +7,7 @@
 #include "MovieSceneSequencePlaybackSettings.h"
 #include "Blueprint/UserWidget.h"
 #include "Kismet/GameplayStatics.h"
+#include "Props/SelectActor/SelectActor.h"
 #include "Widget/MainLobyWidget/GFMainLobyWidget.h"
 #include "Widget/CharacterSelectWidget/GFCharacterSelectWidget.h"
 #include "Widget/LobyWidget/GFLobyWidget.h"
@@ -82,7 +83,7 @@ void AGFMainLobyPlayerController::SetupInputComponent()
 	if (UEnhancedInputComponent* EnhancedInputComp = Cast<UEnhancedInputComponent>(InputComponent))
 	{
 		// 예: MyAction이라는 UInputAction*를 사전에 생성해두고 바인딩합니다.
-		EnhancedInputComp->BindAction(SelectAction, ETriggerEvent::Triggered, this, &AGFMainLobyPlayerController::SelectActionTriggered);
+		EnhancedInputComp->BindAction(SelectAction, ETriggerEvent::Started, this, &AGFMainLobyPlayerController::SelectActionTriggered);
 	}
 }
 
@@ -96,17 +97,22 @@ void AGFMainLobyPlayerController::SelectActionTriggered()
 		AActor* HitActor = HitResult.GetActor();
 		if (HitActor)
 		{
-			// 선택된 액터 처리
-			UE_LOG(LogTemp, Warning, TEXT("Clicked Actor: %s"), *HitActor->GetName());
-
-			// 예: 무기라면 무기 선택 처리
-			if (HitActor->ActorHasTag("Weapon"))
+			ASelectActor* SelectActor = Cast<ASelectActor>(HitActor);
+			if (SelectActor)
 			{
-				// 무기 선택 로직
-			}
-			else if (HitActor->ActorHasTag("Character"))
-			{
-				// 캐릭터 선택 로직
+				// 예: 무기라면 무기 선택 처리
+				if (SelectActor->ActorHasTag("Weapon"))
+				{
+					// 무기 선택 로직
+					FString SelecTypeTest = SelectActor->GetSelectType();
+					UE_LOG(LogTemp, Warning, TEXT("Clicked Actor: %s"), *SelecTypeTest);
+				}
+				else if (SelectActor->ActorHasTag("Character"))
+				{
+					// 캐릭터 선택 로직
+					FString SelecTypeTest = SelectActor->GetSelectType();
+					UE_LOG(LogTemp, Warning, TEXT("Clicked Actor: %s"), *SelecTypeTest);
+				}
 			}
 		}
 	}
