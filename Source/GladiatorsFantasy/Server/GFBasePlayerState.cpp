@@ -40,7 +40,7 @@ void AGFBasePlayerState::LoadFromGameInstance()
     if (GI->PlayerDataMap.Contains(PlayerUniqueId))
     {
         const FPlayerData& Data = GI->PlayerDataMap[PlayerUniqueId];
-        SetPlayerName(Data.PlayerCustomName);
+        PlayerCustomName = Data.PlayerCustomName;
         Money = Data.Money;
         WinPoint = Data.WinPoint;
         LossCount = Data.LossCount;
@@ -157,4 +157,20 @@ void AGFBasePlayerState::CheckPlayerIdDelayed()
 {
     FString TimerMsg = FString::Printf(TEXT("Timer [CLIENT] - PlayerId: %d"), GetPlayerId());
     GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Green, TimerMsg);
+}
+
+void AGFBasePlayerState::LogPlayerStateData(FString CallerTag)
+{
+    FString UniquePlayerId = GetPlayerUniqueId();
+
+    UE_LOG(LogTemp, Warning, TEXT("==== [PlayerState] Data Log from %s (UniqueId: %s) ===="),
+        *CallerTag, *UniquePlayerId);
+
+    UE_LOG(LogTemp, Warning, TEXT("    Name: %s | Money: %d | Win: %d | Loss: %d"),
+        *PlayerCustomName, Money, WinPoint, LossCount);
+    UE_LOG(LogTemp, Warning, TEXT("    CharacterBP: %s"), *CharacterBPName);
+    UE_LOG(LogTemp, Warning, TEXT("    Weapon: %s (Rarity: %d)"),
+        *WeaponInfo.WeaponName, static_cast<uint8>(WeaponInfo.WeaponRarity));
+
+    UE_LOG(LogTemp, Warning, TEXT("======================================================"));
 }

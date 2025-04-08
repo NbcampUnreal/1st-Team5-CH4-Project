@@ -54,6 +54,8 @@ public:
     // 테스트용
     virtual void Tick(float DeltaSeconds) override;
     void CheckPlayerIdDelayed();
+    UFUNCTION(BlueprintCallable)
+    void LogPlayerStateData(FString CallerTag);
 
 protected:
     UPROPERTY(Replicated)

@@ -20,4 +20,6 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void TravelToAssignedLevel();
 
+	UFUNCTION(BlueprintCallable)
+	FString GetServerAddress();
 };

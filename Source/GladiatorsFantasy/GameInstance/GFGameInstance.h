@@ -120,6 +120,9 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Stats")
     TArray<AGF_FFAPlayerState*> GetTopKillersFromInstance() const;
 
+    UFUNCTION(BlueprintCallable)
+    void LogPlayerData(FString CallerTag);
+
     // 각 스테이지별 구매 여부 저장
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shop")
     TArray<bool> StagePurchaseStatus;
