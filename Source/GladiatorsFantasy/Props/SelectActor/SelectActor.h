@@ -4,6 +4,8 @@
 #include "GameFramework/Actor.h"
 #include "SelectActor.generated.h"
 
+class UPostProcessComponent;
+
 UENUM(Blueprintable)
 enum class ESelectActor_Type :uint8
 {
@@ -31,6 +33,8 @@ public:
 	ESelectActor_Type Select_Type;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Mesh")
 	USkeletalMeshComponent* SkeletalMeshCompo;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Mesh")
+	TObjectPtr<UPostProcessComponent> OutlineCompo;
 
 	
 	FString GetSelectType();
@@ -41,4 +45,5 @@ protected:
 public:	
 	virtual void Tick(float DeltaTime) override;
 
+	void ToggleOverlayMaterial(bool bEnable);
 };
