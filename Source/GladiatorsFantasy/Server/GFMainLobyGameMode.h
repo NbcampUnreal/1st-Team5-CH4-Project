@@ -9,4 +9,7 @@ class GLADIATORSFANTASY_API AGFMainLobyGameMode : public AGFBaseGameMode
 {
 	GENERATED_BODY()
 	
+public:
+	virtual FString GetTargetMapName() const override;
+	virtual void PostLogin(APlayerController* NewPlayer) override;
 };

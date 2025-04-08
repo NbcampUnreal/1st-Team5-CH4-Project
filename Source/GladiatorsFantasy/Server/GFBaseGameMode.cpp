@@ -58,3 +58,21 @@ FString AGFBaseGameMode::GetServerAddress()
     return TEXT("127.0.0.1:7777"); // fallback -> PIE 전용
 }
 
+void AGFBaseGameMode::ChangeLevel()
+{
+    for (FConstPlayerControllerIterator Iterator = GetWorld()->GetPlayerControllerIterator(); Iterator; ++Iterator)
+    {
+        APlayerController* PC = Iterator->Get();
+        if (PC)
+        {
+            AGFBasePlayerState* BPS = Cast<AGFBasePlayerState>(PC->PlayerState);
+            if (BPS)
+            {
+                BPS->SaveToGameInstance();
+            }
+        }
+    }
+    AGFBaseGameMode* BaseGameMode = Cast<AGFBaseGameMode>(GetWorld()->GetAuthGameMode());
+    BaseGameMode->TravelToAssignedLevel();
+}
+

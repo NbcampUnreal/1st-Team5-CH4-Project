@@ -82,28 +82,76 @@ FWeaponInfo AGFBasePlayerState::GetWeaponInfo() const
 void AGFBasePlayerState::SetPlayerCustomName(const FString& CustomName)
 {
     PlayerCustomName = CustomName;
+    if (!HasAuthority())
+    {
+        ServerSetPlayerCustomName(CustomName);
+    }
 }
 
 void AGFBasePlayerState::SetMoney(int32 InMoney)
 {
     Money = InMoney;
+    if (!HasAuthority())
+    {
+        ServerSetMoney(InMoney);
+    }
 }
 
 void AGFBasePlayerState::SetWinPoint(int32 InWinPoint)
 {
     WinPoint = InWinPoint;
+    if (!HasAuthority())
+    {
+        ServerSetWinPoint(InWinPoint);
+    }
 }
 
 void AGFBasePlayerState::SetCharacterBPName(const FString& InCharacterBPName)
 {
     CharacterBPName = InCharacterBPName;
+    if (!HasAuthority())
+    {
+        ServerSetCharacterBPName(InCharacterBPName);
+    }
 }
 
-void AGFBasePlayerState::SetFWeaponInfo(const FString& InWeaopnName, EWeaponRarity InRarity)
+void AGFBasePlayerState::SetFWeaponInfo(const FString& InWeaponName, EWeaponRarity InRarity)
 {
-    WeaponInfo.WeaponName = InWeaopnName;
+    WeaponInfo.WeaponName = InWeaponName;
+    WeaponInfo.WeaponRarity = InRarity;
+    if (!HasAuthority())
+    {
+        ServerSetFWeaponInfo(InWeaponName, InRarity);
+    }
+}
+
+void AGFBasePlayerState::ServerSetPlayerCustomName_Implementation(const FString& CustomName)
+{
+    PlayerCustomName = CustomName;
+}
+
+void AGFBasePlayerState::ServerSetMoney_Implementation(int32 InMoney)
+{
+    Money = InMoney;
+}
+
+void AGFBasePlayerState::ServerSetWinPoint_Implementation(int32 InWinPoint)
+{
+    WinPoint = InWinPoint;
+}
+
+void AGFBasePlayerState::ServerSetCharacterBPName_Implementation(const FString& InCharacterBPName)
+{
+    CharacterBPName = InCharacterBPName;
+}
+
+void AGFBasePlayerState::ServerSetFWeaponInfo_Implementation(const FString& InWeaponName, EWeaponRarity InRarity)
+{
+    WeaponInfo.WeaponName = InWeaponName;
     WeaponInfo.WeaponRarity = InRarity;
 }
+
+
 
 void AGFBasePlayerState::PostNetInit()
 {

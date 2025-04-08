@@ -67,7 +67,7 @@ void UGFCharacterSelectWidget::OnTextCommitted(const FText& Text, ETextCommit::T
 		if (PlayerController)
 		{
 			UE_LOG(LogTemp, Warning, TEXT("NickName : %s"), *Text.ToString());
-			PlayerController->GetPlayerState<AGFBasePlayerState>()->SetPlayerName(Text.ToString());
+			PlayerController->GetPlayerState<AGFBasePlayerState>()->SetPlayerCustomName(Text.ToString());
 		}
 	}
 }
@@ -78,6 +78,6 @@ void UGFCharacterSelectWidget::PressedNickNameSetBtn()
 	if (PlayerController)
 	{
 		UE_LOG(LogTemp, Warning, TEXT("NickName : %s"), *InputNickName->GetText().ToString());
-		PlayerController->GetPlayerState<AGFBasePlayerState>()->SetPlayerName(InputNickName->GetText().ToString());
+		PlayerController->GetPlayerState<AGFBasePlayerState>()->SetPlayerCustomName(InputNickName->GetText().ToString());
 	}
 }

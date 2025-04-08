@@ -22,4 +22,6 @@ public:
 
 	UFUNCTION(BlueprintCallable)
 	FString GetServerAddress();
+
+	void ChangeLevel();
 };

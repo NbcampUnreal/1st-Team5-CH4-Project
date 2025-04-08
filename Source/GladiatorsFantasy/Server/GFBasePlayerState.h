@@ -45,7 +45,18 @@ public:
     UFUNCTION(BlueprintCallable)
     void SetCharacterBPName(const FString& InCharacterBPName);
     UFUNCTION(BlueprintCallable)
-    void SetFWeaponInfo(const FString& InWeaopnName, EWeaponRarity InRarity);
+    void SetFWeaponInfo(const FString& InWeaponName, EWeaponRarity InRarity);
+
+    UFUNCTION(BlueprintCallable, Server, Reliable)
+    void ServerSetPlayerCustomName(const FString& CustomName);
+    UFUNCTION(BlueprintCallable, Server, Reliable)
+    void ServerSetMoney(int32 InMoney);
+    UFUNCTION(BlueprintCallable, Server, Reliable)
+    void ServerSetWinPoint(int32 InWinPoint);
+    UFUNCTION(BlueprintCallable, Server, Reliable)
+    void ServerSetCharacterBPName(const FString& InCharacterBPName);
+    UFUNCTION(BlueprintCallable, Server, Reliable)
+    void ServerSetFWeaponInfo(const FString& InWeaponName, EWeaponRarity InRarity);
 
     virtual void PostNetInit() override;
     virtual void BeginPlay() override;
