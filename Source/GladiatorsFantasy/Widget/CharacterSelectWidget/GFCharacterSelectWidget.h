@@ -31,4 +31,6 @@ public:
 	void PressedBackBtn();
 	UFUNCTION()
 	void PressedNickNameSetBtn();
+	UFUNCTION()
+	void OnTextCommitted(const FText& Text, ETextCommit::Type CommitMethod);
 };

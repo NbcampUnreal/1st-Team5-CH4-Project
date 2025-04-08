@@ -8,6 +8,7 @@
 #include "Blueprint/UserWidget.h"
 #include "Kismet/GameplayStatics.h"
 #include "Props/SelectActor/SelectActor.h"
+#include "Server/GFBasePlayerState.h"
 #include "Widget/MainLobyWidget/GFMainLobyWidget.h"
 #include "Widget/CharacterSelectWidget/GFCharacterSelectWidget.h"
 #include "Widget/LobyWidget/GFLobyWidget.h"
@@ -106,12 +107,14 @@ void AGFMainLobyPlayerController::SelectActionTriggered()
 					// 무기 선택 로직
 					FString SelecTypeTest = SelectActor->GetSelectType();
 					UE_LOG(LogTemp, Warning, TEXT("Clicked Actor: %s"), *SelecTypeTest);
+					GetPlayerState<AGFBasePlayerState>()->SetFWeaponInfo(SelecTypeTest, EWeaponRarity::EWR_Nomal);
 				}
 				else if (SelectActor->ActorHasTag("Character"))
 				{
 					// 캐릭터 선택 로직
 					FString SelecTypeTest = SelectActor->GetSelectType();
 					UE_LOG(LogTemp, Warning, TEXT("Clicked Actor: %s"), *SelecTypeTest);
+					GetPlayerState<AGFBasePlayerState>()->SetCharacterBPName(SelecTypeTest);
 				}
 			}
 		}
