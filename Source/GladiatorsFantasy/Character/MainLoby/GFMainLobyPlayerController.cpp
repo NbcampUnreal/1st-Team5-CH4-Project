@@ -105,16 +105,28 @@ void AGFMainLobyPlayerController::SelectActionTriggered()
 				if (SelectActor->ActorHasTag("Weapon"))
 				{
 					// 무기 선택 로직
+					if (PrevSelectedWeapon)
+					{
+						PrevSelectedWeapon->ToggleOverlayMaterial(false);
+					}
+					PrevSelectedWeapon = SelectActor;
 					FString SelecTypeTest = SelectActor->GetSelectType();
 					UE_LOG(LogTemp, Warning, TEXT("Clicked Actor: %s"), *SelecTypeTest);
 					GetPlayerState<AGFBasePlayerState>()->SetFWeaponInfo(SelecTypeTest, EWeaponRarity::EWR_Nomal);
+					SelectActor->ToggleOverlayMaterial(true);
 				}
 				else if (SelectActor->ActorHasTag("Character"))
 				{
 					// 캐릭터 선택 로직
+					if (PrevSelectedCharacter)
+					{
+						PrevSelectedCharacter->ToggleOverlayMaterial(false);
+					}
+					PrevSelectedCharacter = SelectActor;
 					FString SelecTypeTest = SelectActor->GetSelectType();
 					UE_LOG(LogTemp, Warning, TEXT("Clicked Actor: %s"), *SelecTypeTest);
 					GetPlayerState<AGFBasePlayerState>()->SetCharacterBPName(SelecTypeTest);
+					SelectActor->ToggleOverlayMaterial(true);
 				}
 			}
 		}

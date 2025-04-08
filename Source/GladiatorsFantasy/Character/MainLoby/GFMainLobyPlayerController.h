@@ -4,6 +4,7 @@
 #include "GameFramework/PlayerController.h"
 #include "GFMainLobyPlayerController.generated.h"
 
+class ASelectActor;
 class UInputAction;
 class UInputMappingContext;
 class UGFLobyWidget;
@@ -90,4 +91,6 @@ public:
 	void SelectActionTriggered();
 private:
 	ESequenceType CurrentSequenceType;
+	TObjectPtr<ASelectActor> PrevSelectedWeapon;
+	TObjectPtr<ASelectActor> PrevSelectedCharacter;
 };
