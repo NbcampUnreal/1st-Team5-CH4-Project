@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "Widget/ChatWidget/GFChatWidget.h"
+#include "Widget/DOMGameWidget/GFCaptureStatusWidget.h"
 #include "GameFramework/PlayerController.h"
 #include "GFPlayerController.generated.h"
 
@@ -11,6 +12,7 @@ struct FGameplayTag;
 class UGFChatWidget;
 class UInputAction;
 class UInputMappingContext;
+class UGFCaptureStatusWidget;
 
 UCLASS()
 class GLADIATORSFANTASY_API AGFPlayerController : public APlayerController
@@ -28,15 +30,25 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Input|CharacterPawn")
 	UInputAction* FocusChatChatAction;
 
+	
+
 protected:
 	UPROPERTY(EditDefaultsOnly, Category = "UI")
 	TSubclassOf<UGFChatWidget> ChatWidgetClass;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI")
 	TObjectPtr<UGFChatWidget> ChatWidget;
 
+	// 점령전 변수
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
+	TSubclassOf<UGFCaptureStatusWidget> GFCaptureStatusWidgetClass;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
+	TObjectPtr<UGFCaptureStatusWidget> GFCaptureStatusWidget;
+
 public:
 	UFUNCTION(BlueprintCallable)
 	UGFChatWidget* GetChatWidget() { return ChatWidget; }
+	UFUNCTION(BlueprintCallable)
+	UGFCaptureStatusWidget* GetGFCaptureStatusWidget() { return GFCaptureStatusWidget; }
 
 
 	// ChatFunction
