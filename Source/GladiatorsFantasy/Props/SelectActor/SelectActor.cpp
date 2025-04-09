@@ -57,12 +57,12 @@ void ASelectActor::Tick(float DeltaTime)
 
 void ASelectActor::ToggleOverlayMaterial(bool bEnable)
 {
-	if (!SkeletalMeshCompo)
+	TArray<USkeletalMeshComponent*> SkeletalComponents;
+	GetComponents<USkeletalMeshComponent>(SkeletalComponents);
+	for (USkeletalMeshComponent* SkelCompo : SkeletalComponents)
 	{
-		UE_LOG(LogTemp, Warning, TEXT("ToggleOverlayMaterial: Mesh가 유효하지 않습니다."));
-		return;
+		SkelCompo->SetRenderCustomDepth(bEnable);
 	}
-	SkeletalMeshCompo->SetRenderCustomDepth(bEnable);
 	
 	// if (bEnable)
 	// {

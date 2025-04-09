@@ -11,5 +11,6 @@ class GLADIATORSFANTASY_API AGFMainLobyGameMode : public AGFBaseGameMode
 	
 public:
 	virtual FString GetTargetMapName() const override;
+	virtual void PreLogin(const FString& Options, const FString& Address, const FUniqueNetIdRepl& UniqueId, FString& ErrorMessage) override;
 	virtual void PostLogin(APlayerController* NewPlayer) override;
 };

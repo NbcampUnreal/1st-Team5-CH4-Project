@@ -41,6 +41,24 @@ void UGFCharacterSelectWidget::PressedNextBtn()
 		}
 	}
 	SetVisibility(ESlateVisibility::Hidden);
+
+	ConnectServer();
+}
+
+void UGFCharacterSelectWidget::ConnectServer()
+{
+	// 서버 주소 (예시 - 실제 주소로 변경)
+	//FString ServerAddress = TEXT("127.0.0.1:7777");
+    
+	// 접속 요청시 옵션에 "?allowConnect" 추가하여 서버 PreLogin 검사를 통과하도록 함
+	FString Options = TEXT("?allowConnect");
+
+	// ClientTravel 호출 (APlayerController를 통해)
+	if (APlayerController* PC = GetWorld()->GetFirstPlayerController())
+	{
+		//PC->ClientTravel(ServerAddress + Options, TRAVEL_Absolute);
+		PC->ClientTravel(Options, TRAVEL_Absolute, true);
+	}
 }
 
 void UGFCharacterSelectWidget::PressedBackBtn()
