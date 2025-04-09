@@ -13,7 +13,7 @@ AGFBanana::AGFBanana()
 	BananaMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("BananaMesh"));
 	RootComponent = BananaMesh;
 
-	// Collision 설정: Query와 Physics 모드 모두 활성화하여 Hit 이벤트를 받을 수 있도록 함
+	// Collision 설정
 	BananaMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 	BananaMesh->SetCollisionObjectType(ECC_WorldDynamic);
 	BananaMesh->SetCollisionResponseToAllChannels(ECR_Block);
@@ -42,17 +42,15 @@ void AGFBanana::OnHit(
 	const FHitResult& Hit
 )
 {
-	// 충돌한 대상이 캐릭터라면
 	if (ACharacter* HitCharacter = Cast<ACharacter>(OtherActor))
 	{
 		FVector ImpulseDirection = GetActorForwardVector();
 
-		// 캐릭터에 LaunchCharacter 함수를 통해 임펄스를 적용하여 슬립 효과 구현
 		HitCharacter->LaunchCharacter(ImpulseDirection * SlipImpulseMagnitude, true, true);
 
 		UE_LOG(LogTemp, Log, TEXT("Banana slip effect applied with impulse magnitude: %f"), SlipImpulseMagnitude);
 
-		// 효과 적용 후 바나나 아이템 제거
+		//아이템 제거
 		Destroy();
 	}
 }

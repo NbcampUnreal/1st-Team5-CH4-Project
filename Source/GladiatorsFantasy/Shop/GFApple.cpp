@@ -13,11 +13,11 @@ AGFApple::AGFApple()
     AppleMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("AppleMesh"));
     RootComponent = AppleMesh;
 
-    // 충돌 설정: Query와 Physics 둘 다 활성화하여 Hit 이벤트를 받을 수 있도록 설정
+    // 충돌 설정
     AppleMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
     AppleMesh->SetCollisionObjectType(ECC_WorldDynamic);
 
-    // 모든 채널에 대해 Block 처리하도록 기본 설정 (프로젝트에 따라 조정 필요)
+    // 모든 채널에 대해 Block 처리하도록 기본 설정
     AppleMesh->SetCollisionResponseToAllChannels(ECR_Block);
 
     // Hit 이벤트를 받기 위한 설정
@@ -43,15 +43,14 @@ void AGFApple::OnHit(
     const FHitResult& Hit
 )
 {
-    // 충돌한 대상이 ACharacter인지 확인
     if (ACharacter* HitCharacter = Cast<ACharacter>(OtherActor))
     {
-        // 스턴을 적용하기 위한 캐릭터 클래스인지 캐스팅 (프로젝트에 맞게 적용)
+        // 스턴을 적용하기 위한 캐릭터 클래스인지 캐스팅
         if (AGFBaseCharacter* PlayerCharacter = Cast<AGFBaseCharacter>(HitCharacter))
         {
         }
 
-        // 한 번의 충돌 후 아이템 제거 (필요에 따라 비활성화 등 다른 처리를 할 수 있음)
+        //아이템 제거
         Destroy();
     }
 }
