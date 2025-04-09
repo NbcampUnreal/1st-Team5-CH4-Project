@@ -21,6 +21,10 @@ public:
 	void TravelToAssignedLevel();
 
 	UFUNCTION(BlueprintCallable)
+	void TravelToAssignedLevelForBP(const FString& InLevelName);
+
+
+	UFUNCTION(BlueprintCallable)
 	FString GetServerAddress();
 
 	void ChangeLevel();

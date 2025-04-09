@@ -49,6 +49,15 @@ void AGFBaseGameMode::TravelToAssignedLevel()
     
 }
 
+void AGFBaseGameMode::TravelToAssignedLevelForBP(const FString& InLevelName)
+{
+    const FString BasePath = TEXT("/Game/WS/");
+    FString LevelName = InLevelName;
+    FString FullPath = FString::Printf(TEXT("%s%s?listen"), *BasePath, *LevelName);
+
+    GetWorld()->ServerTravel(FullPath);
+}
+
 FString AGFBaseGameMode::GetServerAddress()
 {
     if (UNetDriver* NetDriver = GetWorld()->GetNetDriver())
