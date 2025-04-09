@@ -26,6 +26,16 @@ protected:
 		const FHitResult& Hit
 	);
 
+	UFUNCTION()
+	void OnOverlapBegin(
+		UPrimitiveComponent* OverlappedComp,
+		AActor* OtherActor,
+		UPrimitiveComponent* OtherComp,
+		int32 OtherBodyIndex,
+		bool bFromSweep,
+		const FHitResult& SweepResult
+	);
+
 public:	
 	// 스턴 지속 시간 (초)
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stun")
@@ -35,4 +45,9 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	UStaticMeshComponent* AppleMesh;
 
+	UFUNCTION(BlueprintCallable, Category = "Pickup")
+	void PickUp(ACharacter* NewOwner);
+
+	UFUNCTION(BlueprintCallable, Category = "Pickup")
+	void Throw(FVector ThrowImpulse);
 };
