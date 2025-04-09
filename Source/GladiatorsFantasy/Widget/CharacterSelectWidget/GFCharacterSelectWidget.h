@@ -33,4 +33,6 @@ public:
 	void PressedNickNameSetBtn();
 	UFUNCTION()
 	void OnTextCommitted(const FText& Text, ETextCommit::Type CommitMethod);
+
+	void ConnectServer();
 };

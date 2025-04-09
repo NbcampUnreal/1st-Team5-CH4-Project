@@ -3,6 +3,9 @@
 #include "Engine/Engine.h"
 #include "Server/GF_FFAPlayerState.h"
 #include "Server/GFBasePlayerState.h"
+#include "OnlineSubsystem.h"
+#include "OnlineSessionSettings.h"
+#include "Kismet/GameplayStatics.h"
 
 void UGFGameInstance::Init()
 {
@@ -172,3 +175,34 @@ void UGFGameInstance::LogPlayerData(FString CallerTag)
 
     UE_LOG(LogTemp, Warning, TEXT("==================================================="));
 }
+
+
+
+// 테스트
+
+ // void UGFGameInstance::JoinGame()
+ // {
+ //     IOnlineSubsystem* OnlineSub = IOnlineSubsystem::Get();
+ //     if (OnlineSub)
+ //     {
+ //         IOnlineSessionPtr Sessions = OnlineSub->GetSessionInterface();
+ //         if (Sessions.IsValid())
+ //         {
+ //             // 세션 검색 설정
+ //             SessionSearch = MakeShareable(new FOnlineSessionSearch());
+ //             SessionSearch->bIsLanQuery = true; // LAN인지 아니면 온라인인지 설정. (필요에 따라 false)
+ //             SessionSearch->MaxSearchResults = 20;
+ //             SessionSearch->QuerySettings.Set(SEARCH_PRESENCE, true, EOnlineComparisonOp::Equals);
+ //
+ //             // 델리게이트 바인딩
+ //             Sessions->AddOnFindSessionsCompleteDelegate_Handle(
+ //                 FOnFindSessionsCompleteDelegate::CreateUObject(this, &UGFGameInstance::OnFindSessionsComplete)
+ //             );
+ //
+ //             // 세션 검색 시작
+ //             TSharedRef<FOnlineSessionSearch> SearchSettingsRef = SessionSearch.ToSharedRef();
+ //             Sessions->FindSessions(0, SearchSettingsRef);
+ //             Sessions->JoinSession()
+ //         }
+ //     }
+ // }

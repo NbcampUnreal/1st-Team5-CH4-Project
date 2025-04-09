@@ -10,7 +10,7 @@ public class GladiatorsFantasy : ModuleRules
 	
 		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "SlateCore", "Slate", "EnhancedInput", "AIModule", "GameplayTags", "LevelSequence", "MovieScene", "CinematicCamera" });
 
-		PrivateDependencyModuleNames.AddRange(new string[] { "RiderLink" });
+		PrivateDependencyModuleNames.AddRange(new string[] { "RiderLink", "OnlineSubsystem" });
 		
 		PublicIncludePaths.AddRange(new string[] { "GladiatorsFantasy" });
 

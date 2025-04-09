@@ -4,6 +4,7 @@
 #include "CoreMinimal.h"
 #include "Engine/GameInstance.h"
 #include "Weapon/GFWeaponBase.h"
+#include "Interfaces/OnlineSessionInterface.h"
 #include "GFGameInstance.generated.h"
 
 class AGF_FFAGameState;
@@ -130,4 +131,19 @@ public:
 private:
     // 현재 게임 상태 저장 변수
     EGameState CurrentGameState;
+
+
+    // 테스트용
+ // public:
+ //     // 세션 접속을 시도하는 함수 (버튼 클릭 등에서 호출)
+ //     UFUNCTION(BlueprintCallable, Category = "Network")
+ //     void JoinGame();
+ //
+ // private:
+ //     // 세션 검색 완료 후 호출될 델리게이트 함수
+ //     void OnFindSessionsComplete(bool bWasSuccessful);
+ //     // 세션 접속 완료 후 호출될 델리게이트 함수
+ //     void OnJoinSessionComplete(FName SessionName, EOnJoinSessionCompleteResult::Type Result);
+ //
+ //     TSharedPtr<FOnlineSessionSearch> SessionSearch;
 };
