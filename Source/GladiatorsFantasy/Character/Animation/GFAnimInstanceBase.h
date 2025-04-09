@@ -4,49 +4,10 @@
 
 #include "CoreMinimal.h"
 #include "Animation/AnimInstance.h"
+#include "../CharacterStateType/CharacterState.h"
+#include "../CharacterStateType/CharacterStateFlag.h"
 #include "GFAnimInstanceBase.generated.h"
 
-USTRUCT(BlueprintType)
-struct FPlayerAnimationData
-{
-	GENERATED_BODY()
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CurrentStateValue")
-	FVector Velocity;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CurrentStateValue")
-	FVector Velocity2D;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CurrentStateValue")
-	FVector WorldLocation;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CurrentStateValue")
-	FRotator WorldRotation;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CurrentStateValue")
-	FVector Acceleration;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CurrentStateValue")
-	FVector Acceleration2D;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CurrentStateValue")
-	float VelocityAngle;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CurrentStateValue")
-	float AccelerationAngle;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CurrentStateValue")
-	float PivotAngle;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CurrentStateValue")
-	float GroundSpeed;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CurrentStateValue")
-	bool IsAcceleration;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CurrentStateValue")
-	bool ShouldMove;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CurrentStateValue")
-	bool IsFalling;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CurrentStateValue")
-	bool IsFlying;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CurrentStateValue")
-	bool IsCrouch;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CurrentStateValue")
-	bool IsJump;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CurrentStateValue")
-	bool IsCouch;
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "CurrentStateValue")
-	float VelocityZ;//321jfidsajgfd[asiohcvxnjzi[vj[idaji[asjvi[adsjvida[sjvd[isa
-};
 UCLASS()
 class GLADIATORSFANTASY_API UGFAnimInstanceBase : public UAnimInstance
 {
@@ -54,8 +15,10 @@ class GLADIATORSFANTASY_API UGFAnimInstanceBase : public UAnimInstance
 private:
 	class AGFBaseCharacter* OwnerPlayer;
 	class UCharacterMovementComponent* PlayerMovement;
+	EMovementState PlayerMoveState;
+	EStance PlayerStance;
 protected:
-	UPROPERTY(EditAnywhere, BlueprintReadWrite,Category = "CurrentStateValue")
+	UPROPERTY(EditAnywhere, BlueprintReadWrite,Category = "CurrentStateData")
 	FPlayerAnimationData PlayerStateData;
 protected:
 	float CalculateDirection(const FVector& Velocity, const FRotator& BaseRotation) const;
