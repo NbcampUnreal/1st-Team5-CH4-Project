@@ -8,11 +8,11 @@ FString AGFMainLobyGameMode::GetTargetMapName() const
 
 void AGFMainLobyGameMode::PreLogin(const FString& Options, const FString& Address, const FUniqueNetIdRepl& UniqueId, FString& ErrorMessage)
 {
-    if (!Options.Contains(TEXT("allowConnect")))
+    /*if (!Options.Contains(TEXT("allowConnect")))
     {
         ErrorMessage = TEXT("접속 허용 옵션이 없습니다. 버튼을 눌러 접속을 시도해주세요.");
         return;
-    }
+    }*/
     
     Super::PreLogin(Options, Address, UniqueId, ErrorMessage);
 }
