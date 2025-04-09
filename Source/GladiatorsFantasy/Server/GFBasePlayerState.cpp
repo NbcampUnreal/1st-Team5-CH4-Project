@@ -40,7 +40,7 @@ void AGFBasePlayerState::LoadFromGameInstance()
     if (GI->PlayerDataMap.Contains(PlayerUniqueId))
     {
         const FPlayerData& Data = GI->PlayerDataMap[PlayerUniqueId];
-        SetPlayerName(Data.PlayerCustomName);
+        PlayerCustomName = Data.PlayerCustomName;
         Money = Data.Money;
         WinPoint = Data.WinPoint;
         LossCount = Data.LossCount;
@@ -79,31 +79,79 @@ FWeaponInfo AGFBasePlayerState::GetWeaponInfo() const
     return WeaponInfo;
 }
 
-void AGFBasePlayerState::SetPlayerCustomName(FString CustomName)
+void AGFBasePlayerState::SetPlayerCustomName(const FString& CustomName)
 {
     PlayerCustomName = CustomName;
+    if (!HasAuthority())
+    {
+        ServerSetPlayerCustomName(CustomName);
+    }
 }
 
-void AGFBasePlayerState::SetMoeny(int32 InMoney)
+void AGFBasePlayerState::SetMoney(int32 InMoney)
 {
     Money = InMoney;
+    if (!HasAuthority())
+    {
+        ServerSetMoney(InMoney);
+    }
 }
 
 void AGFBasePlayerState::SetWinPoint(int32 InWinPoint)
 {
     WinPoint = InWinPoint;
+    if (!HasAuthority())
+    {
+        ServerSetWinPoint(InWinPoint);
+    }
 }
 
-void AGFBasePlayerState::SetCharacterBPName(FString InCharacterBPName)
+void AGFBasePlayerState::SetCharacterBPName(const FString& InCharacterBPName)
+{
+    CharacterBPName = InCharacterBPName;
+    if (!HasAuthority())
+    {
+        ServerSetCharacterBPName(InCharacterBPName);
+    }
+}
+
+void AGFBasePlayerState::SetFWeaponInfo(const FString& InWeaponName, EWeaponRarity InRarity)
+{
+    WeaponInfo.WeaponName = InWeaponName;
+    WeaponInfo.WeaponRarity = InRarity;
+    if (!HasAuthority())
+    {
+        ServerSetFWeaponInfo(InWeaponName, InRarity);
+    }
+}
+
+void AGFBasePlayerState::ServerSetPlayerCustomName_Implementation(const FString& CustomName)
+{
+    PlayerCustomName = CustomName;
+}
+
+void AGFBasePlayerState::ServerSetMoney_Implementation(int32 InMoney)
+{
+    Money = InMoney;
+}
+
+void AGFBasePlayerState::ServerSetWinPoint_Implementation(int32 InWinPoint)
+{
+    WinPoint = InWinPoint;
+}
+
+void AGFBasePlayerState::ServerSetCharacterBPName_Implementation(const FString& InCharacterBPName)
 {
     CharacterBPName = InCharacterBPName;
 }
 
-void AGFBasePlayerState::SetFWeaponInfo(FString InWeaopnName, EWeaponRarity InRarity)
+void AGFBasePlayerState::ServerSetFWeaponInfo_Implementation(const FString& InWeaponName, EWeaponRarity InRarity)
 {
-    WeaponInfo.WeaponName = InWeaopnName;
+    WeaponInfo.WeaponName = InWeaponName;
     WeaponInfo.WeaponRarity = InRarity;
 }
+
+
 
 void AGFBasePlayerState::PostNetInit()
 {
@@ -116,8 +164,7 @@ void AGFBasePlayerState::BeginPlay()
 
     if (HasAuthority())
     {
-        LoadFromGameInstance();
-
+        //LoadFromGameInstance();
         if (GEngine)
         {
             FString DebugMsg = FString::Printf(TEXT("PostNetInit called for PlayerID: %s"), *GetPlayerUniqueId());
@@ -158,4 +205,20 @@ void AGFBasePlayerState::CheckPlayerIdDelayed()
 {
     FString TimerMsg = FString::Printf(TEXT("Timer [CLIENT] - PlayerId: %d"), GetPlayerId());
     GEngine->AddOnScreenDebugMessage(-1, 10.f, FColor::Green, TimerMsg);
+}
+
+void AGFBasePlayerState::LogPlayerStateData(FString CallerTag)
+{
+    FString UniquePlayerId = GetPlayerUniqueId();
+
+    UE_LOG(LogTemp, Warning, TEXT("==== [PlayerState] Data Log from %s (UniqueId: %s) ===="),
+        *CallerTag, *UniquePlayerId);
+
+    UE_LOG(LogTemp, Warning, TEXT("    Name: %s | Money: %d | Win: %d | Loss: %d"),
+        *PlayerCustomName, Money, WinPoint, LossCount);
+    UE_LOG(LogTemp, Warning, TEXT("    CharacterBP: %s"), *CharacterBPName);
+    UE_LOG(LogTemp, Warning, TEXT("    Weapon: %s (Rarity: %d)"),
+        *WeaponInfo.WeaponName, static_cast<uint8>(WeaponInfo.WeaponRarity));
+
+    UE_LOG(LogTemp, Warning, TEXT("======================================================"));
 }

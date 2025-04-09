@@ -12,4 +12,16 @@ class GLADIATORSFANTASY_API AGFBaseGameMode : public AGameMode
 {
 	GENERATED_BODY()
 	
+public:
+
+	UFUNCTION(BlueprintCallable)
+	virtual FString GetTargetMapName() const;
+
+	UFUNCTION(BlueprintCallable)
+	void TravelToAssignedLevel();
+
+	UFUNCTION(BlueprintCallable)
+	FString GetServerAddress();
+
+	void ChangeLevel();
 };

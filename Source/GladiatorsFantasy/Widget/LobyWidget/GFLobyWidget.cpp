@@ -2,6 +2,8 @@
 
 #include "Character/MainLoby/GFMainLobyPlayerController.h"
 #include "Components/Button.h"
+#include "Server/GFBaseGameMode.h"
+#include "Server/GFBasePlayerState.h"
 
 void UGFLobyWidget::NativeConstruct()
 {
@@ -19,6 +21,8 @@ void UGFLobyWidget::NativeConstruct()
 
 void UGFLobyWidget::PressedStartBtn()
 {
+	AGFBaseGameMode* GFGM = Cast<AGFBaseGameMode>(GetWorld()->GetAuthGameMode());
+	GFGM->ChangeLevel();
 }
 
 void UGFLobyWidget::PressedBackBtn()

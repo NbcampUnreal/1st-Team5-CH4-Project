@@ -37,15 +37,26 @@ public:
 
     // Setter
     UFUNCTION(BlueprintCallable)
-    void SetPlayerCustomName(FString CustomName);
+    void SetPlayerCustomName(const FString& CustomName);
     UFUNCTION(BlueprintCallable)
-    void SetMoeny(int32 InMoney);
+    void SetMoney(int32 InMoney);
     UFUNCTION(BlueprintCallable)
     void SetWinPoint(int32 InWinPoint);
     UFUNCTION(BlueprintCallable)
-    void SetCharacterBPName(FString InCharacterBPName);
+    void SetCharacterBPName(const FString& InCharacterBPName);
     UFUNCTION(BlueprintCallable)
-    void SetFWeaponInfo(FString InWeaopnName, EWeaponRarity InRarity);
+    void SetFWeaponInfo(const FString& InWeaponName, EWeaponRarity InRarity);
+
+    UFUNCTION(BlueprintCallable, Server, Reliable)
+    void ServerSetPlayerCustomName(const FString& CustomName);
+    UFUNCTION(BlueprintCallable, Server, Reliable)
+    void ServerSetMoney(int32 InMoney);
+    UFUNCTION(BlueprintCallable, Server, Reliable)
+    void ServerSetWinPoint(int32 InWinPoint);
+    UFUNCTION(BlueprintCallable, Server, Reliable)
+    void ServerSetCharacterBPName(const FString& InCharacterBPName);
+    UFUNCTION(BlueprintCallable, Server, Reliable)
+    void ServerSetFWeaponInfo(const FString& InWeaponName, EWeaponRarity InRarity);
 
     virtual void PostNetInit() override;
     virtual void BeginPlay() override;
@@ -54,6 +65,8 @@ public:
     // 테스트용
     virtual void Tick(float DeltaSeconds) override;
     void CheckPlayerIdDelayed();
+    UFUNCTION(BlueprintCallable)
+    void LogPlayerStateData(FString CallerTag);
 
 protected:
     UPROPERTY(Replicated)

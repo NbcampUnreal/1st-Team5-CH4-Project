@@ -152,3 +152,23 @@ TArray<AGF_FFAPlayerState*> UGFGameInstance::GetTopKillersFromInstance() const
 {
     return TopKillers;
 }
+
+void UGFGameInstance::LogPlayerData(FString CallerTag)
+{
+    UE_LOG(LogTemp, Warning, TEXT("==== [GameInstance] PlayerDataMap Log from %s ===="), *CallerTag);
+
+    for (const auto& Pair : PlayerDataMap)
+    {
+        const FString& UniqueId = Pair.Key;
+        const FPlayerData& Data = Pair.Value;
+
+        UE_LOG(LogTemp, Warning, TEXT("→ UniqueId: %s"), *UniqueId);
+        UE_LOG(LogTemp, Warning, TEXT("    Name: %s | Money: %d | Win: %d | Loss: %d"),
+            *Data.PlayerCustomName, Data.Money, Data.WinPoint, Data.LossCount);
+        UE_LOG(LogTemp, Warning, TEXT("    CharacterBP: %s"), *Data.CharacterBPName);
+        UE_LOG(LogTemp, Warning, TEXT("    Weapon: %s (Rarity: %d)"),
+            *Data.WeaponInfo.WeaponName, static_cast<uint8>(Data.WeaponInfo.WeaponRarity));
+    }
+
+    UE_LOG(LogTemp, Warning, TEXT("==================================================="));
+}

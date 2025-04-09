@@ -29,5 +29,7 @@ protected:
     // 현재 사용된 PlayerStart 목록
     UPROPERTY()
     TArray<AActor*> UsedPlayerStarts;
+
+	virtual FString GetTargetMapName() const override;
 	
 };
