@@ -42,7 +42,7 @@ void UGFCharacterSelectWidget::PressedNextBtn()
 	}
 	SetVisibility(ESlateVisibility::Hidden);
 
-	ConnectServer();
+	//ConnectServer();
 }
 
 void UGFCharacterSelectWidget::ConnectServer()
