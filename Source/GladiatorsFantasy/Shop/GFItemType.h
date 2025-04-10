@@ -27,6 +27,9 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Spawner")
     TSubclassOf<AActor> BananaItemClass;
 
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Spawner")
+    TSubclassOf<AActor> ChickenItemClass;
+
     // 아이템을 스폰할 위치
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Item Spawner")
     FVector SpawnLocation;
