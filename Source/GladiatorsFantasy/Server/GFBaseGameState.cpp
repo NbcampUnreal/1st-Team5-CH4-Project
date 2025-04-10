@@ -1,6 +1,7 @@
 #include "Server/GFBaseGameState.h"
 #include "Net/UnrealNetwork.h"
 #include "Character/GFPlayerController.h"
+#include "Character/MainLoby/GFMainLobyPlayerController.h"
 
 #include "Widget/DOMGameWidget/GFCaptureStatusWidget.h"
 
@@ -16,9 +17,14 @@ void AGFBaseGameState::BroadcastMessage_Implementation(const FString& SenderName
 	if (LocalController)
 	{
 		AGFPlayerController* PlayerController = Cast<AGFPlayerController>(LocalController);
+		AGFMainLobyPlayerController* LobyController = Cast<AGFMainLobyPlayerController>(LocalController);
 		if (PlayerController)
 		{
 			PlayerController->ClientReceiveMessage(SenderName, TeamTagName, FullMessage, MessageType);
+		}
+		else if (LobyController)
+		{
+			LobyController->ClientReceiveMessage(SenderName, TeamTagName, FullMessage, MessageType);
 		}
 	}
 }

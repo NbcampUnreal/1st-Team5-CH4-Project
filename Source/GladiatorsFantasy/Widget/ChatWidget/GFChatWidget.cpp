@@ -1,6 +1,7 @@
 #include "Widget/ChatWidget/GFChatWidget.h"
 #include "Blueprint/WidgetLayoutLibrary.h"
 #include "Character/GFPlayerController.h"
+#include "Character/MainLoby/GFMainLobyPlayerController.h"
 #include "Components/Button.h"
 #include "Components/CanvasPanel.h"
 #include "Components/CanvasPanelSlot.h"
@@ -248,12 +249,25 @@ void UGFChatWidget::OnTextCommitted(const FText& Text, ETextCommit::Type CommitM
 				FString TeamTag = Controller->GetTeamTagName();
 				Controller->ServerSendMessage(Text.ToString(), TeamTag, CurrentMessageType);
 			}
-		}
 
-		Controller->SetInputMode(FInputModeGameOnly());
-		Controller->bShowMouseCursor = false;
-		ChatInputBox->SetText(FText::GetEmpty());
-		FSlateApplication::Get().ClearKeyboardFocus();
+			Controller->SetInputMode(FInputModeGameOnly());
+			Controller->bShowMouseCursor = false;
+			ChatInputBox->SetText(FText::GetEmpty());
+			FSlateApplication::Get().ClearKeyboardFocus();
+		}
+		else
+		{
+			AGFMainLobyPlayerController* LobyController = Cast<AGFMainLobyPlayerController>(GetOwningPlayer());
+			if (LobyController)
+			{
+				if (!Text.IsEmpty())
+				{
+					FString TeamTag = LobyController->GetTeamTagName();
+					LobyController->ServerSendMessage(Text.ToString(), TeamTag, CurrentMessageType);
+					ChatInputBox->SetText(FText::GetEmpty());
+				}
+			}
+		}
 	}
 }
 

@@ -1,6 +1,3 @@
-// Fill out your copyright notice in the Description page of Project Settings.
-
-
 #include "GFPlayerController.h"
 
 #include "EnhancedInputSubsystems.h"
@@ -8,6 +5,7 @@
 #include "Blueprint/UserWidget.h"
 #include "Widget/ChatWidget/GFChatWidget.h"
 #include "Server/GFBaseGameState.h"
+#include "Server/GFBasePlayerState.h"
 
 
 AGFPlayerController::AGFPlayerController()
@@ -78,6 +76,6 @@ void AGFPlayerController::ServerSendMessage_Implementation(const FString& Messag
 	TObjectPtr<AGFBaseGameState> BaseGameState = GetWorld()->GetGameState<AGFBaseGameState>();
 	if (BaseGameState)
 	{
-		BaseGameState->BroadcastMessage("Test_ID", TeamTagName, Message, MessageType);
+		BaseGameState->BroadcastMessage(GetPlayerState<AGFBasePlayerState>()->GetPlayerCustomName(), TeamTagName, Message, MessageType);
 	}
 }

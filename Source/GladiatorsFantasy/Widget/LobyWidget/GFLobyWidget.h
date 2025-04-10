@@ -4,6 +4,7 @@
 #include "Blueprint/UserWidget.h"
 #include "GFLobyWidget.generated.h"
 
+class UGFChatWidget;
 class UButton;
 
 UCLASS()
@@ -19,9 +20,13 @@ public:
 	TObjectPtr<UButton> StartBtn;
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UButton> BackBtn;
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UGFChatWidget> ChatUI;
 
 	UFUNCTION()
 	void PressedStartBtn();
 	UFUNCTION()
 	void PressedBackBtn();
+
+	TObjectPtr<UGFChatWidget> GetChatUI() { return ChatUI; }
 };
