@@ -12,6 +12,12 @@
 #include "Widget/MainLobyWidget/GFMainLobyWidget.h"
 #include "Widget/CharacterSelectWidget/GFCharacterSelectWidget.h"
 #include "Widget/LobyWidget/GFLobyWidget.h"
+#include "Widget/ChatWidget/GFChatWidget.h"
+
+AGFMainLobyPlayerController::AGFMainLobyPlayerController()
+{
+	bReplicates = true;
+}
 
 void AGFMainLobyPlayerController::BeginPlay()
 {
@@ -42,6 +48,7 @@ void AGFMainLobyPlayerController::BeginPlay()
 		
 		CharacterSelectWidget = CreateWidget<UGFCharacterSelectWidget>(this, CharacterSelectWidgetClass);
 		LobyWidget = CreateWidget<UGFLobyWidget>(this, LobyWidgetClass);
+		//ChatWidget = CreateWidget<UGFChatWidget>(this, ChatWidgetClass);
 	}
 
 	TArray<AActor*> FoundCameras;
@@ -131,6 +138,38 @@ void AGFMainLobyPlayerController::SelectActionTriggered()
 			}
 		}
 	}
+}
+
+// ================================================
+// Chat Function
+// ================================================
+void AGFMainLobyPlayerController::ClientReceiveMessage_Implementation(const FString& SenderName, const FString& TeamTagName, const FString& Message, EMessage_Type MessageType)
+{
+	if (LobyWidget->GetChatUI())
+	{
+		if (MessageType == EMessage_Type::Team
+			&& TeamTagName != GetTeamTagName())
+		{
+			return;
+		}
+		
+		LobyWidget->GetChatUI()->UpdateChatLogBox(Message, MessageType);
+	}
+}
+
+void AGFMainLobyPlayerController::ServerSendMessage_Implementation(const FString& Message, const FString& TeamTagName, EMessage_Type MessageType)
+{
+	TObjectPtr<AGFBaseGameState> BaseGameState = GetWorld()->GetGameState<AGFBaseGameState>();
+	if (BaseGameState)
+	{
+		BaseGameState->BroadcastMessage(GetPlayerState<AGFBasePlayerState>()->GetPlayerCustomName(), TeamTagName, Message, MessageType);
+	}
+}
+
+FString AGFMainLobyPlayerController::GetTeamTagName()
+{
+	// 다 개인이니까.. 음.. 고유 ID를 전달해주어도 괜찮을 것 같다.
+	return "Single";
 }
 
 // ========================================

@@ -2,8 +2,10 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/PlayerController.h"
+#include "Server/GFBaseGameState.h"
 #include "GFMainLobyPlayerController.generated.h"
 
+class UGFChatWidget;
 class ASelectActor;
 class UInputAction;
 class UInputMappingContext;
@@ -50,6 +52,11 @@ protected:
 	TSubclassOf<UGFLobyWidget> LobyWidgetClass;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI")
 	TObjectPtr<UGFLobyWidget> LobyWidget;
+
+	// UPROPERTY(EditDefaultsOnly, Category = "UI")
+	// TSubclassOf<UGFChatWidget> ChatWidgetClass;
+	// UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI")
+	// TObjectPtr<UGFChatWidget> ChatWidget;
 	
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Camera")
@@ -67,6 +74,8 @@ protected:
 	ALevelSequenceActor* SelectCharacterToWaitRoomSequenceActor;
 	ULevelSequencePlayer* SelectCharacterToWaitRoomSequencePlayer;
 
+	AGFMainLobyPlayerController();
+	
 	virtual void BeginPlay() override;
 
 	UFUNCTION()
@@ -89,6 +98,15 @@ public:
 	
 	virtual void SetupInputComponent() override;
 	void SelectActionTriggered();
+
+	// ChatFunction
+	UFUNCTION(Client, Reliable)
+	void ClientReceiveMessage(const FString& SenderName, const FString& TeamTagName, const FString& Message, EMessage_Type MessageType = EMessage_Type::All);
+	UFUNCTION(Server, Reliable)
+	void ServerSendMessage(const FString& Message, const FString& TeamTagName, EMessage_Type MessageType);
+
+	FString GetTeamTagName();
+	
 private:
 	ESequenceType CurrentSequenceType;
 	TObjectPtr<ASelectActor> PrevSelectedWeapon;
