@@ -4,6 +4,7 @@
 #include "Widget/ChatWidget/GFChatWidget.h"
 #include "Shop/GFApple.h"
 #include "Shop/GFBanana.h"
+#include "Shop/AGFChicken.h"
 #include "GameFramework/CharacterMovementComponent.h"
 #include "Component/MultiplayerEventsManager/GFMultiplayerEventsManager.h"
 #include "TimerManager.h"
@@ -96,6 +97,11 @@ void AGFBaseCharacter::PickUpItem(AActor* Item)
 		else if (AGFBanana* Banana = Cast<AGFBanana>(Item))
 		{
 			Banana->PickUp(this);
+			HeldItem = Item;
+		}
+		else if (AAGFChicken* Chicken = Cast<AAGFChicken>(Item))
+		{
+			Chicken->PickUp(this);
 			HeldItem = Item;
 		}
 	}

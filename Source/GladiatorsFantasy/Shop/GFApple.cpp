@@ -19,17 +19,19 @@ AGFApple::AGFApple()
     AppleMesh->SetCollisionObjectType(ECC_WorldDynamic);
 
     // 모든 채널에 대해 Block 처리하도록 기본 설정
-    AppleMesh->SetCollisionResponseToAllChannels(ECR_Block);
+    AppleMesh->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
 
     // Hit 이벤트를 받기 위한 설정
     AppleMesh->SetGenerateOverlapEvents(true);
 
+    AppleMesh->OnComponentBeginOverlap.AddDynamic(this, &AGFApple::OnOverlapBegin);
+
     // Hit 이벤트 델리게이트 바인딩
     AppleMesh->OnComponentHit.AddDynamic(this, &AGFApple::OnHit);
 
-    AppleMesh->OnComponentBeginOverlap.AddDynamic(this, &AGFApple::OnOverlapBegin);
-
     StunDuration = 2.0f;  // 기본 스턴 지속 시간
+
+    bIsEquipped = false;
 }
 
 void AGFApple::BeginPlay()
@@ -46,16 +48,19 @@ void AGFApple::OnHit(
     const FHitResult& Hit
 )
 {
-    if (ACharacter* HitCharacter = Cast<ACharacter>(OtherActor))
+    bIsEquipped = false;
     {
-        // 스턴을 적용하기 위한 캐릭터 클래스인지 캐스팅
-        if (AGFBaseCharacter* PlayerCharacter = Cast<AGFBaseCharacter>(HitCharacter))
+        if (ACharacter* HitCharacter = Cast<ACharacter>(OtherActor))
         {
-            PlayerCharacter->ApplyStun(StunDuration);
-        }
+            // 스턴을 적용하기 위한 캐릭터 클래스인지 캐스팅
+            if (AGFBaseCharacter* PlayerCharacter = Cast<AGFBaseCharacter>(HitCharacter))
+            {
+                PlayerCharacter->ApplyStun(StunDuration);
+            }
 
-        //아이템 제거
-        Destroy();
+            //아이템 제거
+            Destroy();
+        }
     }
 }
 
@@ -68,11 +73,14 @@ void AGFApple::OnOverlapBegin(
     const FHitResult& SweepResult
 )
 {
-    // OtherActor가 캐릭터라면, 아이템을 픽업
-    if (ACharacter* OverlappedCharacter = Cast<ACharacter>(OtherActor))
+    if (!bIsEquipped)
     {
-        // 자동으로 PickUp 호출해서 캐릭터의 손(소켓)에 부착
-        PickUp(OverlappedCharacter);
+        // OtherActor가 캐릭터라면, 아이템을 픽업
+        if (ACharacter* OverlappedCharacter = Cast<ACharacter>(OtherActor))
+        {
+            // 자동으로 PickUp 호출해서 캐릭터의 손(소켓)에 부착
+            PickUp(OverlappedCharacter);
+        }
     }
 }
 
@@ -87,6 +95,8 @@ void AGFApple::PickUp(ACharacter* NewOwner)
 
         // 캐릭터의 메쉬 소켓에 부착
         AttachToComponent(NewOwner->GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale, FName("HandSwordSocket"));
+
+        bIsEquipped = true;
     }
 }
 
@@ -101,5 +111,7 @@ void AGFApple::Throw(FVector ThrowImpulse)
 
     // 지정한 임펄스만큼 힘을 가해 던짐
     AppleMesh->AddImpulse(ThrowImpulse, NAME_None, true);
+
+    bIsEquipped = false;
 }
 

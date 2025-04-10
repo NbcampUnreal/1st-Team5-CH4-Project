@@ -47,16 +47,20 @@ void AGFItemType::SpawnRandomItem()
 
     FVector FinalSpawnLocation = BoxCenter + RandomOffset;
 
-    // 0 또는 1을 랜덤하게 선택 (0: Apple, 1: Banana)
-    int32 RandomIndex = FMath::RandRange(0, 1);
+    // 0 또는 2을 랜덤하게 선택 (0: Apple, 1: Banana, 2: Chicken)
+    int32 RandomIndex = FMath::RandRange(0, 2);
     TSubclassOf<AActor> ItemToSpawn = nullptr;
     if (RandomIndex == 0)
     {
         ItemToSpawn = AppleItemClass;
     }
-    else
+    else if (RandomIndex == 1)
     {
         ItemToSpawn = BananaItemClass;
+    }
+    else if (RandomIndex == 2)
+    {
+        ItemToSpawn = ChickenItemClass;
     }
 
     if (ItemToSpawn && GetWorld())

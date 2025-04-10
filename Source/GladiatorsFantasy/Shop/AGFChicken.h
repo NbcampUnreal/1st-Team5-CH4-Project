@@ -3,28 +3,18 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Actor.h"
-#include "GFApple.generated.h"
+#include "AGFChicken.generated.h"
 
 UCLASS()
-class GLADIATORSFANTASY_API AGFApple : public AActor
+class GLADIATORSFANTASY_API AAGFChicken : public AActor
 {
 	GENERATED_BODY()
 	
-public:	
-	AGFApple();
+public:
+	AAGFChicken();
 
 protected:
 	virtual void BeginPlay() override;
-
-	// 충돌 시 호출
-	UFUNCTION()
-	void OnHit(
-		UPrimitiveComponent* HitComp,
-		AActor* OtherActor,
-		UPrimitiveComponent* OtherComp,
-		FVector NormalImpulse,
-		const FHitResult& Hit
-	);
 
 	UFUNCTION()
 	void OnOverlapBegin(
@@ -36,22 +26,22 @@ protected:
 		const FHitResult& SweepResult
 	);
 
-public:	
-	// 스턴 지속 시간 (초)
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Stun")
-	float StunDuration;
-
-	// 메시 컴포넌트
+public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
-	UStaticMeshComponent* AppleMesh;
+	UStaticMeshComponent* ChickenMesh;
+
+	// 던질 때 재생할 소리
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")
+	USoundBase* ThrowSound;
 
 	// 아이템이 캐릭터에 장착되었는지 여부
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Pickup")
 	bool bIsEquipped;
 
+	// 캐릭터에 아이템을 장착하는 함수
 	UFUNCTION(BlueprintCallable, Category = "Pickup")
 	void PickUp(ACharacter* NewOwner);
 
-	UFUNCTION(BlueprintCallable, Category = "Pickup")
+	UFUNCTION(BlueprintCallable, Category = "Item")
 	void Throw(FVector ThrowImpulse);
 };
