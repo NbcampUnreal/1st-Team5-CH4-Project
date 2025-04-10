@@ -8,9 +8,9 @@ public class GladiatorsFantasy : ModuleRules
 	{
 		PCHUsage = PCHUsageMode.UseExplicitOrSharedPCHs;
 	
-		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "SlateCore", "Slate", "EnhancedInput", "AIModule", "GameplayTags", "LevelSequence", "MovieScene", "CinematicCamera" });
+		PublicDependencyModuleNames.AddRange(new string[] { "Core", "CoreUObject", "Engine", "InputCore", "SlateCore", "Slate", "EnhancedInput", "AIModule", "GameplayTags", "LevelSequence", "MovieScene", "CinematicCamera", "OnlineSubsystem", "AdvancedSessions" });
 
-		PrivateDependencyModuleNames.AddRange(new string[] { "RiderLink", "OnlineSubsystem", "AdvancedSessions" });
+		PrivateDependencyModuleNames.AddRange(new string[] { "RiderLink" });
 		
 		PublicIncludePaths.AddRange(new string[] { "GladiatorsFantasy" });
 
