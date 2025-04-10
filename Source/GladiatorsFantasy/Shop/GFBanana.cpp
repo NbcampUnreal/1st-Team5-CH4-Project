@@ -17,18 +17,20 @@ AGFBanana::AGFBanana()
 	// Collision 설정
 	BananaMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 	BananaMesh->SetCollisionObjectType(ECC_WorldDynamic);
-	BananaMesh->SetCollisionResponseToAllChannels(ECR_Block);
+	BananaMesh->SetCollisionResponseToChannel(ECC_Pawn, ECR_Overlap);
 
 	// 물리적 충돌이 발생할 때 Hit 이벤트가 호출되도록 설정
-	BananaMesh->SetGenerateOverlapEvents(true);
+	BananaMesh->SetNotifyRigidBodyCollision(true);
+
+	BananaMesh->OnComponentBeginOverlap.AddDynamic(this, &AGFBanana::OnOverlapBegin);
 
 	// Hit 이벤트 델리게이트에 OnHit 함수를 바인딩
 	BananaMesh->OnComponentHit.AddDynamic(this, &AGFBanana::OnHit);
 
-	BananaMesh->OnComponentBeginOverlap.AddDynamic(this, &AGFBanana::OnOverlapBegin);
-
 	// 기본 슬립값
 	SlipImpulseMagnitude = 1000.0f;
+
+	bIsEquipped = false;
 }
 
 void AGFBanana::BeginPlay()
@@ -45,16 +47,19 @@ void AGFBanana::OnHit(
 	const FHitResult& Hit
 )
 {
-	if (ACharacter* HitCharacter = Cast<ACharacter>(OtherActor))
+	if (!bIsEquipped)
 	{
-		FVector ImpulseDirection = GetActorForwardVector();
+		if (ACharacter* HitCharacter = Cast<ACharacter>(OtherActor))
+		{
+			FVector ImpulseDirection = GetActorForwardVector();
 
-		HitCharacter->LaunchCharacter(ImpulseDirection * SlipImpulseMagnitude, true, true);
+			HitCharacter->LaunchCharacter(ImpulseDirection * SlipImpulseMagnitude, true, true);
 
-		UE_LOG(LogTemp, Log, TEXT("Banana slip effect applied with impulse magnitude: %f"), SlipImpulseMagnitude);
+			UE_LOG(LogTemp, Log, TEXT("Banana slip effect applied with impulse magnitude: %f"), SlipImpulseMagnitude);
 
-		//아이템 제거
-		Destroy();
+			//아이템 제거
+			Destroy();
+		}
 	}
 }
 
@@ -67,11 +72,14 @@ void AGFBanana::OnOverlapBegin(
 	const FHitResult& SweepResult
 )
 {
-	// OtherActor가 캐릭터라면, 아이템을 픽업
-	if (ACharacter* OverlappedCharacter = Cast<ACharacter>(OtherActor))
+	if (!bIsEquipped)
 	{
-		// 자동으로 PickUp 호출해서 캐릭터의 손(소켓)에 부착
-		PickUp(OverlappedCharacter);
+		// OtherActor가 캐릭터라면, 아이템을 픽업
+		if (ACharacter* OverlappedCharacter = Cast<ACharacter>(OtherActor))
+		{
+			// 자동으로 PickUp 호출해서 캐릭터의 손(소켓)에 부착
+			PickUp(OverlappedCharacter);
+		}
 	}
 }
 
@@ -85,6 +93,8 @@ void AGFBanana::PickUp(ACharacter* NewOwner)
 
 		// 캐릭터의 메쉬 소켓에 부착"Hand_R"라는 소켓이 존재한다고 가정
 		AttachToComponent(NewOwner->GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale, FName("HandSwordSocket"));
+
+		bIsEquipped = true;
 	}
 }
 
@@ -99,4 +109,6 @@ void AGFBanana::Throw(FVector ThrowImpulse)
 	BananaMesh->SetCollisionEnabled(ECollisionEnabled::QueryAndPhysics);
 
 	BananaMesh->AddImpulse(ThrowImpulse, NAME_None, true);
+
+	bIsEquipped = false;
 }

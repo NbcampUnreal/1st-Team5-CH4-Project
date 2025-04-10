@@ -45,6 +45,10 @@ public:
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
 	UStaticMeshComponent* AppleMesh;
 
+	// 아이템이 캐릭터에 장착되었는지 여부
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Pickup")
+	bool bIsEquipped;
+
 	UFUNCTION(BlueprintCallable, Category = "Pickup")
 	void PickUp(ACharacter* NewOwner);
 
