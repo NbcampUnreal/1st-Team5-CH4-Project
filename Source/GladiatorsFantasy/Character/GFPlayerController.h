@@ -5,6 +5,7 @@
 #include "CoreMinimal.h"
 #include "Widget/ChatWidget/GFChatWidget.h"
 #include "Widget/DOMGameWidget/GFCaptureStatusWidget.h"
+#include "Widget/TDMGameWidget/GFTDMStatusWidget.h"
 #include "GameFramework/PlayerController.h"
 #include "GFPlayerController.generated.h"
 
@@ -43,6 +44,12 @@ protected:
 	TSubclassOf<UGFCaptureStatusWidget> GFCaptureStatusWidgetClass;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
 	TObjectPtr<UGFCaptureStatusWidget> GFCaptureStatusWidget;
+
+	// 데스매치 변수
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
+	TSubclassOf<UGFTDMStatusWidget> GFTDMStatusWidgetClass;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
+	TObjectPtr<UGFTDMStatusWidget> GFTDMStatusWidget;
 
 public:
 	UFUNCTION(BlueprintCallable)
