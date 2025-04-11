@@ -19,7 +19,7 @@ struct FWeaponInfo
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FString WeaponName;
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    EWeaponRarity WeaponRarity;
+    EWeaponRarity WeaponRarity = EWeaponRarity::EWR_Nomal;
     
 };
 
@@ -33,13 +33,13 @@ struct FPlayerData
     FString PlayerCustomName;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    int32 Money;
+    int32 Money = 0.0f;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    int32 WinPoint;
+    int32 WinPoint = 0.0f;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    int32 LossCount;
+    int32 LossCount = 0.0f;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FString CharacterBPName;
