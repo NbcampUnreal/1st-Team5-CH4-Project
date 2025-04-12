@@ -5,6 +5,7 @@
 #include "Server/GFBaseGameState.h"
 #include "GFMainLobyPlayerController.generated.h"
 
+class AGFLobbyPlayerSlot;
 class UGFChatWidget;
 class ASelectActor;
 class UInputAction;
@@ -74,6 +75,9 @@ protected:
 	ALevelSequenceActor* SelectCharacterToWaitRoomSequenceActor;
 	ULevelSequencePlayer* SelectCharacterToWaitRoomSequencePlayer;
 
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "LobbyProperty", Replicated)
+	TObjectPtr<AGFLobbyPlayerSlot> LobbySlot;
+
 	AGFMainLobyPlayerController();
 	
 	virtual void BeginPlay() override;
@@ -99,6 +103,13 @@ public:
 	virtual void SetupInputComponent() override;
 	void SelectActionTriggered();
 
+	void SetSlot(AGFLobbyPlayerSlot* InSlot) { LobbySlot = InSlot; }
+
+	UFUNCTION(Server, Reliable)
+	void ServerSetMesh(const TSoftObjectPtr<USkeletalMesh>& InSkeletalMesh);
+	UFUNCTION(Server, Reliable)
+	void ServerSetAnim(const TSoftObjectPtr<UAnimSequence>& InAnimSequence);
+
 	// ChatFunction
 	UFUNCTION(Client, Reliable)
 	void ClientReceiveMessage(const FString& SenderName, const FString& TeamTagName, const FString& Message, EMessage_Type MessageType = EMessage_Type::All);
@@ -106,9 +117,13 @@ public:
 	void ServerSendMessage(const FString& Message, const FString& TeamTagName, EMessage_Type MessageType);
 
 	FString GetTeamTagName();
-	
+
+	virtual void GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const override;
 private:
 	ESequenceType CurrentSequenceType;
 	TObjectPtr<ASelectActor> PrevSelectedWeapon;
 	TObjectPtr<ASelectActor> PrevSelectedCharacter;
+
+	void ChangeSelectedCharacter(FString SelecTypeTest);
+	void ChangeAnim(FString SelecTypeTest);
 };
