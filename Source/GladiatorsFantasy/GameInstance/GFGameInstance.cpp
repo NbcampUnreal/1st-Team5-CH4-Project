@@ -176,6 +176,21 @@ void UGFGameInstance::LogPlayerData(FString CallerTag)
     UE_LOG(LogTemp, Warning, TEXT("==================================================="));
 }
 
+int32 UGFGameInstance::GetNextLevelIndex() const
+{
+    return NextLevelIndex;
+}
+
+void UGFGameInstance::SetNextLevelIndex(int32 InIndex)
+{
+    NextLevelIndex = InIndex;
+}
+
+void UGFGameInstance::IncrementLevelIndex()
+{
+    ++NextLevelIndex;
+}
+
 
 
 // 테스트
