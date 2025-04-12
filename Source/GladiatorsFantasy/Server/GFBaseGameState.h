@@ -39,6 +39,10 @@ public:
 	void SetCaptureGauge(float InGauge);
 	void SetCapturingTeam(FName InTeamName);
 
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "BaseSpawn|Property")
+	UDataTable* DT_LobbyCharacter;
+	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category = "BaseSpawn|Property")
+	UDataTable* DT_LobbyLocation;
 
 	virtual void GetLifetimeReplicatedProps(TArray<FLifetimeProperty>& OutLifetimeProps) const override;
 };
