@@ -4,6 +4,11 @@
 #include "Character/GFPlayerController.h"
 #include "Kismet/GameplayStatics.h"
 
+AGFBaseGameMode::AGFBaseGameMode()
+{
+    bAllPlayersReady = false;
+}
+
 FString AGFBaseGameMode::GetTargetMapName() const
 {
     return TEXT("DefaultLevel"); // 기본값
@@ -66,6 +71,20 @@ FString AGFBaseGameMode::GetServerAddress()
     }
     return TEXT("127.0.0.1:7777"); // fallback -> PIE 전용
 }
+
+bool AGFBaseGameMode::AreAllPlayersReady()
+{
+    for (FConstPlayerControllerIterator It = GetWorld()->GetPlayerControllerIterator(); It; ++It)
+    {
+        APlayerController* PC = It->Get();
+        if (!IsValid(PC) || !IsValid(PC->GetPawn()))
+        {
+            return false;
+        }
+    }
+    return true;
+}
+
 
 void AGFBaseGameMode::ChangeLevel()
 {
