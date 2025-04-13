@@ -1,6 +1,6 @@
 
 #include "Shop/AGFChicken.h"
-#include "Components/StaticMeshComponent.h"
+#include "Components/SkeletalMeshComponent.h"
 #include "GameFramework/Character.h"
 #include "Character/GFBaseCharacter.h"
 #include "Kismet/GameplayStatics.h"
@@ -10,7 +10,7 @@ AAGFChicken::AAGFChicken()
 	PrimaryActorTick.bCanEverTick = false;
 
 	// 메시 컴포넌트 생성 및 루트 컴포넌트 지정
-	ChickenMesh = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("ChickenMesh"));
+	ChickenMesh = CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("ChickenMesh"));
 	RootComponent = ChickenMesh;
 
 	// 충돌 설정 (필요에 따라 조정)
