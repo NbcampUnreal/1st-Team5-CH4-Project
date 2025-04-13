@@ -6,7 +6,9 @@
 #include "LevelSequencePlayer.h"
 #include "MovieSceneSequencePlaybackSettings.h"
 #include "Blueprint/UserWidget.h"
+#include "DataTable/LobbySpawn/FLobbySpawnRow.h"
 #include "Kismet/GameplayStatics.h"
+#include "Props/LobbyPlayerSlot/GFLobbyPlayerSlot.h"
 #include "Props/SelectActor/SelectActor.h"
 #include "Server/GFBasePlayerState.h"
 #include "Widget/MainLobyWidget/GFMainLobyWidget.h"
@@ -134,7 +136,96 @@ void AGFMainLobyPlayerController::SelectActionTriggered()
 					UE_LOG(LogTemp, Warning, TEXT("Clicked Actor: %s"), *SelecTypeTest);
 					GetPlayerState<AGFBasePlayerState>()->SetCharacterBPName(SelecTypeTest);
 					SelectActor->ToggleOverlayMaterial(true);
+					
+					// 서버한테 나 이걸로 변경할래 호출
+					ChangeSelectedCharacter(SelecTypeTest);
+					ChangeAnim(SelecTypeTest);
 				}
+			}
+		}
+	}
+}
+
+void AGFMainLobyPlayerController::ServerSetMesh_Implementation(const TSoftObjectPtr<USkeletalMesh>& InSkeletalMesh)
+{
+	// 비동기처리
+	// if (SelectedCharacter == nullptr || !InSkeletalMesh.IsValid()) return;
+	//
+	// FStreamableManager& Streamable = UAssetManager::GetStreamableManager();
+	//
+	// Streamable.RequestAsyncLoad(InSkeletalMesh.ToSoftObjectPath(), [=]()
+	// {
+	// 	USkeletalMesh* LoadedMesh = InSkeletalMesh.Get();
+	//
+	// 	if (LoadedMesh && SelectedCharacter && SelectedCharacter->SkeletalMeshCompo)
+	// 	{
+	// 		SelectedCharacter->SkeletalMeshCompo->SetSkeletalMesh(LoadedMesh);
+	// 		ReplicatedMesh = LoadedMesh;
+	// 	}
+	// });
+
+	// 동기 처리
+	if (LobbySlot == nullptr) return;
+	if (LobbySlot->SelectedCharacter == nullptr) return;
+
+	USkeletalMesh* LoadedMesh = InSkeletalMesh.LoadSynchronous();
+
+	if (LoadedMesh)
+	{
+		LobbySlot->SelectedCharacter->SkeletalMeshCompo->SetSkeletalMesh(LoadedMesh);
+		LobbySlot->ReplicatedMesh = LoadedMesh;
+	}
+}
+
+void AGFMainLobyPlayerController::ServerSetAnim_Implementation(const TSoftObjectPtr<UAnimSequence>& InAnimSequence)
+{
+	if (LobbySlot == nullptr) return;
+	if (LobbySlot->SelectedCharacter == nullptr) return;
+
+	UAnimSequence* LoadedAnimSequence = InAnimSequence.LoadSynchronous();
+
+	if (LoadedAnimSequence)
+	{
+		LobbySlot->SelectedCharacter->SkeletalMeshCompo->SetAnimation(LoadedAnimSequence);
+		LobbySlot->SelectedCharacter->SkeletalMeshCompo->PlayAnimation(LoadedAnimSequence, true);
+		LobbySlot->ReplicatedAnim = LoadedAnimSequence;
+	}
+}
+
+void AGFMainLobyPlayerController::ChangeSelectedCharacter(FString SelecTypeTest)
+{
+	AGameStateBase* GameState = GetWorld()->GetGameState();
+	if (GameState)
+	{
+		AGFBaseGameState* GFGameState = Cast<AGFBaseGameState>(GameState);
+		if (GFGameState)
+		{
+			FString ContextString = TEXT("DT_LobbyCharacterContext");
+			FLobbyCharacterData* Row = GFGameState->DT_LobbyCharacter->FindRow<FLobbyCharacterData>(FName(SelecTypeTest), ContextString, true);
+			if (Row)
+			{
+				ServerSetMesh(Row->SkeletalMesh);
+			}
+		}
+	}
+}
+
+void AGFMainLobyPlayerController::ChangeAnim(FString SelecTypeTest)
+{
+	AGameStateBase* GameState = GetWorld()->GetGameState();
+	if (GameState)
+	{
+		AGFBaseGameState* GFGameState = Cast<AGFBaseGameState>(GameState);
+		if (GFGameState)
+		{
+			FString Key = SelecTypeTest;
+			Key += LobbySlot->AnimType;
+			
+			FString ContextString = TEXT("DT_LobbyLocationContext");
+			FLobbyLocationData* Row = GFGameState->DT_LobbyLocation->FindRow<FLobbyLocationData>(FName(Key), ContextString, true);
+			if (Row)
+			{
+				ServerSetAnim(Row->Animation);
 			}
 		}
 	}
@@ -170,6 +261,13 @@ FString AGFMainLobyPlayerController::GetTeamTagName()
 {
 	// 다 개인이니까.. 음.. 고유 ID를 전달해주어도 괜찮을 것 같다.
 	return "Single";
+}
+
+void AGFMainLobyPlayerController::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
+{
+	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	DOREPLIFETIME(AGFMainLobyPlayerController, LobbySlot);
 }
 
 // ========================================

@@ -19,7 +19,7 @@ struct FWeaponInfo
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FString WeaponName;
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    EWeaponRarity WeaponRarity;
+    EWeaponRarity WeaponRarity = EWeaponRarity::EWR_Nomal;
     
 };
 
@@ -33,13 +33,13 @@ struct FPlayerData
     FString PlayerCustomName;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    int32 Money;
+    int32 Money = 0.0f;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    int32 WinPoint;
+    int32 WinPoint = 0.0f;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
-    int32 LossCount;
+    int32 LossCount = 0.0f;
 
     UPROPERTY(EditAnywhere, BlueprintReadWrite)
     FString CharacterBPName;
@@ -128,9 +128,16 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shop")
     TArray<bool> StagePurchaseStatus;
 
+    int32 GetNextLevelIndex() const;
+    void SetNextLevelIndex(int32 InIndex);
+    void IncrementLevelIndex();
+
 private:
     // 현재 게임 상태 저장 변수
     EGameState CurrentGameState;
+
+    // 다음에 이동할 레벨의 인덱스를 저장하는 변수 (상점이 사용)
+    int32 NextLevelIndex;
 
     // 테스트용
   public:

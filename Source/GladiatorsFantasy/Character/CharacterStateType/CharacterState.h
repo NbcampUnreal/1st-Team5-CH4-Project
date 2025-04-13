@@ -7,39 +7,39 @@ struct FPlayerAnimationData
 {
 	GENERATED_BODY()
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "CharacterStateData")
-	FVector Velocity;
+	FVector Velocity = FVector::ZeroVector;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "CharacterStateData")
-	FVector Velocity2D;
+	FVector Velocity2D = FVector::ZeroVector;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "CharacterStateData")
-	FVector WorldLocation;
+	FVector WorldLocation = FVector::ZeroVector;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "CharacterStateData")
-	FRotator WorldRotation;
+	FRotator WorldRotation = FRotator::ZeroRotator;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "CharacterStateData")
-	FVector Acceleration;
+	FVector Acceleration = FVector::ZeroVector;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "CharacterStateData")
-	FVector Acceleration2D;
+	FVector Acceleration2D = FVector::ZeroVector;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "CharacterStateData")
-	float VelocityAngle;
+	float VelocityAngle = 0.0f;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "CharacterStateData")
-	float AccelerationAngle;
+	float AccelerationAngle = 0.0f;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "CharacterStateData")
-	float PivotAngle;
+	float PivotAngle = 0.0f;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "CharacterStateData")
-	float GroundSpeed;
+	float GroundSpeed = 0.0f;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "CharacterStateData")
-	bool IsAcceleration;
+	bool IsAcceleration = false;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "CharacterStateData")
-	bool ShouldMove;
+	bool ShouldMove = false;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "CharacterStateData")
-	bool IsFalling;
+	bool IsFalling = false;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "CharacterStateData")
-	bool IsFlying;
+	bool IsFlying = false;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "CharacterStateData")
-	bool IsCrouch;
+	bool IsCrouch = false;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "CharacterStateData")
-	bool IsJump;
+	bool IsJump = false;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "CharacterStateData")
-	bool IsCouch;
+	bool IsCouch = false;
 	UPROPERTY(BlueprintReadWrite, EditAnywhere, Category = "CharacterStateData")
-	float VelocityZ;
+	float VelocityZ = 0.0f;
 };
