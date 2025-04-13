@@ -12,13 +12,16 @@ class GLADIATORSFANTASY_API AGFStorePlayerController : public AGFPlayerControlle
 	GENERATED_BODY()
 	
 public:
-    UFUNCTION(Client, Reliable)
-    void ClientShowStoreUI();
 
     UFUNCTION(Server, Reliable)
     void ServerSetReady(bool bReady);
 
+    virtual void BeginPlay() override;
+
 protected:
     UPROPERTY()
     UGFShop* StoreWidget;
+
+    UPROPERTY(EditDefaultsOnly, Category = "UI")
+    TSubclassOf<UGFShop> StoreWidgetClass;
 };
