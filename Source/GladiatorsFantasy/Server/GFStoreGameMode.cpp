@@ -6,6 +6,7 @@
 #include "GameFramework/Controller.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameInstance/GFGameInstance.h"
+#include "Character/Store/GFShopCharacterActor.h"
 
 
 AGFStoreGameMode::AGFStoreGameMode()
@@ -48,53 +49,104 @@ TArray<AActor*> AGFStoreGameMode::GetOrderedPlayerStartPoints()
     return PlayerStarts;
 }
 
-void AGFStoreGameMode::BeginPlay()
+//void AGFStoreGameMode::BeginPlay()
+//{
+//    if (!HasAuthority()) return;
+//    Super::BeginPlay();
+//
+//    // 테스트용 캐릭터 리스트 ==== 레벨 간 로드 시 제거해야 함
+//    TArray<FString> TestCharacterNames = {
+//        TEXT("Knight"),
+//        TEXT("Berserker"),
+//        TEXT("Archer"),
+//        TEXT("Wizard"),
+//        TEXT("Knight"),
+//        TEXT("Berserker")
+//    };
+//
+//    int32 PlayerIndex = 0;
+//
+//    
+//    for (FConstPlayerControllerIterator It = GetWorld()->GetPlayerControllerIterator(); It; ++It)
+//    {
+//        APlayerController* PC = It->Get();
+//        if (!PC) continue;
+//
+//        
+//        RestartPlayer(PC);
+//
+//        // GameInstance 데이터 불러오기
+//        AGFBasePlayerState* PS = PC->GetPlayerState<AGFBasePlayerState>();
+//        if (PS)
+//        {
+//            PS->LoadFromGameInstance();
+//
+//            // 테스트용 캐릭터 설정  ==== 레벨 간 로드 시 제거해야 함
+//            if (TestCharacterNames.IsValidIndex(PlayerIndex))
+//            {
+//                PS->SetCharacterBPName(TestCharacterNames[PlayerIndex]);
+//                UE_LOG(LogTemp, Log, TEXT("Assigned test character %s to Player %d"), *TestCharacterNames[PlayerIndex], PlayerIndex);
+//            }
+//        }
+//        UE_LOG(LogTemp, Warning, TEXT("Spawning ShopCharacter for PlayerIndex %d"), PlayerIndex);
+//        PlayerIndex++;
+//    }
+//}
+
+void AGFStoreGameMode::PostLogin(APlayerController* NewPlayer)
 {
-    Super::BeginPlay();
+    if (!NewPlayer || !HasAuthority()) return;
 
-    UWorld* World = GetWorld();
-    if (!World) return;
-
-   
-    TArray<AActor*> StartPoints = GetOrderedPlayerStartPoints();
-    if (StartPoints.Num() < 6)
+    AGFBasePlayerState* PS = NewPlayer->GetPlayerState<AGFBasePlayerState>();
+    if (PS)
     {
-        UE_LOG(LogTemp, Error, TEXT("Not enough PlayerStart actors in level!"));
-        return;
-    }
+        PS->LoadFromGameInstance();
 
-    int32 PlayerIndex = 0;
+        // 테스트용 캐릭터 리스트 (정적 캐시)
+        static const TArray<FString> TestCharacterNames = {
+            TEXT("Knight"), TEXT("Berserker"), TEXT("Archer"),
+            TEXT("Wizard"), TEXT("Knight"), TEXT("Berserker")
+        };
 
-    
-    for (FConstPlayerControllerIterator It = World->GetPlayerControllerIterator(); It; ++It)
-    {
-        if (PlayerIndex >= StartPoints.Num())
+        static int32 PlayerIndex = 0;
+
+        const int32 NameCount = TestCharacterNames.Num();
+        const int32 AssignedIndex = PlayerIndex % NameCount;
+
+        if (TestCharacterNames.IsValidIndex(AssignedIndex))
         {
-            UE_LOG(LogTemp, Warning, TEXT("More players than PlayerStarts."));
-            break;
+            PS->SetCharacterBPName(TestCharacterNames[AssignedIndex]);
+            UE_LOG(LogTemp, Log, TEXT("Assigned test character %s to Player %d"),
+                *TestCharacterNames[AssignedIndex], AssignedIndex);
         }
 
-        APlayerController* PC = It->Get();
-        if (!PC) continue;
-
-        
-        RestartPlayerAtPlayerStart(PC, StartPoints[PlayerIndex]);
-
-        // GameInstance 데이터 불러오기
-        AGFBasePlayerState* PS = PC->GetPlayerState<AGFBasePlayerState>();
-        if (PS)
-        {
-            PS->LoadFromGameInstance();
-        }
-
-        AGFStorePlayerController* StorePC = Cast<AGFStorePlayerController>(PC);
-        if (StorePC)
-        {
-            StorePC->ClientShowStoreUI();
-        }
+        /*AActor* StartSpot = ChoosePlayerStart(NewPlayer);
+        SpawnShopCharacterRelativeTo(NewPlayer, StartSpot);*/
 
         PlayerIndex++;
     }
+
+    Super::PostLogin(NewPlayer);
+
+    
+}
+
+AActor* AGFStoreGameMode::ChoosePlayerStart_Implementation(AController* Player)
+{
+    TArray<AActor*> PlayerStarts;
+    UGameplayStatics::GetAllActorsOfClass(this, APlayerStart::StaticClass(), PlayerStarts);
+
+    for (AActor* Start : PlayerStarts)
+    {
+        if (!UsedStartSpots.Contains(Start) && IsStartSpotAvailable(Start))
+        {
+            UsedStartSpots.Add(Start); // 사용된 것으로 기록
+            return Start;
+        }
+    }
+
+    // 전부 사용 중이면 기본 처리
+    return Super::ChoosePlayerStart_Implementation(Player);
 }
 
 void AGFStoreGameMode::RestartPlayerAtPlayerStart(AController* NewPlayer, AActor* StartSpot)
@@ -131,11 +183,47 @@ void AGFStoreGameMode::RestartPlayerAtPlayerStart(AController* NewPlayer, AActor
     if (NewPawn)
     {
         NewPlayer->Possess(NewPawn);
+
+        NewPawn->SetActorRotation(SpawnRotation);
+        NewPlayer->SetControlRotation(SpawnRotation);
     }
     else
     {
         UE_LOG(LogTemp, Error, TEXT("Failed to spawn pawn for player."));
     }
+    SpawnShopCharacterRelativeTo(NewPlayer, StartSpot);
+}
+
+void AGFStoreGameMode::SpawnShopCharacterRelativeTo(AController* PC, AActor* StartSpot)
+{
+    if (!PC || !StartSpot || !ShopCharacterClass) return;
+
+    FVector Origin = StartSpot->GetActorLocation();
+    FRotator Facing = StartSpot->GetActorRotation();
+
+    // Offset -> 미리 측정한 상대 위치
+    FVector Offset = Facing.RotateVector(FVector(190, -90, -112));
+    FVector ShopLocation = Origin + Offset;
+
+    FRotator ShopRotation = Facing;
+
+    FActorSpawnParameters Params;
+    Params.Owner = PC;
+
+    AGFShopCharacterActor* ShopActor = GetWorld()->SpawnActor<AGFShopCharacterActor>(
+        ShopCharacterClass,
+        ShopLocation,
+        ShopRotation,
+        Params
+    );
+
+    if (AGFBasePlayerState* PS = PC->GetPlayerState<AGFBasePlayerState>())
+    {
+        ShopActor->SetupCharacterMesh(PS->GetCharacterBPName());
+    }
+    UE_LOG(LogTemp, Warning, TEXT("SHOP SPAWN >> PC: %s, Location: %s"),
+        *GetNameSafe(PC),
+        *StartSpot->GetActorLocation().ToString()); 
 }
 
 void AGFStoreGameMode::TravelToNextLevel()
@@ -151,5 +239,27 @@ void AGFStoreGameMode::TravelToNextLevel()
 
     UE_LOG(LogTemp, Log, TEXT("Traveling to: %s"), *NextLevelPath);
     GetWorld()->ServerTravel(NextLevelPath);
+}
+
+bool AGFStoreGameMode::IsStartSpotAvailable(AActor* StartSpot) const
+{
+    FVector SpotLocation = StartSpot->GetActorLocation();
+    float Radius = 100.0f;
+
+    TArray<FOverlapResult> Overlaps;
+    FCollisionQueryParams Params;
+    Params.bTraceComplex = false;
+    Params.bReturnPhysicalMaterial = false;
+
+    bool bHasOverlap = GetWorld()->OverlapMultiByObjectType(
+        Overlaps,
+        SpotLocation,
+        FQuat::Identity,
+        FCollisionObjectQueryParams(ECC_Pawn),
+        FCollisionShape::MakeSphere(Radius),
+        Params
+    );
+
+    return !bHasOverlap;
 }
 

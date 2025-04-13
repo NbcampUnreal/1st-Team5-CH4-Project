@@ -2,25 +2,8 @@
 #include "Shop/GFShop.h"
 #include "Server/GFStoreGameMode.h"
 #include "Server/GFStorePlayerState.h"
+#include "Server/GFStoreGameState.h"
 
-void AGFStorePlayerController::ClientShowStoreUI_Implementation()
-{
-	if (StoreWidget || !IsLocalController()) return;
-
-	if (GetWorld() && GetWorld()->GetAuthGameMode())
-	{
-		AGFStoreGameMode* GM = Cast<AGFStoreGameMode>(GetWorld()->GetAuthGameMode());
-		if (GM && GM->StoreWidgetClass)
-		{
-			StoreWidget = CreateWidget<UGFShop>(this, GM->StoreWidgetClass);
-			if (StoreWidget)
-			{
-				StoreWidget->AddToViewport();
-			}
-		}
-	}
-
-}
 
 void AGFStorePlayerController::ServerSetReady_Implementation(bool bReady)
 {
@@ -39,3 +22,15 @@ void AGFStorePlayerController::ServerSetReady_Implementation(bool bReady)
 		}
 	}
 }
+
+void AGFStorePlayerController::BeginPlay()
+{
+	Super::BeginPlay();
+
+	if (IsLocalController())
+	{
+		StoreWidget = CreateWidget<UGFShop>(this, StoreWidgetClass);
+		StoreWidget->AddToViewport();
+	}
+}
+
