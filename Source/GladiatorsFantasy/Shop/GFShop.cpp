@@ -5,6 +5,24 @@
 #include "GameInstance/GFGameInstance.h"
 #include "GameFramework/PlayerState.h"
 #include "Server/GFBasePlayerState.h"
+#include "Server/GFStorePlayerController.h"
+
+void UGFShop::CompleteShopSelection()
+{
+    // 상점 선택 완료 시 플레이어 컨트롤러 캐스팅 후 bIsReady 설정
+    AGFStorePlayerController* PC = Cast<AGFStorePlayerController>(GetOwningPlayer());
+    if (PC)
+    {
+        PC->ServerSetReady(true);
+        UE_LOG(LogTemp, Log, TEXT("플레이어의 bIsReady 상태를 true로 설정했습니다."));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Warning, TEXT("플레이어의 컨트롤러가 유효하지 않습니다."));
+    }
+
+    UpdateShopUI();
+}
 
 void UGFShop::InitializeShop()
 {
