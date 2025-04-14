@@ -29,6 +29,8 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void TravelToAssignedLevelForBP(const FString& InLevelName);
 
+	void TarvelToLastLevel() const;
+
 
 	UFUNCTION(BlueprintCallable)
 	FString GetServerAddress();

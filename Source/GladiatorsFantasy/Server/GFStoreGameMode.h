@@ -14,6 +14,10 @@ public:
 
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shop Character")
 	TSubclassOf<class AGFShopCharacterActor> ShopCharacterClass;
+	
+	UPROPERTY(EditAnywhere, Category = "Character Data")
+	UDataTable* StoreCharacterDataTable;
+
 
 	UFUNCTION(BlueprintCallable, Category = "Shop")
 	void CheckAllPlayersReady();
