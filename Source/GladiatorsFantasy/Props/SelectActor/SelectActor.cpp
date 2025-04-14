@@ -53,6 +53,14 @@ void ASelectActor::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
 
+	if (bIsPlaySelectAnimation)
+	{
+		if (!SkeletalMeshCompo->IsPlaying())
+		{
+			SkeletalMeshCompo->PlayAnimation(IdleAnimation, true);
+			bIsPlaySelectAnimation = false;
+		}
+	}
 }
 
 void ASelectActor::ToggleOverlayMaterial(bool bEnable)
