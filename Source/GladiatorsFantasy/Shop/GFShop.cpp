@@ -22,6 +22,7 @@ void UGFShop::CompleteShopSelection()
     }
 
     UpdateShopUI();
+
 }
 
 void UGFShop::InitializeShop()
