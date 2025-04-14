@@ -22,14 +22,7 @@ void UGFShop::CompleteShopSelection()
     }
 
     UpdateShopUI();
-    InitializeShop();
-    LoadShopItems();
 
-    if (GI->StagePurchaseStatus.IsValidIndex(CurrentStage) && GI->StagePurchaseStatus[CurrentStage])
-    {
-        UE_LOG(LogTemp, Warning, TEXT("현재 스테이지에서는 이미 구매하였습니다."));
-        return;
-    }
 }
 
 void UGFShop::InitializeShop()
