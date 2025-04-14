@@ -54,13 +54,10 @@ void AGFBaseGameMode::TravelToAssignedLevel()
     
 }
 
-void AGFBaseGameMode::TravelToAssignedLevelForBP(const FString& InLevelName)
+void AGFBaseGameMode::TravelToStoreLevel()
 {
-    const FString BasePath = TEXT("/Game/WS/");
-    FString LevelName = InLevelName;
-    FString FullPath = FString::Printf(TEXT("%s%s?listen"), *BasePath, *LevelName);
-
-    GetWorld()->ServerTravel(FullPath);
+    const FString StorePath = TEXT("/Game/WS/StoreLevel.StoreLevel?listen");
+    GetWorld()->ServerTravel(StorePath);
 }
 
 void AGFBaseGameMode::TarvelToLastLevel() const
