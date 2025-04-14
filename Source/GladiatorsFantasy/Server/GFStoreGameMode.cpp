@@ -7,6 +7,7 @@
 #include "Kismet/GameplayStatics.h"
 #include "GameInstance/GFGameInstance.h"
 #include "Character/Store/GFShopCharacterActor.h"
+#include "DataTable/StoreSpawn/FGFStoreCharacterSpawnRow.h"
 
 
 AGFStoreGameMode::AGFStoreGameMode()
@@ -48,50 +49,6 @@ TArray<AActor*> AGFStoreGameMode::GetOrderedPlayerStartPoints()
 
     return PlayerStarts;
 }
-
-//void AGFStoreGameMode::BeginPlay()
-//{
-//    if (!HasAuthority()) return;
-//    Super::BeginPlay();
-//
-//    // 테스트용 캐릭터 리스트 ==== 레벨 간 로드 시 제거해야 함
-//    TArray<FString> TestCharacterNames = {
-//        TEXT("Knight"),
-//        TEXT("Berserker"),
-//        TEXT("Archer"),
-//        TEXT("Wizard"),
-//        TEXT("Knight"),
-//        TEXT("Berserker")
-//    };
-//
-//    int32 PlayerIndex = 0;
-//
-//    
-//    for (FConstPlayerControllerIterator It = GetWorld()->GetPlayerControllerIterator(); It; ++It)
-//    {
-//        APlayerController* PC = It->Get();
-//        if (!PC) continue;
-//
-//        
-//        RestartPlayer(PC);
-//
-//        // GameInstance 데이터 불러오기
-//        AGFBasePlayerState* PS = PC->GetPlayerState<AGFBasePlayerState>();
-//        if (PS)
-//        {
-//            PS->LoadFromGameInstance();
-//
-//            // 테스트용 캐릭터 설정  ==== 레벨 간 로드 시 제거해야 함
-//            if (TestCharacterNames.IsValidIndex(PlayerIndex))
-//            {
-//                PS->SetCharacterBPName(TestCharacterNames[PlayerIndex]);
-//                UE_LOG(LogTemp, Log, TEXT("Assigned test character %s to Player %d"), *TestCharacterNames[PlayerIndex], PlayerIndex);
-//            }
-//        }
-//        UE_LOG(LogTemp, Warning, TEXT("Spawning ShopCharacter for PlayerIndex %d"), PlayerIndex);
-//        PlayerIndex++;
-//    }
-//}
 
 void AGFStoreGameMode::PostLogin(APlayerController* NewPlayer)
 {
@@ -198,11 +155,21 @@ void AGFStoreGameMode::SpawnShopCharacterRelativeTo(AController* PC, AActor* Sta
 {
     if (!PC || !StartSpot || !ShopCharacterClass) return;
 
+    AGFBasePlayerState* BPS = PC->GetPlayerState<AGFBasePlayerState>();
+
+    if (!StoreCharacterDataTable || !HasAuthority()) return;
+
+    const FName RowName = FName(*BPS->GetCharacterBPName());
+    const FGFStoreCharacterSpawnData* Row = StoreCharacterDataTable->FindRow<FGFStoreCharacterSpawnData>(RowName, TEXT("ShopCharMeshLookup"));
+
+    if (!Row) return;
+
     FVector Origin = StartSpot->GetActorLocation();
     FRotator Facing = StartSpot->GetActorRotation();
 
     // Offset -> 미리 측정한 상대 위치
-    FVector Offset = Facing.RotateVector(FVector(190, -90, -112));
+    FVector Offset = Row->LocationOffset;
+    
     FVector ShopLocation = Origin + Offset;
 
     FRotator ShopRotation = Facing;
@@ -233,7 +200,7 @@ void AGFStoreGameMode::TravelToNextLevel()
 
     FString NextLevelPath = LevelPaths.IsValidIndex(GI->GetNextLevelIndex())
         ? LevelPaths[GI->GetNextLevelIndex()]
-        : TEXT("/Game/Maps/FallbackLevel");
+        : TEXT("/Game/Maps/FallbackLevel?listen");
 
     GI->IncrementLevelIndex();
 
