@@ -20,15 +20,9 @@ void UGFShop::CompleteShopSelection()
             AGFStorePlayerState* PS = Cast<AGFStorePlayerState>(BasePS);
             if (PS)
             {
-                int32 CurrentMoney = PS->GetMoney();
-                PS->SetMoney(1000);
 
                 PS->SetIsReady(true);
 
-
-                UE_LOG(LogTemp, Log,
-                    TEXT("플레이어의 돈을 %d에서 %d로 변경하고, bIsReady를 true로 설정했습니다."),
-                    CurrentMoney, 1000);
             }
             else
             {
@@ -153,47 +147,64 @@ void UGFShop::OnBuyItem(int32 ItemIndex)
             return;
         }
 
+        AGFStorePlayerController* PC = Cast<AGFStorePlayerController>(GetOwningPlayer());
+        if (!PC)
+        {
+            UE_LOG(LogTemp, Warning, TEXT("플레이어 컨트롤러를 찾을 수 없습니다."));
+            return;
+        }
+
+        APlayerState* BasePS = PC->PlayerState;
+        if (!BasePS)
+        {
+            UE_LOG(LogTemp, Warning, TEXT("플레이어의 PlayerState가 유효하지 않습니다."));
+            return;
+        }
+
+        AGFStorePlayerState* StorePS = Cast<AGFStorePlayerState>(BasePS);
+        if (!StorePS)
+        {
+            UE_LOG(LogTemp, Warning, TEXT("PlayerState가 AGFStorePlayerState 타입으로 캐스팅되지 않았습니다."));
+            return;
+        }
+
         UGFGameInstance* GI = Cast<UGFGameInstance>(GetGameInstance());
-        if (!GI)
+        if (GI)
         {
-            UE_LOG(LogTemp, Warning, TEXT("GameInstance를 찾을 수 없습니다."));
-            return;
+            int32 CurrentStage = GI->GetLevelIndex();
+            if (GI->StagePurchaseStatus.IsValidIndex(CurrentStage) && GI->StagePurchaseStatus[CurrentStage])
+            {
+                UE_LOG(LogTemp, Warning, TEXT("현재 스테이지에서는 이미 구매하였습니다."));
+                return;
+            }
         }
 
-        // 현재 스테이지 인덱스 가져오기
-        int32 CurrentStage = GI->GetLevelIndex();
-
-        // 해당 스테이지의 구매 여부 체크
-        if (GI->StagePurchaseStatus.IsValidIndex(CurrentStage) && GI->StagePurchaseStatus[CurrentStage])
-        {
-            UE_LOG(LogTemp, Warning, TEXT("현재 스테이지에서는 이미 구매하였습니다."));
-            return;
-        }
-
-        const FString PlayerKey = TEXT("DummyKey");  // 사용 중인 키
-
-        if (!GI->PlayerDataMap.Contains(PlayerKey))
-        {
-            UE_LOG(LogTemp, Warning, TEXT("PlayerDataMap에 %s 키가 없습니다."), *PlayerKey);
-            return;
-        }
-
-        FPlayerData& Data = GI->PlayerDataMap[PlayerKey];
+        // 플레이어의 돈을 PlayerState에서 가져와 비교
+        int32 CurrentMoney = StorePS->GetMoney();
         const FShopItem& Item = ShopItems[ItemIndex];
 
-        if (Data.Money >= Item.Price)
+        if (CurrentMoney >= Item.Price)
         {
-            Data.Money -= Item.Price;
-            PlayerGold = Data.Money; // Shop 내 PlayerGold 변수에도 동기화
+            // 아이템 가격만큼 돈 차감
+            StorePS->SetMoney(CurrentMoney - Item.Price);
+            // UI 갱신을 위해 로컬 변수도 업데이트
+            PlayerGold = StorePS->GetMoney();
 
-            // 구매 성공 시 현재 스테이지의 구매 상태를 true로 설정
-            GI->StagePurchaseStatus[CurrentStage] = true;
+            UE_LOG(LogTemp, Log, TEXT("아이템 [%s]을(를) 구매했습니다. 남은 돈: %d"), *Item.Name, StorePS->GetMoney());
 
-            UE_LOG(LogTemp, Log, TEXT("아이템 [%s]을(를) 구매했습니다. 남은 돈: %d"), *Item.Name, Data.Money);
+            // (옵션) 구매 성공 시 현재 스테이지 상태를 true로 설정
+            if (GI)
+            {
+                int32 CurrentStage = GI->GetLevelIndex();
+                if (GI->StagePurchaseStatus.IsValidIndex(CurrentStage))
+                {
+                    GI->StagePurchaseStatus[CurrentStage] = true;
+                }
+            }
         }
         else
         {
-            UE_LOG(LogTemp, Warning, TEXT("골드가 부족합니다. [%s] 가격: %d, 현재 돈: %d"), *Item.Name, Item.Price, Data.Money);
+            UE_LOG(LogTemp, Warning, TEXT("골드가 부족합니다. [%s] 가격: %d, 현재 돈: %d"), *Item.Name, Item.Price, CurrentMoney);
         }
 
 
