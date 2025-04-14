@@ -36,6 +36,11 @@ public:
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Mesh")
 	TObjectPtr<UPostProcessComponent> OutlineCompo;
 
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Animation")
+	UAnimMontage* SelectAnimationMontage;
+
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Animation")
+	UAnimSequence* IdleAnimation;
 	
 	FString GetSelectType();
 	
@@ -46,4 +51,10 @@ public:
 	virtual void Tick(float DeltaTime) override;
 
 	void ToggleOverlayMaterial(bool bEnable);
+
+	void PlayAnimMontageSelect() { SkeletalMeshCompo->PlayAnimation(SelectAnimationMontage, false); bIsPlaySelectAnimation = true; }
+	void PlayAnimIdle() { SkeletalMeshCompo->PlayAnimation(IdleAnimation,true); bIsPlaySelectAnimation = false; }
+
+private:
+	bool bIsPlaySelectAnimation;
 };
