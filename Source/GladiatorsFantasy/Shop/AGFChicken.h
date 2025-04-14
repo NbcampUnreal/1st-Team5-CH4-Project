@@ -27,8 +27,8 @@ protected:
 	);
 
 public:
-	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "Components")
-	UStaticMeshComponent* ChickenMesh;
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Components")
+	USkeletalMeshComponent* ChickenMesh;
 
 	// 던질 때 재생할 소리
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sound")

@@ -42,6 +42,10 @@ public:
     UFUNCTION(BlueprintCallable, Category = "Shop")
     bool SellItem(int32 InventoryIndex, class AGFBaseCharacter* Seller);
 
+    // 상점 선택 완료 후 호출하는 함수 추가
+    UFUNCTION(BlueprintCallable, Category = "Shop")
+    void CompleteShopSelection();
+
     FString GetOwningPlayerId() const;
 
     // 상점 아이템 목록 (Blueprint에서도 수정 가능)
