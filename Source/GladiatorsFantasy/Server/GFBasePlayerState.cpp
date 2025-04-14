@@ -1,6 +1,7 @@
 #include "GFBasePlayerState.h"
 #include "GameInstance/GFGameInstance.h"
 #include "Net/UnrealNetwork.h"
+#include "DataTable/CombatSpawn/FGFCombatSpawnRow.h"
 
 FString AGFBasePlayerState::GetPlayerUniqueId() const
 {
@@ -12,6 +13,24 @@ FString AGFBasePlayerState::GetPlayerUniqueId() const
     {
         return FString::FromInt(GetPlayerId()); // fallback: PIE, 로컬
     }
+}
+
+TSubclassOf<ACharacter> AGFBasePlayerState::GetCharacterClassFromBPName() const
+{
+    if (!CharacterDataTable || CharacterBPName.IsEmpty())
+    {
+        return nullptr;
+    }
+
+    const FCombatCharacterData* Row = CharacterDataTable->FindRow<FCombatCharacterData>(
+        FName(*CharacterBPName), TEXT("LookupCharacterClass"));
+
+    if (Row)
+    {
+        return Row->CharacterClass;
+    }
+
+    return nullptr;
 }
 
 void AGFBasePlayerState::SaveToGameInstance()

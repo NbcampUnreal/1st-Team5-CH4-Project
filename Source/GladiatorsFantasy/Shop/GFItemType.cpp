@@ -3,6 +3,7 @@
 #include "Engine/World.h"
 #include "Math/UnrealMathUtility.h"
 #include "Components/BoxComponent.h"
+#include "TimerManager.h"
 
 AGFItemType::AGFItemType()
 {
@@ -19,10 +20,15 @@ void AGFItemType::BeginPlay()
 	Super::BeginPlay();
 
 	SpawnRandomItem();
+
+    // 10초마다 CheckAndSpawn() 함수 호출
+    if (GetWorld())
+    {
+        GetWorld()->GetTimerManager().SetTimer(SpawnTimerHandle, this, &AGFItemType::CheckAndSpawn, 10.0f, true);
+    }
 	
 }
 
-// Called every frame
 void AGFItemType::Tick(float DeltaTime)
 {
 	Super::Tick(DeltaTime);
@@ -79,5 +85,19 @@ void AGFItemType::SpawnRandomItem()
     else
     {
         UE_LOG(LogTemp, Error, TEXT("ItemToSpawn is null or GetWorld() failed."));
+    }
+}
+
+void AGFItemType::CheckAndSpawn()
+{
+    // SpawnBox의 영역에 겹치는 액터가 있는지 체크
+    TArray<AActor*> OverlappingActors;
+    SpawnBox->GetOverlappingActors(OverlappingActors);
+
+    // 아이템이 없으면 스폰을 실행
+    if (OverlappingActors.Num() == 0)
+    {
+        UE_LOG(LogTemp, Log, TEXT("No item detected in the spawner. Spawning a new one..."));
+        SpawnRandomItem();
     }
 }

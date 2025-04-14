@@ -57,7 +57,11 @@ void AAGFChicken::PickUp(ACharacter* NewOwner)
 		ChickenMesh->SetSimulatePhysics(false);
 		ChickenMesh->SetCollisionEnabled(ECollisionEnabled::NoCollision);
 
-		AttachToComponent(NewOwner->GetMesh(), FAttachmentTransformRules::SnapToTargetNotIncludingScale, FName("HandSocket"));
+		AttachToComponent(NewOwner->GetMesh(), FAttachmentTransformRules::KeepRelativeTransform, FName("HandSocket"));
+
+		FVector Offset(-50.f, 0.f, 50.f);  // 위치 조정
+		ChickenMesh->SetRelativeLocation(Offset);
+
 		bIsEquipped = true;
 	}
 }
