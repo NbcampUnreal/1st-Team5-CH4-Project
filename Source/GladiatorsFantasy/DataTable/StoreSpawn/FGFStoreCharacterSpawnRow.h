@@ -19,5 +19,5 @@ struct FGFStoreCharacterSpawnData : public FTableRowBase
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Animation")
 	TSoftObjectPtr<UAnimSequence> Animation;
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Location")
-	FVector LocationOffset;
+	FVector LocationOffset = FVector::ZeroVector;
 };
