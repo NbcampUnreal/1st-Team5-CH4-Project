@@ -44,4 +44,9 @@ public:
     // 랜덤하게 아이템를 스폰하는 함수
     UFUNCTION(BlueprintCallable, Category = "Item Spawner")
     void SpawnRandomItem();
+
+    void CheckAndSpawn();
+
+private:
+    FTimerHandle SpawnTimerHandle;
 };
