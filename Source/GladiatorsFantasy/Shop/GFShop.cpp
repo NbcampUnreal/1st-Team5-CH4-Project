@@ -6,6 +6,7 @@
 #include "GameFramework/PlayerState.h"
 #include "Server/GFBasePlayerState.h"
 #include "Server/GFStorePlayerController.h"
+#include "Server/GFStorePlayerState.h"
 
 void UGFShop::CompleteShopSelection()
 {
@@ -13,15 +14,41 @@ void UGFShop::CompleteShopSelection()
     AGFStorePlayerController* PC = Cast<AGFStorePlayerController>(GetOwningPlayer());
     if (PC)
     {
+        APlayerState* BasePS = PC->PlayerState;
+        if (BasePS)
+        {
+            AGFStorePlayerState* PS = Cast<AGFStorePlayerState>(BasePS);
+            if (PS)
+            {
+                int32 CurrentMoney = PS->GetMoney();
+                PS->SetMoney(1000);
+
+                PS->SetIsReady(true);
+
+
+                UE_LOG(LogTemp, Log,
+                    TEXT("플레이어의 돈을 %d에서 %d로 변경하고, bIsReady를 true로 설정했습니다."),
+                    CurrentMoney, 1000);
+            }
+            else
+            {
+                UE_LOG(LogTemp, Warning,
+                    TEXT("PlayerState가 AGFStorePlayerState 타입으로 캐스팅되지 않았습니다."));
+            }
+        }
+        else
+        {
+            UE_LOG(LogTemp, Warning,
+                TEXT("플레이어의 PlayerState가 유효하지 않습니다."));
+        }
+
         PC->ServerSetReady(true);
-        UE_LOG(LogTemp, Log, TEXT("플레이어의 bIsReady 상태를 true로 설정했습니다."));
     }
     else
     {
-        UE_LOG(LogTemp, Warning, TEXT("플레이어의 컨트롤러가 유효하지 않습니다."));
+        UE_LOG(LogTemp, Warning,
+            TEXT("플레이어의 컨트롤러가 유효하지 않습니다."));
     }
-
-    UpdateShopUI();
 
 }
 
