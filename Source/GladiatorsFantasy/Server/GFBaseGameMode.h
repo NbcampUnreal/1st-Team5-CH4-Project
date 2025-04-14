@@ -29,7 +29,7 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void TravelToStoreLevel();
 	UFUNCTION(BlueprintCallable)
-	void TarvelToLastLevel() const;
+	void TravelToLastLevel();
 
 
 	UFUNCTION(BlueprintCallable)
