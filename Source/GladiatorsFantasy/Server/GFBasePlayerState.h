@@ -16,6 +16,9 @@ public:
 	UFUNCTION(BlueprintCallable, Category = "Player")
 	FString GetPlayerUniqueId() const;
 
+    UFUNCTION(BlueprintCallable, Category = "Character")
+    TSubclassOf<ACharacter> GetCharacterClassFromBPName() const;
+
     UFUNCTION(BlueprintCallable)
 	void SaveToGameInstance(); 
     UFUNCTION(BlueprintCallable)
@@ -86,4 +89,7 @@ protected:
 
     UPROPERTY(Replicated)
     FWeaponInfo WeaponInfo;
+
+    UPROPERTY(EditDefaultsOnly, Category = "Character")
+    UDataTable* CharacterDataTable;
 };
