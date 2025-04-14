@@ -63,6 +63,12 @@ void AGFBaseGameMode::TravelToAssignedLevelForBP(const FString& InLevelName)
     GetWorld()->ServerTravel(FullPath);
 }
 
+void AGFBaseGameMode::TarvelToLastLevel() const
+{
+    const FString LastLevelPath = TEXT("/Game/GY/TestLevel2.TestLevel2?listen");
+    GetWorld()->ServerTravel(LastLevelPath);
+}
+
 FString AGFBaseGameMode::GetServerAddress()
 {
     if (UNetDriver* NetDriver = GetWorld()->GetNetDriver())
