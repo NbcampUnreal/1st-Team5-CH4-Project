@@ -129,6 +129,8 @@ void AGFMainLobyPlayerController::SelectActionTriggered()
 					// 캐릭터 선택 로직
 					if (PrevSelectedCharacter)
 					{
+						// 이전 캐릭터는 Idle 실행
+						PrevSelectedCharacter->PlayAnimIdle();
 						PrevSelectedCharacter->ToggleOverlayMaterial(false);
 					}
 					PrevSelectedCharacter = SelectActor;
@@ -136,6 +138,9 @@ void AGFMainLobyPlayerController::SelectActionTriggered()
 					UE_LOG(LogTemp, Warning, TEXT("Clicked Actor: %s"), *SelecTypeTest);
 					GetPlayerState<AGFBasePlayerState>()->SetCharacterBPName(SelecTypeTest);
 					SelectActor->ToggleOverlayMaterial(true);
+
+					// 선택시 애니메이션 실행
+					SelectActor->PlayAnimMontageSelect();
 					
 					// 서버한테 나 이걸로 변경할래 호출
 					ChangeSelectedCharacter(SelecTypeTest);

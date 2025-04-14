@@ -35,6 +35,10 @@ public:
 
 protected:
 	UPROPERTY(EditDefaultsOnly, Category = "UI")
+	TSubclassOf<UUserWidget> MainWidgetClass;
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
+	TObjectPtr<UUserWidget> MainWidget;
+	UPROPERTY(EditDefaultsOnly, Category = "UI")
 	TSubclassOf<UGFChatWidget> ChatWidgetClass;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI")
 	TObjectPtr<UGFChatWidget> ChatWidget;

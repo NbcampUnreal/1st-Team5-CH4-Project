@@ -34,11 +34,21 @@ void AGFPlayerController::BeginPlay()
 	// Widget Test Code
 	if (IsLocalController())
 	{
-		ChatWidget = CreateWidget<UGFChatWidget>(this, ChatWidgetClass);
-		if (ChatWidget)
+		MainWidget = CreateWidget<UUserWidget>(this, MainWidgetClass);
+		if (MainWidget)
 		{
-			ChatWidget->AddToViewport();
+			if(UWidget* FindChat = MainWidget->GetWidgetFromName(TEXT("WBP_Chat")))
+			{
+				ChatWidget = Cast<UGFChatWidget>(FindChat);
+			}
+			MainWidget->AddToViewport();
 		}
+		
+		// ChatWidget = CreateWidget<UGFChatWidget>(this, ChatWidgetClass);
+		// if (ChatWidget)
+		// {
+		// 	ChatWidget->AddToViewport();
+		// }
 	}
 }
 
