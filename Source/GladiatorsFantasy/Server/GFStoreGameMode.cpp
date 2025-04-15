@@ -59,28 +59,28 @@ void AGFStoreGameMode::PostLogin(APlayerController* NewPlayer)
     {
         PS->LoadFromGameInstance();
 
-        // 테스트용 캐릭터 리스트 (정적 캐시)
-        static const TArray<FString> TestCharacterNames = {
-            TEXT("Knight"), TEXT("Berserker"), TEXT("Archer"),
-            TEXT("Wizard"), TEXT("Knight"), TEXT("Berserker")
-        };
+        //// 테스트용 캐릭터 리스트 (정적 캐시)
+        //static const TArray<FString> TestCharacterNames = {
+        //    TEXT("Knight"), TEXT("Berserker"), TEXT("Archer"),
+        //    TEXT("Wizard"), TEXT("Knight"), TEXT("Berserker")
+        //};
 
-        static int32 PlayerIndex = 0;
+        //static int32 PlayerIndex = 0;
 
-        const int32 NameCount = TestCharacterNames.Num();
-        const int32 AssignedIndex = PlayerIndex % NameCount;
+        //const int32 NameCount = TestCharacterNames.Num();
+        //const int32 AssignedIndex = PlayerIndex % NameCount;
 
-        if (TestCharacterNames.IsValidIndex(AssignedIndex))
-        {
-            PS->SetCharacterBPName(TestCharacterNames[AssignedIndex]);
-            UE_LOG(LogTemp, Log, TEXT("Assigned test character %s to Player %d"),
-                *TestCharacterNames[AssignedIndex], AssignedIndex);
-        }
+        //if (TestCharacterNames.IsValidIndex(AssignedIndex))
+        //{
+        //    PS->SetCharacterBPName(TestCharacterNames[AssignedIndex]);
+        //    UE_LOG(LogTemp, Log, TEXT("Assigned test character %s to Player %d"),
+        //        *TestCharacterNames[AssignedIndex], AssignedIndex);
+        //}
 
-        /*AActor* StartSpot = ChoosePlayerStart(NewPlayer);
-        SpawnShopCharacterRelativeTo(NewPlayer, StartSpot);*/
+        ///*AActor* StartSpot = ChoosePlayerStart(NewPlayer);
+        //SpawnShopCharacterRelativeTo(NewPlayer, StartSpot);*/
 
-        PlayerIndex++;
+        //PlayerIndex++;
     }
 
     Super::PostLogin(NewPlayer);

@@ -27,9 +27,9 @@ public:
 	void TravelToAssignedLevel();
 
 	UFUNCTION(BlueprintCallable)
-	void TravelToAssignedLevelForBP(const FString& InLevelName);
+	void TravelToStoreLevel();
 	UFUNCTION(BlueprintCallable)
-	void TarvelToLastLevel() const;
+	void TravelToLastLevel();
 
 
 	UFUNCTION(BlueprintCallable)

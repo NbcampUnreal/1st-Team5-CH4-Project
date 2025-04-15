@@ -15,7 +15,17 @@ AGFLobbyPlayerSlot::AGFLobbyPlayerSlot()
 void AGFLobbyPlayerSlot::BeginPlay()
 {
 	Super::BeginPlay();
-	
+
+	if (SelectedCharacter && ReplicatedMesh)
+	{
+		SelectedCharacter->SkeletalMeshCompo->SetSkeletalMesh(ReplicatedMesh);
+	}
+
+	if (SelectedCharacter && ReplicatedAnim)
+	{
+		SelectedCharacter->SkeletalMeshCompo->SetAnimation(ReplicatedAnim);
+		SelectedCharacter->SkeletalMeshCompo->PlayAnimation(ReplicatedAnim, true);
+	}
 }
 
 void AGFLobbyPlayerSlot::Tick(float DeltaTime)
