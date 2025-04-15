@@ -32,7 +32,7 @@ void AGFDeadZoneActor::OnOverlapBegin(UPrimitiveComponent* OverlappedComp, AActo
 		UFunction* Func = OtherActor->FindFunction(FName("I_DirectDeath"));
 		if (Func)
 		{
-			OtherActor->ProcessEvent(Func, nullptr);
+ 			OtherActor->ProcessEvent(Func, nullptr);
 		}
 		else
 		{
