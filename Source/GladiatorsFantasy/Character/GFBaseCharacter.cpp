@@ -13,7 +13,7 @@ AGFBaseCharacter::AGFBaseCharacter()
 {
 	PrimaryActorTick.bCanEverTick = true;
 	bIsStunned = false;
-
+	
 }
 
 void AGFBaseCharacter::BeginPlay()
