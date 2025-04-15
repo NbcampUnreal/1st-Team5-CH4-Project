@@ -41,6 +41,11 @@ void AGFPlayerController::BeginPlay()
 			{
 				ChatWidget = Cast<UGFChatWidget>(FindChat);
 			}
+			if (UWidget* FindChat = MainWidget->GetWidgetFromName(TEXT("WBP_GFSkillCooldownWidget")))
+			{
+				SkillWidget = Cast<UUserWidget>(FindChat);
+			}
+
 			MainWidget->AddToViewport();
 		}
 		
