@@ -7,6 +7,8 @@
 #include "Server/GFBasePlayerState.h"
 #include "Server/GFStorePlayerController.h"
 #include "Server/GFStorePlayerState.h"
+#include "Weapon/GFWeaponBase.h"
+#include "Math/UnrealMathUtility.h"
 
 void UGFShop::CompleteShopSelection()
 {
@@ -90,13 +92,78 @@ void UGFShop::InitializeShop()
     UpdateShopUI();
 }
 
+void UGFShop::RandomizeItemRarity(int32 Index)
+{
+    // 인덱스 유효성 체크
+    if (!ShopItems.IsValidIndex(Index))
+    {
+        UE_LOG(LogTemp, Warning, TEXT("잘못된 ShopItem 인덱스입니다."));
+        return;
+    }
+
+    // EWeaponRarity의 유효 범위 (EWR_Max는 최대값 표시용이므로 제외)
+    int32 RarityRange = static_cast<int32>(EWeaponRarity::EWR_Max) - 1;
+    // FRandomStream 사용: 매 호출 시 새로운 시드 생성
+    FRandomStream RandomStream;
+    RandomStream.GenerateNewSeed();
+
+    // 0부터 RarityRange (포함)까지의 무작위 정수 생성
+    int32 RandomIndex = RandomStream.RandRange(0, RarityRange);
+    EWeaponRarity RandomRarity = static_cast<EWeaponRarity>(RandomIndex);
+
+    // 기존 Setter를 사용하여 해당 인덱스의 Rarity 변경
+    SetItemRarity(Index, RandomRarity);
+
+    UE_LOG(LogTemp, Log, TEXT("RandomizeItemRarity: 인덱스[%d]의 무기 등급을 %d로 설정했습니다."), Index, RandomIndex);
+}
+
+void UGFShop::SetItemRarity(int32 Index, EWeaponRarity NewRarity)
+{
+    if (ShopItems.IsValidIndex(Index))
+    {
+        ShopItems[Index].Rarity = NewRarity;
+        
+        UpdateShopUI();
+        UE_LOG(LogTemp, Log, TEXT("ShopItem [%d] Rarity 변경: %d"), Index, static_cast<int32>(NewRarity));
+    }
+    else
+    {
+        UE_LOG(LogTemp, Warning, TEXT("잘못된 ShopItem 인덱스입니다."));
+    }
+}
+
+EWeaponRarity UGFShop::GetItemRarity(int32 Index) const
+{
+    if (ShopItems.IsValidIndex(Index))
+    {
+        return ShopItems[Index].Rarity;
+    }
+    return EWeaponRarity::EWR_Nomal;
+}
+
+FShopItem CreateRandomizedShopItem(const FString& ItemName, int32 Price)
+{
+    // EWeaponRarity의 유효 범위: EWR_Nomal부터 EWR_Legend까지
+    int32 RarityRange = static_cast<int32>(EWeaponRarity::EWR_Max) - 1;
+
+    FRandomStream RandomStream;
+    RandomStream.GenerateNewSeed();
+
+    // 0부터 (RarityRange - 1)까지 무작위 정수 생성
+    int32 RandomIndex = RandomStream.RandRange(0, RarityRange);
+    EWeaponRarity RandomRarity = static_cast<EWeaponRarity>(RandomIndex);
+
+    return FShopItem(ItemName, Price, RandomRarity);
+}
+
 FString UGFShop::LoadShopItems()
 {
     // 기존 아이템 목록 초기화
     ShopItems.Empty();
+
     ShopItems.Add(FShopItem(TEXT("BasicSword"), 100));
     ShopItems.Add(FShopItem(TEXT("Bow"), 100));
-    ShopItems.Add(FShopItem(TEXT("DoubleHandedSword"), 100));
+    ShopItems.Add(FShopItem(TEXT("DoubleHandedSword"), 100, EWeaponRarity::EWR_Legend));
     ShopItems.Add(FShopItem(TEXT("MagicBook"), 100));
 
     UpdateShopUI();
@@ -192,7 +259,10 @@ void UGFShop::OnBuyItem(int32 ItemIndex)
 
             UE_LOG(LogTemp, Log, TEXT("아이템 [%s]을(를) 구매했습니다. 남은 돈: %d"), *Item.Name, StorePS->GetMoney());
 
-            // (옵션) 구매 성공 시 현재 스테이지 상태를 true로 설정
+            // 구매 성공 시 WeaponInfo 업데이트
+            StorePS->SetFWeaponInfo(Item.Name, Item.Rarity);
+
+            // 구매 성공 시 현재 스테이지 상태를 true로 설정
             if (GI)
             {
                 int32 CurrentStage = GI->GetLevelIndex();
