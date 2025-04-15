@@ -15,6 +15,9 @@ public:
 
     UFUNCTION(Server, Reliable)
     void ServerSetReady(bool bReady);
+    UFUNCTION(Client, Reliable)
+    void ClientBlockInput(bool bBlock);
+
 
     virtual void BeginPlay() override;
 

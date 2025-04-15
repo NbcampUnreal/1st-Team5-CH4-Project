@@ -20,8 +20,18 @@ void AGFStorePlayerController::ServerSetReady_Implementation(bool bReady)
 		{
 			GM->CheckAllPlayersReady();
 		}
+		// 입력 무시
 	}
+	SetIgnoreMoveInput(true);
+	SetIgnoreLookInput(true);
+	ClientBlockInput(bReady);
 }
+void AGFStorePlayerController::ClientBlockInput_Implementation(bool bBlock)
+{
+	SetIgnoreMoveInput(bBlock);
+	SetIgnoreLookInput(bBlock);
+}
+
 
 void AGFStorePlayerController::BeginPlay()
 {
