@@ -4,6 +4,8 @@
 #include "GameFramework/Actor.h"
 #include "GFLobbySelectedCharacter.generated.h"
 
+class AGFLobbyPlayerSlot;
+
 UCLASS()
 class GLADIATORSFANTASY_API AGFLobbySelectedCharacter : public AActor
 {
@@ -14,6 +16,8 @@ public:
 
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components|Mesh")
 	USkeletalMeshComponent* SkeletalMeshCompo;
+	//UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Property|Refs", Replicated)
+	//AGFLobbyPlayerSlot* OwnerSlot;
 
 protected:
 	virtual void BeginPlay() override;

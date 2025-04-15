@@ -1,5 +1,4 @@
 #include "Props/LobbyPlayerSlot/GFLobbyPlayerSlot.h"
-
 #include "Character/MainLoby/GFMainLobyPlayerController.h"
 
 
@@ -7,6 +6,7 @@ AGFLobbyPlayerSlot::AGFLobbyPlayerSlot()
 {
 	PrimaryActorTick.bCanEverTick = true;
 	bReplicates = true;
+	bNetLoadOnClient = true;
 
 	StaticMeshCompo = CreateDefaultSubobject<UStaticMeshComponent>(TEXT("StaticMesh"));
 	RootComponent = StaticMeshCompo;
@@ -16,12 +16,19 @@ void AGFLobbyPlayerSlot::BeginPlay()
 {
 	Super::BeginPlay();
 
-	if (SelectedCharacter && ReplicatedMesh)
+	if (!SelectedCharacter)
+	{
+		FActorSpawnParameters SpawnParams;
+		SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
+		SelectedCharacter =  GetWorld()->SpawnActor<AGFLobbySelectedCharacter>(GetActorLocation(), GetActorRotation(), SpawnParams);
+	}
+	
+	if (ReplicatedMesh)
 	{
 		SelectedCharacter->SkeletalMeshCompo->SetSkeletalMesh(ReplicatedMesh);
 	}
-
-	if (SelectedCharacter && ReplicatedAnim)
+	
+	if (ReplicatedAnim)
 	{
 		SelectedCharacter->SkeletalMeshCompo->SetAnimation(ReplicatedAnim);
 		SelectedCharacter->SkeletalMeshCompo->PlayAnimation(ReplicatedAnim, true);
@@ -71,15 +78,6 @@ void AGFLobbyPlayerSlot::AddSelectedActor(APlayerController* In_PlayerController
 	FActorSpawnParameters SpawnParams;
 	SpawnParams.SpawnCollisionHandlingOverride = ESpawnActorCollisionHandlingMethod::AlwaysSpawn;
 	SelectedCharacter =  GetWorld()->SpawnActor<AGFLobbySelectedCharacter>(GetActorLocation(), GetActorRotation(), SpawnParams);
-
-	
-	// FString MeshPath = TEXT("/Game/JHC/ParagonKwang/Characters/Heroes/Kwang/Skins/Tier2/Kwang_Manban/Meshes/KwangManbun.KwangManbun");
-	// ReplicatedMesh = LoadObject<USkeletalMesh>(nullptr, *MeshPath);
-	//
-	// if (ReplicatedMesh)
-	// {
-	// 	SelectedCharacter->SkeletalMeshCompo->SetSkeletalMesh(ReplicatedMesh);
-	// }
 }
 
 void AGFLobbyPlayerSlot::RemoveSelectedActor()
