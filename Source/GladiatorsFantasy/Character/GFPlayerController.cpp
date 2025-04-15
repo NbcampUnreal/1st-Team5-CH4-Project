@@ -43,12 +43,6 @@ void AGFPlayerController::BeginPlay()
 			}
 			MainWidget->AddToViewport();
 		}
-		
-		// ChatWidget = CreateWidget<UGFChatWidget>(this, ChatWidgetClass);
-		// if (ChatWidget)
-		// {
-		// 	ChatWidget->AddToViewport();
-		// }
 	}
 }
 
@@ -62,6 +56,17 @@ FString AGFPlayerController::GetTeamTagName()
 	}
 	
 	return "Error";
+}
+
+void AGFPlayerController::OnPossess(APawn* InPawn)
+{
+	Super::OnPossess(InPawn);
+
+	if (Cast<AGFBaseCharacter>(InPawn))
+	{
+		SetInputMode(FInputModeGameOnly());
+		bShowMouseCursor = false;	
+	}
 }
 
 // ================================================

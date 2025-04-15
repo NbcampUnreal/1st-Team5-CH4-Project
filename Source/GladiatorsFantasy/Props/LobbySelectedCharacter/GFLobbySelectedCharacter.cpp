@@ -6,6 +6,8 @@ AGFLobbySelectedCharacter::AGFLobbySelectedCharacter()
 {
 	PrimaryActorTick.bCanEverTick = true;
 	bReplicates = true;
+	bNetLoadOnClient = true;
+	
 	SetReplicateMovement(true);
 
 	SkeletalMeshCompo = CreateDefaultSubobject<USkeletalMeshComponent>("SkeletalMesh");
@@ -27,4 +29,6 @@ void AGFLobbySelectedCharacter::Tick(float DeltaTime)
 void AGFLobbySelectedCharacter::GetLifetimeReplicatedProps(TArray<class FLifetimeProperty>& OutLifetimeProps) const
 {
 	Super::GetLifetimeReplicatedProps(OutLifetimeProps);
+
+	//DOREPLIFETIME(AGFLobbySelectedCharacter, OwnerSlot);
 }
