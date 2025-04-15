@@ -4,6 +4,7 @@
 #include "Blueprint/UserWidget.h"
 #include "GFLobyWidget.generated.h"
 
+class UTextBlock;
 class UGFChatWidget;
 class UButton;
 
@@ -18,6 +19,8 @@ protected:
 public:
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UButton> StartBtn;
+	UPROPERTY(meta = (BindWidget))
+	TObjectPtr<UTextBlock> StartBtnText;
 	UPROPERTY(meta = (BindWidget))
 	TObjectPtr<UButton> BackBtn;
 	UPROPERTY(meta = (BindWidget))

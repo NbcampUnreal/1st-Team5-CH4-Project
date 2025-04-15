@@ -17,17 +17,6 @@ void UGFGameInstance::Init()
 
     // 각 스테이지별 구매 상태를 false로 초기화 (총 3스테이지)
     StagePurchaseStatus.Init(false, 3);
-
-    // 실험용 더미 데이터 삽입
-    FPlayerData Dummy;
-    Dummy.PlayerCustomName = TEXT("TestPlayer");
-    Dummy.Money = 999;
-    Dummy.WinPoint = 1;
-    Dummy.LossCount = 0;
-    Dummy.SetWeaponRarity(EWeaponRarity::EWR_Nomal);
-    Dummy.SetWeaponName("Dummy");
-
-    PlayerDataMap.Add(TEXT("DummyKey"), Dummy);
 }
 
 void UGFGameInstance::SetGameState(EGameState NewState)

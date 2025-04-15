@@ -73,4 +73,6 @@ public:
 	void ServerSendMessage(const FString& Message, const FString& TeamTagName, EMessage_Type MessageType);
 
 	FString GetTeamTagName();
+
+	virtual void OnPossess(APawn* InPawn) override;
 };
