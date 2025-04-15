@@ -38,6 +38,8 @@ protected:
 	TSubclassOf<UUserWidget> MainWidgetClass;
 	UPROPERTY(EditDefaultsOnly, Category = "UI")
 	TObjectPtr<UUserWidget> MainWidget;
+	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI")
+	TObjectPtr<UUserWidget> SkillWidget;
 	UPROPERTY(EditDefaultsOnly, Category = "UI")
 	TSubclassOf<UGFChatWidget> ChatWidgetClass;
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category = "UI")
@@ -58,6 +60,8 @@ protected:
 public:
 	UFUNCTION(BlueprintCallable)
 	UGFChatWidget* GetChatWidget() { return ChatWidget; }
+	UFUNCTION(BlueprintCallable)
+	UUserWidget* GetSkillWidget() { return SkillWidget; }
 	UFUNCTION(BlueprintCallable)
 	UGFCaptureStatusWidget* GetGFCaptureStatusWidget() { return GFCaptureStatusWidget; }
 
