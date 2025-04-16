@@ -14,7 +14,8 @@ AGFStoreGameMode::AGFStoreGameMode()
 {
     LevelPaths = {
         TEXT("/Game/WS/TestLevel2?listen"),
-        TEXT("/Game/WS/TestLevelWS3?listen")
+        TEXT("/Game/WS/TestLevelWS3?listen"),
+        TEXT("/Game/SH/BattletLevel4?listen")
     };
 }
 
