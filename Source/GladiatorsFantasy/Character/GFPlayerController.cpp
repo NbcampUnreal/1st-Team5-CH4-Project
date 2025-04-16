@@ -70,7 +70,8 @@ void AGFPlayerController::OnPossess(APawn* InPawn)
 	if (Cast<AGFBaseCharacter>(InPawn))
 	{
 		SetInputMode(FInputModeGameOnly());
-		bShowMouseCursor = false;	
+		FSlateApplication::Get().ClearKeyboardFocus();
+		bShowMouseCursor = false;
 	}
 }
 
