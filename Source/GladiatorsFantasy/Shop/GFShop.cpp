@@ -148,10 +148,10 @@ FString UGFShop::LoadShopItems()
     // 기존 아이템 목록 초기화
     ShopItems.Empty();
 
-    ShopItems.Add(FShopItem(TEXT("BasicSword"), 100));
-    ShopItems.Add(FShopItem(TEXT("Bow"), 100));
-    ShopItems.Add(FShopItem(TEXT("DoubleHandedSword"), 100, EWeaponRarity::EWR_Legend));
-    ShopItems.Add(FShopItem(TEXT("MagicBook"), 100));
+    ShopItems.Add(FShopItem(TEXT("SwordAndShieldCharacter"), 100));
+    ShopItems.Add(FShopItem(TEXT("BowCharacter"), 100));
+    ShopItems.Add(FShopItem(TEXT("DoubleHandedCharacter"), 100, EWeaponRarity::EWR_Legend));
+    ShopItems.Add(FShopItem(TEXT("MagicBookCharacter"), 100));
 
     UpdateShopUI();
 
