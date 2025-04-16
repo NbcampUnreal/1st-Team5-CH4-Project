@@ -74,6 +74,8 @@ public:
     // Player 전체 정보 저장
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Player")
     TMap<FString, FPlayerData> PlayerDataMap;
+    UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Levels")
+    bool bIsLastLevel;
 
     // 통계 관련 변수들
     //플레이어 킬수 저장
