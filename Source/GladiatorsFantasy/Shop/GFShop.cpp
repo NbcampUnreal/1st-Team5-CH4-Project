@@ -50,38 +50,25 @@ void UGFShop::CompleteShopSelection()
 
 void UGFShop::InitializeShop()
 {
-    //// 플레이어 ID 가져옴
-    //FString PlayerId = GetOwningPlayerId();
+    APlayerController* PC = GetOwningPlayer();
 
-    //// 초기 플레이어 골드 설정
-    //UGFGameInstance* GI = Cast<UGFGameInstance>(GetGameInstance());
-    //if (GI)
-    //{
-    //    GI->PlayerDataMap[PlayerId].Money = 1000;
-    //    PlayerGold = GI->PlayerDataMap[PlayerId].Money; // 동기화
-    //}
-
-    //임시코드
-    FString PlayerId = GetOwningPlayerId();
-    UGFGameInstance* GI = Cast<UGFGameInstance>(GetGameInstance());
-    if (GI)
+    if (PC && PC->PlayerState)
     {
-        // 이미 데이터가 존재한다면 골드 초기화를 하지 않음
-        if (!GI->PlayerDataMap.Contains(PlayerId))
+        // PlayerState가 우리가 원하는 타입(예: AGFBasePlayerState)으로 캐스팅 가능한지 확인
+        AGFBasePlayerState* BPS = Cast<AGFBasePlayerState>(PC->PlayerState);
+        if (BPS)
         {
-            FPlayerData NewPlayerData;
-            NewPlayerData.PlayerCustomName = PlayerId;
-            NewPlayerData.Money = 1000; // 최초 초기화 시에만 설정
-            NewPlayerData.WinPoint = 0;
-            NewPlayerData.LossCount = 0;
-            GI->PlayerDataMap.Add(PlayerId, NewPlayerData);
+            // PlayerState에 저장된 돈 값으로 PlayerGold 동기화
+            PlayerGold = BPS->GetMoney();
         }
-        // 현재 상점 위젯의 플레이어 골드 동기화
-        PlayerGold = GI->PlayerDataMap[PlayerId].Money;
+        else
+        {
+            UE_LOG(LogTemp, Warning, TEXT("PlayerState가 AGFBasePlayerState로 캐스팅되지 않았습니다."));
+        }
     }
     else
     {
-        UE_LOG(LogTemp, Warning, TEXT("GameInstance를 찾을 수 없습니다."));
+        UE_LOG(LogTemp, Warning, TEXT("플레이어 컨트롤러 또는 PlayerState를 찾을 수 없습니다."));
     }
 
 
@@ -173,117 +160,53 @@ FString UGFShop::LoadShopItems()
 
 void UGFShop::OnBuyItem(int32 ItemIndex)
 {
-    //if (!ShopItems.IsValidIndex(ItemIndex))
-    //{
-        //UE_LOG(LogTemp, Warning, TEXT("잘못된 아이템 인덱스입니다."));
-        //return;
-    //}
+    if (!ShopItems.IsValidIndex(ItemIndex))
+    {
+        UE_LOG(LogTemp, Warning, TEXT("잘못된 아이템 인덱스입니다."));
+        return;
+    }
 
-    //UGFGameInstance* GI = Cast<UGFGameInstance>(GetGameInstance());
-    //if (!GI)
-    //{
-        //UE_LOG(LogTemp, Warning, TEXT("GameInstance를 찾을 수 없습니다."));
-        //return;
-    //}
+    AGFStorePlayerController* PC = Cast<AGFStorePlayerController>(GetOwningPlayer());
+    if (!PC)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("플레이어 컨트롤러를 찾을 수 없습니다."));
+        return;
+    }
 
-    //FShopItem& Item = ShopItems[ItemIndex];
+    APlayerState* BasePS = PC->PlayerState;
+    if (!BasePS)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("플레이어의 PlayerState가 유효하지 않습니다."));
+        return;
+    }
 
-    //FString PlayerId = GetOwningPlayerId(); // 플레이어 이름을 가져오는 방식 필요
+    AGFStorePlayerState* StorePS = Cast<AGFStorePlayerState>(BasePS);
+    if (!StorePS)
+    {
+        UE_LOG(LogTemp, Warning, TEXT("PlayerState가 AGFStorePlayerState 타입으로 캐스팅되지 않았습니다."));
+        return;
+    }
 
-    //if (GI->PlayerDataMap.Contains(PlayerId))
-    //{
-        //FPlayerData& Data = GI->PlayerDataMap[PlayerId];
+    int32 CurrentMoney = StorePS->GetMoney();
+    const FShopItem& Item = ShopItems[ItemIndex];
 
-        //if (Data.Money >= Item.Price)
-        //{
-            //Data.Money -= Item.Price;
-            //PlayerGold = Data.Money;
+    UE_LOG(LogTemp, Log, TEXT("구매 전: CurrentMoney = %d, Item.Price = %d"), CurrentMoney, Item.Price);
 
-            //UE_LOG(LogTemp, Log, TEXT("아이템 [%s]을(를) 구매했습니다. 남은 돈: %d"), *Item.Name, Data.Money);
-        //}
-        //else
-        //{
-            //UE_LOG(LogTemp, Warning, TEXT("골드가 부족합니다. [%s] 가격: %d, 현재 돈: %d"), *Item.Name, Item.Price, Data.Money);
-        //}
-        
+    if (CurrentMoney >= Item.Price)
+    {
+        StorePS->SetMoney(CurrentMoney - Item.Price);
+        PlayerGold = StorePS->GetMoney();
 
-        // 아이템 인덱스 유효성 체크
-        if (!ShopItems.IsValidIndex(ItemIndex))
-        {
-            UE_LOG(LogTemp, Warning, TEXT("잘못된 아이템 인덱스입니다."));
-            return;
-        }
+        UE_LOG(LogTemp, Log, TEXT("아이템 [%s] 구매 성공, 남은 돈: %d"), *Item.Name, StorePS->GetMoney());
 
-        AGFStorePlayerController* PC = Cast<AGFStorePlayerController>(GetOwningPlayer());
-        if (!PC)
-        {
-            UE_LOG(LogTemp, Warning, TEXT("플레이어 컨트롤러를 찾을 수 없습니다."));
-            return;
-        }
-
-        APlayerState* BasePS = PC->PlayerState;
-        if (!BasePS)
-        {
-            UE_LOG(LogTemp, Warning, TEXT("플레이어의 PlayerState가 유효하지 않습니다."));
-            return;
-        }
-
-        AGFStorePlayerState* StorePS = Cast<AGFStorePlayerState>(BasePS);
-        if (!StorePS)
-        {
-            UE_LOG(LogTemp, Warning, TEXT("PlayerState가 AGFStorePlayerState 타입으로 캐스팅되지 않았습니다."));
-            return;
-        }
-
-        UGFGameInstance* GI = Cast<UGFGameInstance>(GetGameInstance());
-        if (GI)
-        {
-            int32 CurrentStage = GI->GetLevelIndex();
-            if (GI->StagePurchaseStatus.IsValidIndex(CurrentStage) && GI->StagePurchaseStatus[CurrentStage])
-            {
-                UE_LOG(LogTemp, Warning, TEXT("현재 스테이지에서는 이미 구매하였습니다."));
-                return;
-            }
-        }
-
-        // 플레이어의 돈을 PlayerState에서 가져와 비교
-        int32 CurrentMoney = StorePS->GetMoney();
-        const FShopItem& Item = ShopItems[ItemIndex];
-
-        if (CurrentMoney >= Item.Price)
-        {
-            // 아이템 가격만큼 돈 차감
-            StorePS->SetMoney(CurrentMoney - Item.Price);
-            // UI 갱신을 위해 로컬 변수도 업데이트
-            PlayerGold = StorePS->GetMoney();
-
-            UE_LOG(LogTemp, Log, TEXT("아이템 [%s]을(를) 구매했습니다. 남은 돈: %d"), *Item.Name, StorePS->GetMoney());
-
-            // 구매 성공 시 WeaponInfo 업데이트
-            StorePS->SetFWeaponInfo(Item.Name, Item.Rarity);
-
-            // 구매 성공 시 현재 스테이지 상태를 true로 설정
-            if (GI)
-            {
-                int32 CurrentStage = GI->GetLevelIndex();
-                if (GI->StagePurchaseStatus.IsValidIndex(CurrentStage))
-                {
-                    GI->StagePurchaseStatus[CurrentStage] = true;
-                }
-            }
-        }
-        else
-        {
-            UE_LOG(LogTemp, Warning, TEXT("골드가 부족합니다. [%s] 가격: %d, 현재 돈: %d"), *Item.Name, Item.Price, CurrentMoney);
-        }
-
-
-        // 구매 후 UI 갱신
-        UpdateShopUI();
-    //else
-    //{
-        //UE_LOG(LogTemp, Warning, TEXT("플레이어 정보를 찾을 수 없습니다. 이름: %s"), *PlayerId);
-    //}
+        // 구매 성공 시 무기 정보 업데이트 등
+        StorePS->SetFWeaponInfo(Item.Name, Item.Rarity);
+    }
+    else
+    {
+        UE_LOG(LogTemp, Warning, TEXT("골드가 부족합니다. [%s] 가격: %d, 현재 돈: %d"), *Item.Name, Item.Price, CurrentMoney);
+    }
+    UpdateShopUI();
 }
 
 bool UGFShop::SellItem(int32 InventoryIndex, AGFBaseCharacter* Seller)
