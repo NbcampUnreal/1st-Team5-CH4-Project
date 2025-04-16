@@ -61,7 +61,7 @@ void UGFChatWidget::NativeConstruct()
 
 
 	// TestCode
-	SetIsFocusable(true);
+	//SetIsFocusable(true);
 	UpdateMessageTypeText();
 }
 
