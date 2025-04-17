@@ -75,6 +75,18 @@ void AGFPlayerController::OnPossess(APawn* InPawn)
 	}
 }
 
+void AGFPlayerController::OnRep_Pawn()
+{
+	Super::OnRep_Pawn();
+
+	if (IsLocalController() && Cast<AGFBaseCharacter>(GetPawn()))
+	{
+		SetInputMode(FInputModeGameOnly());
+		FSlateApplication::Get().ClearKeyboardFocus();
+		bShowMouseCursor = false;
+	}
+}
+
 // ================================================
 // Chat Function
 // ================================================

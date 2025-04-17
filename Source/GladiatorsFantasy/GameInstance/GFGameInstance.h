@@ -130,6 +130,7 @@ public:
     UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Shop")
     TArray<bool> StagePurchaseStatus;
 
+    UFUNCTION(BlueprintCallable)
     int32 GetNextLevelIndex() const;
     void SetNextLevelIndex(int32 InIndex);
     void IncrementLevelIndex();
