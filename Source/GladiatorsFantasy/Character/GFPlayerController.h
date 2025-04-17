@@ -57,6 +57,8 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "UI")
 	TObjectPtr<UGFTDMStatusWidget> GFTDMStatusWidget;
 
+	virtual bool ShouldCreateMainWidget() const { return true; }
+
 public:
 	UFUNCTION(BlueprintCallable)
 	UGFChatWidget* GetChatWidget() { return ChatWidget; }
