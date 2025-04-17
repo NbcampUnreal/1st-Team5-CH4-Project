@@ -19,4 +19,7 @@ class GLADIATORSFANTASY_API IGFMatchEndInterface
 public:
 	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
 	void DOMMatchEnd(); // DOM 전용 종료 처리
+
+	UFUNCTION(BlueprintNativeEvent, BlueprintCallable)
+	void RunLoadingImage(); // 로딩 이미지
 };
