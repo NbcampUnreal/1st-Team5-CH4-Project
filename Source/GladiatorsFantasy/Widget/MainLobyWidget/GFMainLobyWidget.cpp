@@ -20,7 +20,7 @@ void UGFMainLobyWidget::NativeConstruct()
 	}
 	if (CreditsBtn)
 	{
-		CreditsBtn->OnClicked.AddDynamic(this, &UGFMainLobyWidget::PressedStartBtn);
+		//CreditsBtn->OnClicked.AddDynamic(this, &UGFMainLobyWidget::PressedStartBtn);
 	}
 	if (ExitBtn)
 	{
