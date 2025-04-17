@@ -2,6 +2,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/GameMode.h"
+#include "UnrealInterface/GFMatchEndInterface.h"
 #include "GFStoreGameMode.generated.h"
 
 UCLASS()
