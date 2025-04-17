@@ -31,13 +31,12 @@ void AGFPlayerController::BeginPlay()
 		}
 	}
 
-	// Widget Test Code
-	if (IsLocalController())
+	if (IsLocalController() && ShouldCreateMainWidget())
 	{
 		MainWidget = CreateWidget<UUserWidget>(this, MainWidgetClass);
 		if (MainWidget)
 		{
-			if(UWidget* FindChat = MainWidget->GetWidgetFromName(TEXT("WBP_Chat")))
+			if (UWidget* FindChat = MainWidget->GetWidgetFromName(TEXT("WBP_Chat")))
 			{
 				ChatWidget = Cast<UGFChatWidget>(FindChat);
 			}
