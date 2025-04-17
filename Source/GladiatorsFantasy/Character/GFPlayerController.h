@@ -75,4 +75,5 @@ public:
 	FString GetTeamTagName();
 
 	virtual void OnPossess(APawn* InPawn) override;
+	virtual void OnRep_Pawn() override;
 };

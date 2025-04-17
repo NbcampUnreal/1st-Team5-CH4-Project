@@ -33,6 +33,11 @@ void AGFStoreGameMode::CheckAllPlayersReady()
         }
     }
     
+    if (GetClass()->ImplementsInterface(UGFMatchEndInterface::StaticClass()))
+    {
+        IGFMatchEndInterface::Execute_RunLoadingImage(this);
+    }
+    
     // 모두 준비 완료
     TravelToNextLevel();
 }
@@ -205,6 +210,7 @@ void AGFStoreGameMode::TravelToNextLevel()
 
     GI->IncrementLevelIndex();
 
+    UE_LOG(LogTemp, Log, TEXT("Traveling to index: %d"), GI->GetNextLevelIndex());
     UE_LOG(LogTemp, Log, TEXT("Traveling to: %s"), *NextLevelPath);
     GetWorld()->ServerTravel(NextLevelPath);
 }

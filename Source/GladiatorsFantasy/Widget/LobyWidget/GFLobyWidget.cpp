@@ -5,6 +5,7 @@
 #include "Components/TextBlock.h"
 #include "Server/GFBaseGameMode.h"
 #include "Server/GFBasePlayerState.h"
+#include "UnrealInterface/GFMatchEndInterface.h"
 
 void UGFLobyWidget::NativeConstruct()
 {
@@ -40,6 +41,11 @@ void UGFLobyWidget::PressedStartBtn()
 	{
 		if (PlayerController->HasAuthority())
 		{
+			if (GetClass()->ImplementsInterface(UGFMatchEndInterface::StaticClass()))
+			{
+				IGFMatchEndInterface::Execute_RunLoadingImage(this);
+			}
+			
 			AGFBaseGameMode* GFGM = Cast<AGFBaseGameMode>(GetWorld()->GetAuthGameMode());
 			GFGM->ChangeLevel();
 		}
