@@ -20,6 +20,7 @@ public:
 
 
     virtual void BeginPlay() override;
+    virtual bool ShouldCreateMainWidget() const override { return false; }
 
 protected:
     UPROPERTY()
