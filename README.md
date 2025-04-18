@@ -22,13 +22,13 @@
 <br>
 
 ## 프로젝트 소개
-### Project : Gunfire Paragon <br>
-### Duration : 2025.02.17 ~ 2025.03.07 <br>
+### Project : Gladiators Fantasy <br>
+### Duration : 2025.03.31 ~ 2025.04.18 <br>
 ### Project Convention <br>
 - Code   : PascalCase
 - Git    : Rebase And Merge
 - Directory && Commit && Unreal
-- Wiki https://github.com/NbcampUnreal/1st-Team1-CH3-Project/wiki
+- Wiki https://github.com/NbcampUnreal/1st-Team5-CH4-Project
 
 ### Desctiption Part / Email or Blog Link <br>
 - Multi Player  Rogue-Like
