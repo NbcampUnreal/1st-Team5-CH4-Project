@@ -35,8 +35,9 @@
 - Direction, Package, UI, Gameflow  :  /  <br>
 - Character, Animation, SkillSystem : 정우영  /  <br>
 - Character, Animation, SkillSystem : 정혜창 / [개발블로그](https://velog.io/@hch9097/posts)<br>
-- GameMode, MultiplayEV, Package,   :  /  <br>
+- GameMode, MultiplayEV, Package,   : 최원석 /  <br>
 - UI, Weapon, Character, Movie      : 한가윤 /  <br>
+- UI, ShopSystem, EconomySystem     : 최세훈 /  <br>
 
 ## Project Part Directory And Main Features <br>
 <details>
