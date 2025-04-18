@@ -113,6 +113,7 @@
 - Unreal Engine 5.5
 - Visual Studio 2022
 - Git LFS
+- Rider
 
 <br>
 </div>
