@@ -10,7 +10,7 @@
 - 객체지향과 디자인패턴을 의미있게 적용
 - 원활환 협업을 위한 Wiki 작성된 깃 컨벤션 및 코드컨벤션 적용
 - 템플릿을 활용하여 블루프린트, C++ 을 이용해 게임확장
-- GameSession, RPC, Replecates를 이용하여 Multiplayer Game 환경조성 
+- GameSession, RPC, Replecates를 이용하여 Network 환경조성 
 - 멀티플레이 환경에서 작동하기 위해 게임 최적화 적용
 - 유효성검사 및 로깅을 통한 유지보수성 및 안정성을 향상시킨 코드 및 블루프린트 작성
 
@@ -32,16 +32,16 @@
 
 ### Desctiption Part / Email or Blog Link <br>
 - Multi Player  Rogue-Like
-- Direction, Package, UI, Gameflow  :  /  <br>
+- Direction, Network, UI, Gameflow, Optimization : 지성현 /  <br>
 - Character, Animation, SkillSystem : 정우영  /  <br>
 - Character, Animation, SkillSystem : 정혜창 / [개발블로그](https://velog.io/@hch9097/posts)<br>
-- GameMode, MultiplayEV, Package,   : 최원석 /  <br>
-- UI, Weapon, Character, Movie      : 한가윤 /  <br>
-- UI, ShopSystem, EconomySystem     : 최세훈 /  <br>
+- GameMode, Network, GameSession, Gameflow  : 최원석 /  <br>
+- UI, Weapon, Character, Movie, SkillSystem  : 한가윤 /  <br>
+- UI, ShopSystem, EconomySystem  : 최세훈 /  <br>
 
 ## Project Part Directory And Main Features <br>
 <details>
-  <summary> Player </summary>
+  <summary> Network GameSession </summary>
   
     | -- Source
       | -- Actor
@@ -65,49 +65,43 @@
           | -- Gun_Shotgun // NormalBullet를 동시에 Pellets수만큼 발사하는 무기
           | -- Gun_Sniper // PierceBullet를 발사하는 무기
 
-### Player
+### Network GameSession
 - C++ 기반의 플레이어 로직 설계
   - Enhanced Input System을 사용한 입력 액션
   - CharacterMovement Component을 사용한 캐릭터 로직 설계
   - Tick을 사용하지 않은 이벤트 기반의 플레이어 로직 구현
   - GameInstance와 연동한 레벨 전환시 플레이어 정보 저장/불러오기 기능
-
 </details>
 
 <details>
   <summary> Character </summary>
-
-
-
-### Actor 
-
-          
+### Character      
 </details>
 
 <details>
-  <summary> GameMode </summary>
-
-
+  <summary> GameMode </summary> 
 ### GameMode
-
 </details>
 
 <details>
   <summary> Weapon </summary>
-
-
-### Animation
-
+### Weapon
 </details>
 
 <details>
   <summary> Animation </summary>
-
-
-### UI
-
+### Animation
 </details>
 
+<details>
+  <summary> Shop </summary>
+### Shop
+</details>
+
+<details>
+  <summary> UI </summary>
+### UI
+</details>
 
 <br>
 
@@ -121,40 +115,38 @@
 <br>
 </div>
 
+## Network GameSession
+<details>
+<summary>Network GameSession UML Diagram</summary>    
+![GameModeUML](https://github.com/user-attachments/assets/4e7303c4-9e41-4588-89bf-7ade03a08a87)
+</details>
+
+## Character
+<details>
+<summary>Character UML Class Diagram</summary>
+</details>
+
 ## GameMode
 <details>
-<summary>GameMode UML Diagram</summary>  
-  
-![GameModeUML](https://github.com/user-attachments/assets/4e7303c4-9e41-4588-89bf-7ade03a08a87)
-
+<summary>GameMode UML Class Diagram</summary>
 </details>
 
-## Player
+## Weapon
 <details>
-<summary>Enemy Player UML Class Diagram</summary>
-
+<summary>Weapon UML Class Diagram</summary>
 </details>
 
-## AIMonster
+## Animation
 <details>
-<summary>Enemy AI UML Class Diagram</summary>
-  
+<summary>Animation UML Class Diagram</summary>
 </details>
 
-## Actor
+## Shop
 <details>
-<summary>Enemy Actor UML Class Diagram</summary>
-  
-</details>
-
-## Object
-<details>
-<summary>Object UML Class Diagram</summary>
-  
+<summary>Shop UML Class Diagram</summary>
 </details>
 
 ## UI
 <details>
 <summary>UI UML Class Diagram</summary>
-  
 </details>
