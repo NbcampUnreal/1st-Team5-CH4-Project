@@ -31,7 +31,7 @@
 - Wiki https://github.com/NbcampUnreal/1st-Team5-CH4-Project
 
 ### Desctiption Part / Email or Blog Link <br>
-- Multi Player like HyperActionFight Game
+- MultiPlay like HyperActionFight Game
 - Direction, Network, UI, Gameflow, Optimization : 지성현 /  <br>
 - Character, Animation, SkillSystem : 정우영  /  <br>
 - Character, Animation, SkillSystem : 정혜창 / [개발블로그](https://velog.io/@hch9097/posts)<br>
