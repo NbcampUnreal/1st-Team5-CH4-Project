@@ -130,21 +130,31 @@
 </details>
 
 ## Player
+<details>
+<summary>Enemy Player UML Class Diagram</summary>
+
+</details>
 
 ## AIMonster
 <details>
 <summary>Enemy AI UML Class Diagram</summary>
   
-
-
 </details>
 
 ## Actor
+<details>
+<summary>Enemy Actor UML Class Diagram</summary>
+  
+</details>
 
 ## Object
+<details>
+<summary>Object UML Class Diagram</summary>
+  
+</details>
 
 ## UI
 <details>
-<summary>InGame UI UML Class Diagram</summary>  
-
+<summary>UI UML Class Diagram</summary>
+  
 </details>
