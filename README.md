@@ -75,7 +75,7 @@
 </details>
 
 <details>
-  <summary> Actor </summary>
+  <summary> Character </summary>
 
 
 
@@ -93,15 +93,15 @@
 </details>
 
 <details>
-  <summary> AI </summary>
+  <summary> Weapon </summary>
 
 
-### AI
+### Animation
 
 </details>
 
 <details>
-  <summary> UI </summary>
+  <summary> Animation </summary>
 
 
 ### UI
