@@ -17,7 +17,7 @@
 <br>
 
 ## 기술 스택
-[![My Skills](https://skillicons.dev/icons?i=cpp,visualstudio,git,github,unreal,notion&theme=light)](https://skillicons.dev)
+[![My Skills](https://skillicons.dev/icons?i=cpp,visualstudio,git,github,rider,unreal,notion&theme=light)](https://skillicons.dev)
 
 <br>
 
@@ -113,6 +113,7 @@
 - Unreal Engine 5.5
 - Visual Studio 2022
 - Git LFS
+- Rider
 
 <br>
 </div>
@@ -120,7 +121,7 @@
 ## Network GameSession
 <details>
 <summary>Network GameSession UML Diagram</summary>    
-![GameModeUML](https://github.com/user-attachments/assets/4e7303c4-9e41-4588-89bf-7ade03a08a87)
+
 </details>
 
 ## Character
