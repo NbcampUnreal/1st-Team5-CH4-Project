@@ -16,7 +16,7 @@ public class RiderLink : ModuleRules
 #if UE_5_2_OR_LATER
 		bDisableStaticAnalysis = true;
 #endif
-
+		bEnableExceptions = true;
 		PublicDependencyModuleNames.Add("Core");
 		PublicDependencyModuleNames.Add("RD");
 		string[] Paths = {

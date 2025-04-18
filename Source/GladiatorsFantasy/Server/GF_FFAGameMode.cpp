@@ -1,11 +1,9 @@
 #include "Server/GF_FFAGameMode.h"
-#include "GF_FFAGameMode.h"
 #include "Kismet/GameplayStatics.h"
 #include "GameFramework/PlayerStart.h"
 #include "Character/GFPlayerController.h"
 #include "Server/GF_FFAGameState.h"
 #include "Server/GF_FFAPlayerState.h"
-#include "AI/GFAIController.h"
 
 
 
@@ -51,4 +49,40 @@ FTransform AGF_FFAGameMode::GetAvailablePlayerStartTransform_Implementation()
         UsedPlayerStarts.Num(), *ChosenStart->GetName());
 
     return ChosenStart->GetActorTransform();
+}
+
+FTransform AGF_FFAGameMode::GetRandomPlayerStartTransform_Implementation() const
+{
+    TArray<AActor*> AllStarts;
+    UGameplayStatics::GetAllActorsOfClass(GetWorld(), APlayerStart::StaticClass(), AllStarts);
+
+    if (AllStarts.Num() == 0)
+    {
+        UE_LOG(LogTemp, Error, TEXT("[PlayerStart] No PlayerStart found in level!"));
+        return FTransform();
+    }
+
+    int32 Index = FMath::RandRange(0, AllStarts.Num() - 1);
+    AActor* ChosenStart = AllStarts[Index];
+
+    if (!ChosenStart)
+    {
+        UE_LOG(LogTemp, Error, TEXT("[PlayerStart] Chosen PlayerStart is null!"));
+        return FTransform();
+    }
+
+    UE_LOG(LogTemp, Warning, TEXT("[PlayerStart] Chosen: %s"), *ChosenStart->GetName());
+    return ChosenStart->GetActorTransform();
+}
+
+FString AGF_FFAGameMode::GetTargetMapName() const
+{
+    return TEXT("TestLevelWS3");
+}
+
+// 테스트용
+void AGF_FFAGameMode::EndPlay(const EEndPlayReason::Type EndPlayReason)
+{
+    Super::EndPlay(EndPlayReason);
+    AGF_FFAPlayerState::TestPlayerIndex = 1;
 }
