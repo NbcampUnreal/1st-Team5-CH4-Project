@@ -50,22 +50,9 @@
         | -- MainLobyGameMode // 클라이언트가 닉네임과, 사용할 케릭터를 선택할 수 있다.
         | -- GFBaseGameMode // 모든 플레이어가 선택을 완료 할 경우 다음 레벨로 전환한다.
       | -- Actor
-        | -- Character
-          | -- BP_MainCharacter // 케릭터가 멀티플레이어를 하기 위한 구조를 갖춘 기본 클래스
-            | -- CBP_Default // 케릭터가 멀티플레이어 이후 애니메이션을 적용하기 위한 자료를 가지고 있는 클래스
-              | -- ABP_Default // Locomotion과 타격 애니메이션이 들어있는 애니메이션 블루프린트
-              | -- CBP_Night  //  리타겟한 스켈레탈이 보이는 케릭터
-              | -- CBP_Archer  //  리타겟한 스켈레탈이 보이는 케릭터
-              | -- CBP_Berserker //  리타겟한 스켈레탈이 보이는 케릭터
-              | -- CBP_Magiction //  리타겟한 스켈레탈이 보이는 케릭터
-          | -- WeaponBase // 근접 무기에 메쉬와 로직을 담는 클래스     
-              | -- TowHandedSword // 양손검
-              | -- SwordAndShield // 검과 방패
-          | -- RangeWeaponBase // 원거리 무기 메쉬와 로직을 담는 클래스
-              | -- MagicBook // 마법책
-              | -- Bow // 활
-          | -- SkillBase // 콜리전과 이펙트를 가진 클래스
-              | -- VFX // 이펙트만 소유한 클래스 (제거 및 변경을 원하랗게 하기 위해서)              
+
+
+         
 
 ### Network GameSession
 - C++ 기반의 플레이어 로직 설계
@@ -77,8 +64,15 @@
 
 <details>
   <summary> Character </summary>
-### Character
-###
+  
+        | -- Character
+          | -- BP_MainCharacter // 케릭터가 멀티플레이어를 하기 위한 구조를 갖춘 기본 클래스
+            | -- CBP_Default // 케릭터가 멀티플레이어 이후 애니메이션을 적용하기 위한 자료를 가지고 있는 클래스
+              | -- ABP_Default // Locomotion과 타격 애니메이션이 들어있는 애니메이션 블루프린트
+              | -- CBP_Night  //  리타겟한 스켈레탈이 보이는 케릭터
+              | -- CBP_Archer  //  리타겟한 스켈레탈이 보이는 케릭터
+              | -- CBP_Berserker //  리타겟한 스켈레탈이 보이는 케릭터
+              | -- CBP_Magiction //  리타겟한 스켈레탈이 보이는 케릭터
 </details>
 
 <details>
@@ -88,7 +82,15 @@
 
 <details>
   <summary> Weapon </summary>
-### Weapon
+  
+          | -- WeaponBase // 근접 무기에 메쉬와 로직을 담는 클래스     
+              | -- TowHandedSword // 양손검
+              | -- SwordAndShield // 검과 방패
+          | -- RangeWeaponBase // 원거리 무기 메쉬와 로직을 담는 클래스
+              | -- MagicBook // 마법책
+              | -- Bow // 활
+          | -- SkillBase // 콜리전과 이펙트를 가진 클래스
+              | -- VFX // 이펙트만 소유한 클래스 (제거 및 변경을 원하랗게 하기 위해서)     
 </details>
 
 <details>
