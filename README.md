@@ -33,7 +33,7 @@
 ### Desctiption Part / Email or Blog Link <br>
 - MultiPlayGame like HyperActionFight 
 - Direction, Network, UI, Gameflow, Optimization : 지성현 /  <br>
-- Character, Animation, SkillSystem : 정우영  /  <br>
+- Character, Animation, SkillSystem : 정우영  /  [개발블로그](https://velog.io/@buu1147/2025-04-18-KPT%ED%9A%8C%EA%B3%A0)<br>
 - Character, Animation, SkillSystem : 정혜창 / [개발블로그](https://velog.io/@hch9097/posts)<br>
 - GameMode, Network, GameSession, Gameflow  : 최원석 /  <br>
 - UI, Weapon, Character, Movie, SkillSystem  : 한가윤 /  <br>
@@ -46,26 +46,26 @@
   <summary> Network GameSession </summary>
   
     | -- Source
+      | -- GameMode
+        | -- MainLobyGameMode // 클라이언트가 닉네임과, 사용할 케릭터를 선택할 수 있다.
+        | -- GFBaseGameMode // 모든 플레이어가 선택을 완료 할 경우 다음 레벨로 전환한다.
       | -- Actor
-        | -- BulletPool // ObjectPooling 기법을 사용하여 BulletBase Class들을 재사용하는 최적화 구현
-        | -- Bullet
-          | -- BulletBase // Projectile 공통적인 기능을 구현한 AActor를 상속한 상위 클래스
-          | -- BombBullet // Overlap시 범위 공격을 가하는 Bullet
-          | -- NormalBullet // 기본적인 Bullet
-          | -- PierceBullet // 특정 횟수만큼 Monster를 관통하는 Bullet
-        | -- Trap
-          | -- TrapBase // 함정 활성화, 충돌, 데미지 등의 공통 로직을 구현한 클래스
-          | -- SpikeTrap // 특정 시간마다 돌출되는 바닥 설치형 함정
-          | -- RollingTrap // 특정 시간마다 바닥으로 굴러오는 함정
-          | -- ArrowTrap // MoveToActor를 활용한 유도형 함정
-          | -- MovingSpotLight // 플레이어를 따라다니는 스포트라이트
-          | -- SharkSpawner // Arrow형 Trap을 최적화를 위해 구현한 스포너
-        | -- Weapon
-          | -- CGunBase // Fire, Ovelap, Speed 무기 공통기능을 구현한 상위 클래스
-          | -- Gun_Rifle // NoramlBullet를 발사하는 무기
-          | -- Gun_Rocket // BombBullet를 발사하는 무기
-          | -- Gun_Shotgun // NormalBullet를 동시에 Pellets수만큼 발사하는 무기
-          | -- Gun_Sniper // PierceBullet를 발사하는 무기
+        | -- Character
+          | -- BP_MainCharacter // 케릭터가 멀티플레이어를 하기 위한 구조를 갖춘 기본 클래스
+            | -- CBP_Default // 케릭터가 멀티플레이어 이후 애니메이션을 적용하기 위한 자료를 가지고 있는 클래스
+              | -- ABP_Default // Locomotion과 타격 애니메이션이 들어있는 애니메이션 블루프린트
+              | -- CBP_Night  //  리타겟한 스켈레탈이 보이는 케릭터
+              | -- CBP_Archer  //  리타겟한 스켈레탈이 보이는 케릭터
+              | -- CBP_Berserker //  리타겟한 스켈레탈이 보이는 케릭터
+              | -- CBP_Magiction //  리타겟한 스켈레탈이 보이는 케릭터
+          | -- WeaponBase // 근접 무기에 메쉬와 로직을 담는 클래스     
+              | -- TowHandedSword // 양손검
+              | -- SwordAndShield // 검과 방패
+          | -- RangeWeaponBase // 원거리 무기 메쉬와 로직을 담는 클래스
+              | -- MagicBook // 마법책
+              | -- Bow // 활
+          | -- SkillBase // 콜리전과 이펙트를 가진 클래스
+              | -- VFX // 이펙트만 소유한 클래스 (제거 및 변경을 원하랗게 하기 위해서)              
 
 ### Network GameSession
 - C++ 기반의 플레이어 로직 설계
@@ -77,7 +77,8 @@
 
 <details>
   <summary> Character </summary>
-### Character      
+### Character
+###
 </details>
 
 <details>
