@@ -40,7 +40,7 @@ https://youtu.be/JVUk93A31gM
 - Direction, Network, UI, Gameflow, Optimization : 지성현 /  <br>
 - Character, Animation, SkillSystem : 정우영  /  [개발블로그](https://velog.io/@buu1147/2025-04-18-KPT%ED%9A%8C%EA%B3%A0)<br>
 - Character, Animation, SkillSystem : 정혜창 / [개발블로그](https://velog.io/@hch9097/posts)<br>
-- GameMode, Network, GameSession, Gameflow  : 최원석 /  <br>
+- GameMode, Network, GameSession, Gameflow  : 최원석 /  [개발블로그](https://onestone13.tistory.com/)<br>
 - UI, Weapon, Character, Movie, SkillSystem  : 한가윤 / [개발블로그](https://yoosorang.tistory.com) [Git](https://github.com/swehio))<br>
 - UI, ShopSystem, EconomySystem  : 최세훈 /  <br>
 
@@ -76,7 +76,18 @@ https://youtu.be/JVUk93A31gM
 
 <details>
   <summary> GameMode </summary> 
-### GameMode
+
+        | -- GameMode  
+          | -- GFBaseGameMode  
+            | -- GF_FFAGameMode // 개인전 (FFA) 모드  
+            | -- GFStoreGameMode // 상점에서 아이템을 구매하는 스토어 모드  
+            | -- BP_GM_Multiplayer (Blueprint) // 멀티플레이어용 기본 블루프린트 GameMode  
+              | -- BP_GF_DOM_Multiplayer (Blueprint) // 점령전 (DOM, Domination) 모드  
+              | -- BP_GF_TDM_Multiplayer (Blueprint) // 팀 데스매치 (TDM, Team Deathmatch) 모드  
+
+- 팀전 모드를 먼저 설계한 뒤, 팀전 로직을 제거한 개인전 모드(FFA)를 별도로 제작하여 재사용성을 높임.
+- 게임 모드를 개인전과 팀전 모드로 나누고, 추가 모드를 쉽게 확장할 수 있도록 설계함.
+- 최상위에는 GFBaseGameMode를 두고, 레벨 전환과 플레이어 준비 완료 체크 등 공통 로직을 구현하여 중복을 제거.
 </details>
 
 <details>
