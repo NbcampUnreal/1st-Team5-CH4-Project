@@ -1,11 +1,27 @@
+---
+## 프로젝트 소개
 <div align = left>
   
 ![콜로세움_검투사싸우는 사진](https://github.com/user-attachments/assets/e455c47f-424a-411b-acee-37826c93b247)
+### Project : Gladiators Fantasy <br>
+### Duration : 2025.03.31 ~ 2025.04.18 <br>
+### Genre : Multiplayer Arena Fighting Game <br>
+### Project Convention <br>
+- Code   : PascalCase
+- Git    : Rebase And Merge
+- Directory && Commit && Unreal
+- Wiki https://github.com/NbcampUnreal/1st-Team5-CH4-Project
 
+---
+## Video
+![image](https://github.com/user-attachments/assets/8b494d72-931e-4681-9840-ebb134775d6a)
+https://youtu.be/JVUk93A31gM
 
+---
+## 기술 스택
+[![My Skills](https://skillicons.dev/icons?i=cpp,visualstudio,git,github,rider,unreal,notion&theme=light)](https://skillicons.dev)
 
-<br>
-
+---
 ## 목적
 - 객체지향과 디자인패턴을 의미있게 적용
 - 원활환 협업을 위한 Wiki 작성된 깃 컨벤션 및 코드컨벤션 적용
@@ -14,33 +30,21 @@
 - 멀티플레이 환경에서 작동하기 위해 게임 최적화 적용
 - 유효성검사 및 로깅을 통한 유지보수성 및 안정성을 향상시킨 코드 및 블루프린트 작성
 
-<br>
+---
+## Work Flow
+<img width="3248" alt="5조 하이파이브" src="https://github.com/user-attachments/assets/057500c6-12fd-4efe-b001-9037c178a913" />
 
-## 기술 스택
-[![My Skills](https://skillicons.dev/icons?i=cpp,visualstudio,git,github,rider,unreal,notion&theme=light)](https://skillicons.dev)
-
-<br>
-
-## 프로젝트 소개
-### Project : Gladiators Fantasy <br>
-### Duration : 2025.03.31 ~ 2025.04.18 <br>
-### Project Convention <br>
-- Code   : PascalCase
-- Git    : Rebase And Merge
-- Directory && Commit && Unreal
-- Wiki https://github.com/NbcampUnreal/1st-Team5-CH4-Project
-
+---
 ### Desctiption Part / Email or Blog Link <br>
 - MultiPlayGame like HyperActionFight 
 - Direction, Network, UI, Gameflow, Optimization : 지성현 /  <br>
 - Character, Animation, SkillSystem : 정우영  /  [개발블로그](https://velog.io/@buu1147/2025-04-18-KPT%ED%9A%8C%EA%B3%A0)<br>
 - Character, Animation, SkillSystem : 정혜창 / [개발블로그](https://velog.io/@hch9097/posts)<br>
 - GameMode, Network, GameSession, Gameflow  : 최원석 /  <br>
-- UI, Weapon, Character, Movie, SkillSystem  : 한가윤 /  <br>
+- UI, Weapon, Character, Movie, SkillSystem  : 한가윤 / [개발블로그](https://yoosorang.tistory.com) [Git](https://github.com/swehio))<br>
 - UI, ShopSystem, EconomySystem  : 최세훈 /  <br>
 
-<br>
-
+---
 ## Project Part Directory And Main Features <br>
 <details>
   <summary> Network GameSession </summary>
@@ -50,11 +54,6 @@
         | -- MainLobyGameMode // 클라이언트가 닉네임과, 사용할 케릭터를 선택할 수 있다.
         | -- GFBaseGameMode // 모든 플레이어가 선택을 완료 할 경우 다음 레벨로 전환한다.
       | -- Actor
-
-
-         
-
-### Network GameSession
 - C++ 기반의 플레이어 로직 설계
   - Enhanced Input System을 사용한 입력 액션
   - CharacterMovement Component을 사용한 캐릭터 로직 설계
@@ -108,8 +107,12 @@
 ### UI
 </details>
 
-<br>
+<details>
+  <summary> SkillCoolTime </summary>
+### SkillCoolTime
+</details>
 
+---
 ## 개발 환경 / 개발 도구
 - C++ 17 (v14.38)
 - MSVC v143
@@ -117,10 +120,9 @@
 - Visual Studio 2022
 - Git LFS
 - Rider
-
-<br>
 </div>
 
+---
 ## Network GameSession
 <details>
 <summary>Network GameSession UML Diagram</summary>    
