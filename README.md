@@ -85,7 +85,7 @@ https://youtu.be/JVUk93A31gM
               | -- BP_GF_DOM_Multiplayer (Blueprint) // 점령전 (DOM, Domination) 모드  
               | -- BP_GF_TDM_Multiplayer (Blueprint) // 팀 데스매치 (TDM, Team Deathmatch) 모드  
 
-- 팀전 모드를 먼저 설계한 뒤, 팀전 로직을 제거한 개인전 모드(FFA)를 별도로 제작하여 재사용성을 높임.
+- 팀전 모드를 템플릿을 기준으로 팀전 로직을 제거한 개인전 모드(FFA)를 별도로 제작하여 재사용성을 높임.
 - 게임 모드를 개인전과 팀전 모드로 나누고, 추가 모드를 쉽게 확장할 수 있도록 설계함.
 - 최상위에는 GFBaseGameMode를 두고, 레벨 전환과 플레이어 준비 완료 체크 등 공통 로직을 구현하여 중복을 제거.
 </details>
