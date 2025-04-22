@@ -75,4 +75,11 @@ public:
 	UFUNCTION(BlueprintCallable)
 	void SetCooldownDataMap(FTimerHandle SkillTimer, float SkillCooldownTime);
 
+	UFUNCTION(BlueprintCallable)
+	int GetSlotRarity() const { return SlotRarity; }
+	UFUNCTION(BlueprintCallable)
+	void SetSlotRarity(int Rarity) { SlotRarity = Rarity; }
+
+private:
+	int SlotRarity;
 };
